@@ -6,7 +6,7 @@
   - [0.1. Integrante 1](./0/0.1/0.1.md)
   - [0.2. Integrante 2](./0/0.2/0.2.md)
   - [0.3. Integrante 3](./0/0.3/0.3.md)
-  - [0.4. Integrante 4](./0/Maylle Briceño/0.4.Presentación.md)
+  - [0.4. Integrante 4](./0/Maylle_Briceño/0.4.Presentación.md)
   - [0.5. Integrante 5](./0/0.5/0.5.md)
   - [0.6. Integrante 6](./0/0.6/0.6.md)
   - [0.7. Integrante 7](./0/0.7/0.7.md)
