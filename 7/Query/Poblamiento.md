@@ -10,11 +10,16 @@ VALUES
 INSERT INTO Area (Cod_area, Nombre_area)
 VALUES 
 ('ALM', 'Almacén'),
-('COC', 'Cocina');
+('COC', 'Cocina'),
+('VEN', 'Ventas');
+
 INSERT INTO Cargo (Cod_cargo, Nombre_cargo)
 VALUES 
 ('AL', 'ALMACENERO'),
-('CO', 'COCINERO');
+('CO', 'COCINERO'),
+('VE', 'VENTAS'),
+('JA', 'JEFEALMACEN');
+
 INSERT INTO Tipo_contrato (Cod_tipo_contrato, Nombre_tipo_contrato)
 VALUES 
 ('C001', 'Indefinido'),
@@ -23,14 +28,21 @@ INSERT INTO Local (Cod_local, Ubicacion_local, Nombre_local)
 VALUES 
 ('AE', 'Av. Central 123', 'AEROPUERTO'),
 ('LA', 'Av. Norte 456', 'LARCOMAR');
+
+
 INSERT INTO Contrato (Cod_contrato, Fecha_contratacion, Cod_tipo_contrato)
 VALUES 
 ('CT001', '2023-09-01', 'C001'),
-('CT002', '2024-01-01', 'C002');
+('CT002', '2024-01-01', 'C002'),
+('CT003', '2024-10-01', 'C002'),
+('CT004', '2024-11-01', 'C002');
+
 INSERT INTO Empleado (Direccion, Contacto, DNI, Primer_nombre, Primer_apellido, Segundo_apellido, Codigo_empleado, Cod_turno, Cod_contrato, Cod_area, Cod_cargo, Cod_local)
 VALUES 
 ('Av. Siempreviva 742', '987654321', '12345678', 'Juan', 'Pérez', 'López', 'PL12345678', 'MAN', 'CT001','ALM', 'AL', 'AE'),
-('Calle Falsa 123', '987654322', '87654321', 'María', 'González', 'Díaz', 'GD87654321', 'TAR', 'CT002', 'COC', 'CO', 'LA');
+('Calle Falsa 123', '987654322', '87654321', 'María', 'González', 'Díaz', 'GD87654321', 'TAR', 'CT002', 'COC', 'CO', 'LA'),
+('Calle Jirasol 152', '987452322', '87415321', 'Felipe', 'Juan', 'Quispe', 'JQ87415321', 'MAN', 'CT004', 'ALM', 'JA', 'AE'),
+('Calle San Felipe 394', '952563245', '85256341', 'Luis', 'Brayan', 'Perez', 'BP87654121', 'TAR', 'CT003', 'VEN', 'VE', 'LA');
 
 INSERT INTO Producto_Friday (Cod_prodFriday, Nombre_producto, Precio_producto, Descripcion, Valoracion, cod_categoria)
 VALUES ('CHK5147856', 'Sesame Chicken Strips', 40.00, 'Tiritas de pollo empanizadas en pan japonés, en salsa glaze fridays', 3.20, 'AP');
