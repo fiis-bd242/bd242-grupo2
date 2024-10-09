@@ -82,7 +82,7 @@ CREATE TABLE Empleado (
 );
 
 
-drop table if exists Categoria_insumo;
+drop table if exists Categoria_insumo cascade;
 CREATE TABLE Categoria_insumo (
   Cod_categoriainsumo CHAR (2) NOT NULL,
   Nombre_categoriainsumo VARCHAR(10) NOT NULL,
