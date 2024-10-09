@@ -1,8 +1,5 @@
 # Creación de tablas
 
-<p>Haz clic para copiar:</p>
-<pre>
-<code id="textToCopy">
 CREATE TABLE Proveedor (
   Cod_Proveedor CHAR (10) NOT NULL,
   Nombre_Empresa VARCHAR(50) NOT NULL,
@@ -655,19 +652,3 @@ ALTER TABLE Gasto ADD FOREIGN KEY (Cod_RC) REFERENCES Informe_RC (Cod_RC);
 ALTER TABLE Solicitud_ReporteCostos ADD FOREIGN KEY (Codigo_empleado) REFERENCES Empleado (Codigo_empleado);
 
 ALTER TABLE Solicitud_ReporteCostos ADD FOREIGN KEY (SolicitaCodigo_empleado) REFERENCES Empleado (Codigo_empleado);
-
-</code>
-</pre>
-
-<button onclick="copyText()">Copiar</button>
-
-<script>
-function copyText() {
-  var text = document.getElementById('textToCopy').textContent;
-  navigator.clipboard.writeText(text).then(function() {
-    alert('Texto copiado: ' + text);
-  }, function(err) {
-    console.error('Error al copiar el texto', err);
-  });
-}
-</script>
