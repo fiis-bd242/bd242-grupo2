@@ -1,7 +1,3 @@
-# Creación de tablas
-
-
-
 
 -- Creacion de tablas
 DROP TABLE IF EXISTS CATEGORIA CASCADE;
@@ -307,9 +303,12 @@ ALTER TABLE Almacen ADD FOREIGN KEY (Cod_tipo_almacen) REFERENCES Tipo_Almacen(C
 
 
 
-DROP TABLE IF EXISTS Solicitud;
-DROP TABLE IF EXISTS Informe_RC;
-DROP TABLE IF EXISTS Gasto;
+DROP TABLE IF EXISTS Solicitud cascade;
+DROP TABLE IF EXISTS Informe_RC cascade;
+DROP TABLE IF EXISTS Gasto cascade;
+drop table if exists Orden_compra cascade;
+drop table if exists solicitud_reportecostos cascade;
+
 
 
 CREATE TABLE Informe_RC
@@ -367,11 +366,11 @@ CREATE TABLE Solicitud_ReporteCostos
 
 
 
-DROP TABLE IF EXISTS Orden_comprainsumo;
-DROP TABLE IF EXISTS Solicitud_comprainsumo;
-DROP TABLE IF EXISTS Cotizacion;
-DROP TABLE IF EXISTS Solicitud_compra;
-DROP TABLE IF EXISTS Orden_compra;
+DROP TABLE IF EXISTS Orden_comprainsumo cascade;
+DROP TABLE IF EXISTS Solicitud_comprainsumo cascade;
+DROP TABLE IF EXISTS Cotizacion cascade;
+DROP TABLE IF EXISTS Solicitud_compra cascade;
+DROP TABLE IF EXISTS Orden_compra cascade;
 
 CREATE TABLE Solicitud_compra
 (
@@ -608,21 +607,23 @@ ALTER TABLE EMPLEADO_ITEMDETALLEPEDIDO ADD FOREIGN KEY (cod_estado_item_dp) REFE
 
 
 
-DROP TABLE IF EXISTS Estado_Asistencia;
-DROP TABLE IF EXISTS Habilidad;
-DROP TABLE IF EXISTS Estado_usuario;
-DROP TABLE IF EXISTS Tipo_generacion;
-DROP TABLE IF EXISTS Tipo_notificacion;
-DROP TABLE IF EXISTS Tipo_SD;
-DROP TABLE IF EXISTS Estado_SD;
-DROP TABLE IF EXISTS Asistencia;
-DROP TABLE IF EXISTS Registra;
-DROP TABLE IF EXISTS Posee;
-DROP TABLE IF EXISTS Notificacion;
-DROP TABLE IF EXISTS Solicitud_o_descargo;
-DROP TABLE IF EXISTS Historial_laboral;
-DROP TABLE IF EXISTS Horario_libre_Dias;
-DROP TABLE IF EXISTS Horario_libre;
+DROP TABLE IF EXISTS Estado_Asistencia cascade;
+DROP TABLE IF EXISTS Habilidad cascade;
+DROP TABLE IF EXISTS Estado_usuario cascade;
+DROP TABLE IF EXISTS Tipo_generacion cascade;
+DROP TABLE IF EXISTS Tipo_notificacion cascade;
+DROP TABLE IF EXISTS Tipo_SD cascade;
+DROP TABLE IF EXISTS Estado_SD cascade;
+DROP TABLE IF EXISTS Asistencia cascade;
+DROP TABLE IF EXISTS Registra cascade;
+DROP TABLE IF EXISTS Posee cascade;
+DROP TABLE IF EXISTS Notificacion cascade;
+DROP TABLE IF EXISTS Solicitud_o_descargo cascade;
+DROP TABLE IF EXISTS Historial_laboral cascade;
+DROP TABLE IF EXISTS Horario_libre_Dias cascade;
+DROP TABLE IF EXISTS Horario_libre cascade;
+DROP TABLE IF EXISTS usuario cascade;
+
 
 CREATE TABLE Habilidad
 (
