@@ -213,6 +213,16 @@ CREATE TABLE Solicitud_compra (
   PRIMARY KEY (cod_solicitudcompra)
 );
 
+CREATE TABLE Solicitud_comprainsumo
+(
+  cantidad_solicitud INT NOT NULL,
+  cod_solicitudcompra CHAR(10) NOT NULL,
+  Cod_Insumo CHAR(2) NOT NULL,
+  PRIMARY KEY (cod_solicitudcompra, Cod_Insumo),
+  FOREIGN KEY (cod_solicitudcompra) REFERENCES Solicitud_compra(cod_solicitudcompra),
+  FOREIGN KEY (Cod_Insumo) REFERENCES Insumo(Cod_Insumo)
+);
+
 CREATE TABLE Cotizacion (
   Cod_cotizacion CHAR (10) NOT NULL,
   Fecha_vencimiento DATE NOT NULL,
