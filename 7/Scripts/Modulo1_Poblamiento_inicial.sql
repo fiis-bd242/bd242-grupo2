@@ -99,11 +99,11 @@ VALUES ('S01', 'Artículo de cocina', 'C1'),
 
 INSERT INTO Orden_comprainsumo (cantidad_compra, cod_ordencompra, Cod_Insumo)
 VALUES 
-(9, 'OC41258963', 'BE581'),
-(5, 'OC41258963', 'BE558'),
-(2, 'OC74523002', 'CO236');
+(9, 'OC41258963', 'HB254'),
+(5, 'OC74523002', 'QC658');
+
 
 INSERT INTO Solicitud_comprainsumo (cantidad_solicitud, cod_solicitudcompra, Cod_Insumo)
 VALUES 
-(15, 'SC23658941', 'CO231'),
-(10, 'SC23658941', 'CO268');
+(9, 'SC23658941', 'HB254'),
+(5, 'SC54789632', 'QC658');
