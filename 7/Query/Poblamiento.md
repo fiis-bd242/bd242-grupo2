@@ -1,4 +1,3 @@
-
 INSERT INTO CATEGORIA (cod_categoria, nombre_categoria) VALUES 
 ('AP', 'Appetizers'),
 ('BS', 'Burgers & Sandwiches');
