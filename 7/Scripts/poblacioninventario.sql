@@ -11,11 +11,14 @@ VALUES
 INSERT INTO Area (Cod_area, Nombre_area)
 VALUES 
 ('ALM', 'Almacén'),
-('COC', 'Cocina');
+('COC', 'Cocina'),
+('VEN', 'Ventas');
 INSERT INTO Cargo (Cod_cargo, Nombre_cargo)
 VALUES 
 ('AL', 'ALMACENERO'),
-('CO', 'COCINERO');
+('CO', 'COCINERO'),
+('VE', 'VENTAS'),
+('JA', 'JEFEALMACEN');
 INSERT INTO Tipo_contrato (Cod_tipo_contrato, Nombre_tipo_contrato)
 VALUES 
 ('C001', 'Indefinido'),
@@ -27,11 +30,15 @@ VALUES
 INSERT INTO Contrato (Cod_contrato, Fecha_contratacion, Cod_tipo_contrato)
 VALUES 
 ('CT001', '2023-09-01', 'C001'),
-('CT002', '2024-01-01', 'C002');
+('CT002', '2024-01-01', 'C002'),
+('CT003', '2024-10-01', 'C002'),
+('CT004', '2024-11-01', 'C002');
 INSERT INTO Empleado (Direccion, Contacto, DNI, Primer_nombre, Primer_apellido, Segundo_apellido, Codigo_empleado, Cod_turno, Cod_contrato, Cod_area, Cod_cargo, Cod_local)
 VALUES 
 ('Av. Siempreviva 742', '987654321', '12345678', 'Juan', 'Pérez', 'López', 'PL12345678', 'MAN', 'CT001','ALM', 'AL', 'AE'),
-('Calle Falsa 123', '987654322', '87654321', 'María', 'González', 'Díaz', 'GD87654321', 'TAR', 'CT002', 'COC', 'CO', 'LA');
+('Calle Falsa 123', '987654322', '87654321', 'María', 'González', 'Díaz', 'GD87654321', 'TAR', 'CT002', 'COC', 'CO', 'LA'),
+('Calle Jirasol 152', '987452322', '87415321', 'Felipe', 'Juan', 'Quispe', 'JQ87415321', 'MAN', 'CT004', 'ALM', 'JA', 'AE'),
+('Calle San Felipe 394', '952563245', '85256341', 'Luis', 'Brayan', 'Perez', 'BP87654121', 'TAR', 'CT003', 'VEN', 'VE', 'LA');
 
 INSERT INTO Producto_Friday (Cod_prodFriday, Nombre_producto, Precio_producto, Descripcion, Valoracion, cod_categoria)
 VALUES ('CHK5147856', 'Sesame Chicken Strips', 40.00, 'Tiritas de pollo empanizadas en pan japonés, en salsa glaze fridays', 3.20, 'AP');
@@ -181,8 +188,8 @@ INSERT INTO Stock (Cod_Stock, Fecha_Vencimiento, Cantidad, Cod_Insumo, Cod_Prove
 ('ST568', '2005-04-03', 25, 'LC154', 'LCH2586475', 'RR123');
 
 INSERT INTO HojaProduccion (Cod_Hoja, Fecha_elaboracion, Codigo_empleado) VALUES
-('HP45', '2024-10-08', 'PL12345678'),
-('HP46', '2024-10-09', 'PL12345678');
+('HP45', '2024-10-08', 'JQ87415321'),
+('HP46', '2024-10-09', 'JQ87415321');
 
 
 INSERT INTO Incluye (Cod_Hoja, Cod_prodFriday, Cantidad) VALUES
@@ -193,12 +200,12 @@ INSERT INTO Incluye (Cod_Hoja, Cod_prodFriday, Cantidad) VALUES
 
 
 INSERT INTO Movimiento (Cod_Movimiento, Fecha_Movimiento, Hora_inicio, Cantidad_movimiento, Hora_fin, Codigo_empleado, Cod_Stock, Cod_Insumo, Cod_Almacen, Cod_tipomovimiento) VALUES
-('MV456', '2024-10-09', '06:35:12', 50, '07:01:00', 'PL12345678', 'ST145', 'HB254', 'RR123', 'S'),
-('MV457', '2024-10-09', '05:43:45', 70, '06:02:48', 'PL12345678', 'ST568', 'LC154', 'RR123', 'E');
+('MV456', '2024-10-09', '06:35:12', 50, '07:01:00', 'JQ87415321', 'ST145', 'HB254', 'RR123', 'S'),
+('MV457', '2024-10-09', '05:43:45', 70, '06:02:48', 'JQ87415321', 'ST568', 'LC154', 'RR123', 'E');
 
 
 INSERT INTO Reporte_disponibilidad (Cod_reporte_disponibilidad, Fecha_reporte, Hora_reporte, Cod_Insumo, Emisor, Receptor)
 VALUES
-('RD25478569', '2024-10-09', '07:15:02', 'HB254', 'PL12345678', 'GD87654321'),
-('RD25478570', '2024-10-09', '07:18:23', 'LC154', 'PL12345678', 'GD87654321');
+('RD25478569', '2024-10-09', '07:15:02', 'HB254', 'JQ87415321', 'BP87654121'),
+('RD25478570', '2024-10-09', '07:18:23', 'LC154', 'JQ87415321', 'BP87654121');
 
