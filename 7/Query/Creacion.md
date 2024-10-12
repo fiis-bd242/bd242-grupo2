@@ -85,7 +85,6 @@ drop table if exists Categoria_insumo cascade;
 CREATE TABLE Categoria_insumo (
   Cod_categoriainsumo CHAR(2) NOT NULL,
   Nombre_categoriainsumo VARCHAR(10) NOT NULL,
-  umbral NUMERIC(5, 2) NOT NULL,
   PRIMARY KEY (Cod_categoriainsumo)
 );
 
@@ -159,6 +158,7 @@ CREATE TABLE Insumo (
   Cod_Insumo CHAR (5) NOT NULL,
   Nombre_Insumo VARCHAR(20) NOT NULL,
   Cantidad_total NUMERIC(10,2) NOT NULL,
+  umbral NUMERIC(5, 2) NOT NULL,
   Cod_unidad CHAR (2) NOT NULL,
   Cod_condiciones CHAR (2) NOT NULL,
   Cod_subcategoria CHAR (3) NOT NULL,
