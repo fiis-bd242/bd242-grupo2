@@ -44,10 +44,6 @@ INSERT INTO TIPO_DE_MESA (cod_tipo_de_mesa, descripcion_tipo_mesa) VALUES
 ('BA', 'Bar'),
 ('NR', 'No bar');
 
-INSERT INTO ESTADO_PM (cod_estado_pm, descripcion_estado_pm) VALUES 
-('DI', 'Disponible'),
-('ND', 'No disponible');
-
 INSERT INTO ESTADO_DP (cod_estado_dp, descripcion_estado_dp) VALUES 
 ('LI', 'Listo'),
 ('NL', 'No Listo');
@@ -76,26 +72,19 @@ INSERT INTO MESA (cod_mesa, num_sillas, cod_tipo_de_mesa, cod_tamano) VALUES
 ('M0000001', 2, 'NR', 'PE'),
 ('M0000002', 4, 'NR', 'ME');
 
-INSERT INTO PEDIDO_DE_MESA (cod_pm, Fecha, Hora, cod_im, cod_mesa, cod_estado_pm) VALUES 
-('PM000001', '2024-10-01', '12:01:20', 'IM00000001', 'M0000001', 'ND'),
-('PM000002', '2024-10-01', '12:31:06', 'IM00000002', 'M0000002', 'ND');
+INSERT INTO DETALLE_PEDIDO (cod_dp, precio_total, cantidad_total, Fecha, Hora, cod_estado_dp,
+									cod_im, cod_mesa) VALUES 
+('DP000001', 40.00, 1, '2024-10-01', '12:01:45', 'NL', 'IM00000001', 'M0000001'),
+('DP000002', 76.00, 2, '2024-10-01', '12:32:01', 'NL', 'IM00000002', 'M0000002');
 
-INSERT INTO DETALLE_PEDIDO (cod_dp, precio_total, cantidad_total, Fecha, Hora, cod_pm, cod_estado_dp) VALUES 
-('DP000001', 40.00, 1, '2024-10-01', '12:01:45', 'PM000001', 'NL'),
-('DP000002', 76.00, 2, '2024-10-01', '12:32:01', 'PM000002', 'NL');
-
-INSERT INTO ITEM_DETALLE_PEDIDO (cod_item_dp, Cod_prodFriday, cantidad, precio, cod_dp, cod_estado_item_dp) VALUES 
-('IDP00001', 'CHK5147856', 1, 40.00, 'DP000001', 'NL'),
-('IDP00002', 'BUR1254785', 2, 76.00, 'DP000002', 'NL');
+INSERT INTO ITEM_DETALLE_PEDIDO (cod_item_dp, Cod_prodFriday, cantidad, precio, cod_estado_item_dp, cod_dp) VALUES 
+('IDP00001', 'CHK5147856', 1, 40.00, 'NL', 'DP000001'),
+('IDP00002', 'BUR1254785', 2, 76.00, 'NL', 'DP000002');
 
 INSERT INTO KDS (cod_kds, cod_area_ec, cod_estado_kds, cod_item_dp) VALUES 
 ('KDS000ES', 'ES', 'AC', 'IDP00001'),
 ('KDS000EA', 'EA', 'AC', 'IDP00002');
 
-INSERT INTO EMPLEADO_ITEMDETALLEPEDIDO (fecha, hora, Codigo_empleado, cod_item_dp, cod_estado_item_dp) VALUES 
-('2024-10-01', '12:07:00', 'GD87654321','IDP00001' , 'LI'),
-('2024-10-01', '12:37:00', 'GD87654321','IDP00002', 'LI');
-
-
-
-
+INSERT INTO EVENTO_ACTUALIZA (fecha, hora, cod_item_dp, cod_estado_item_dp) VALUES 
+('2024-10-01', '12:07:00','IDP00001' , 'LI'),
+('2024-10-01', '12:37:00','IDP00002', 'LI');
