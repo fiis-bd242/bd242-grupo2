@@ -43,10 +43,10 @@ VALUES
 ('Calle Jirasol 152', '987452322', '87415321', 'Felipe', 'Juan', 'Quispe', 'JQ87415321', 'MAN', 'CT004', 'ALM', 'JA', 'AE'),
 ('Calle San Felipe 394', '952563245', '85256341', 'Luis', 'Brayan', 'Perez', 'BP87654121', 'TAR', 'CT003', 'VEN', 'VE', 'LA');
 
-INSERT INTO Producto_Friday (Cod_prodFriday, Nombre_producto, Precio_producto, Descripcion, Valoracion, cod_categoria)
-VALUES ('CHK5147856', 'Sesame Chicken Strips', 40.00, 'Tiritas de pollo empanizadas en pan japonés, en salsa glaze fridays', 3.20, 'AP');
-INSERT INTO Producto_Friday (Cod_prodFriday, Nombre_producto, Precio_producto, Descripcion, Valoracion, cod_categoria)
-VALUES ('BUR1254785', 'Bacon Cheeseburger', 38.00, 'Hamburguesa de 200gr, gratinada con queso Cheddar y cubierta con dos tiras de tocino',4.00,'BS');
+INSERT INTO Producto_Friday (Cod_prodFriday, Nombre_producto, Precio_producto, Descripcion, cod_categoria)
+VALUES ('CHK5147856', 'Sesame Chicken Strips', 40.00, 'Tiritas de pollo empanizadas en pan japonés, en salsa glaze fridays', 'AP');
+INSERT INTO Producto_Friday (Cod_prodFriday, Nombre_producto, Precio_producto, Descripcion, cod_categoria)
+VALUES ('BUR1254785', 'Bacon Cheeseburger', 38.00, 'Hamburguesa de 200gr, gratinada con queso Cheddar y cubierta con dos tiras de tocino','BS');
 
 INSERT INTO Tipo_movimiento (Cod_tipomovimiento, Nombre_tipomovimiento) 
 VALUES ('E', 'Entrada');
@@ -122,17 +122,17 @@ VALUES ('A1', 'Congelado'),
        ('A3', 'Seco');
 
       
-INSERT INTO Insumo (Cod_Insumo, Nombre_Insumo, Cantidad_total, Cod_unidad, Cod_condiciones, Cod_subcategoria, Cod_categoriainsumo)
+INSERT INTO Insumo (Cod_Insumo, Nombre_Insumo, Cantidad_total, umbral, Cod_unidad, Cod_condiciones, Cod_subcategoria, Cod_categoriainsumo)
 VALUES 
-('HB254', 'hamburguesa 200g', 230, 'U3', 'A1', 'S17', 'C3'),
-('QC658', 'queso chedar', 45, 'U3', 'A2', 'S18', 'C3'),
-('TL659', 'tocino loncha', 26, 'U3', 'A2', 'S16', 'C3'),
-('LC154', 'lechuga', 48, 'U3', 'A2', 'S23', 'C3'),
-('TM265', 'tomate', 45, 'U3', 'A2', 'S23', 'C3'),
-('CB985', 'cebollas', 47, 'U3', 'A2', 'S23', 'C3'),
-('PP346', 'papas', 150, 'U3', 'A3', 'S20', 'C3'),
-('TP978', 'tiras de pollo', 170, 'U1', 'A1', 'S15', 'C3'),
-('SS265', 'salsa salame', 30, 'U3', 'A3', 'S25', 'C4');
+('HB254', 'hamburguesa 200g', 230, 100, 'U3', 'A1', 'S17', 'C3'),
+('QC658', 'queso chedar', 45, 20, 'U3', 'A2', 'S18', 'C3'),
+('TL659', 'tocino loncha', 26, 20, 'U3', 'A2', 'S16', 'C3'),
+('LC154', 'lechuga', 48, 20, 'U3', 'A2', 'S23', 'C3'),
+('TM265', 'tomate', 45, 20, 'U3', 'A2', 'S23', 'C3'),
+('CB985', 'cebollas', 47, 20, 'U3', 'A2', 'S23', 'C3'),
+('PP346', 'papas', 150, 20, 'U3', 'A3', 'S20', 'C3'),
+('TP978', 'tiras de pollo', 170, 20, 'U1', 'A1', 'S15', 'C3'),
+('SS265', 'salsa salame', 30, 20, 'U3', 'A3', 'S25', 'C4');
 
 
 
