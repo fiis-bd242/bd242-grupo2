@@ -52,7 +52,6 @@ CREATE TABLE Producto_Friday (
   Nombre_producto VARCHAR(50) NOT NULL,
   Precio_producto NUMERIC(10,2) NOT NULL,
   Descripcion VARCHAR(100) NOT NULL,
-  Valoracion NUMERIC(10,2) NOT NULL,
   cod_categoria CHAR (5) NOT NULL,
   PRIMARY KEY (Cod_prodFriday)
 );
@@ -159,6 +158,7 @@ CREATE TABLE Insumo (
   Cod_Insumo CHAR (5) NOT NULL,
   Nombre_Insumo VARCHAR(20) NOT NULL,
   Cantidad_total NUMERIC(10,2) NOT NULL,
+  umbral NUMERIC(5, 2) NOT NULL,
   Cod_unidad CHAR (2) NOT NULL,
   Cod_condiciones CHAR (2) NOT NULL,
   Cod_subcategoria CHAR (3) NOT NULL,
