@@ -86,6 +86,7 @@ INSERT INTO KDS (cod_kds, cod_area_ec, cod_estado_kds, cod_item_dp) VALUES
 ('KDS000ES', 'ES', 'AC', 'IDP00001'),
 ('KDS000EA', 'EA', 'AC', 'IDP00002');
 
+
 INSERT INTO EVENTO_ACTUALIZA (fecha, hora, cod_item_dp, cod_estado_item_dp) VALUES 
-('2024-10-01', '12:07:00','IDP00001' , 'LI'),
-('2024-10-01', '12:37:00','IDP00002', 'LI');
+('2024-10-01', '12:07:00', 'IDP00001', 'LI'),
+('2024-10-01', '12:37:00', 'IDP00002', 'LI');
