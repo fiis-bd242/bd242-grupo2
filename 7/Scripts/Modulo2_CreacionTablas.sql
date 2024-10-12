@@ -49,7 +49,6 @@ CREATE TABLE Producto_Friday (
   Nombre_producto VARCHAR(50) NOT NULL,
   Precio_producto NUMERIC(10,2) NOT NULL,
   Descripcion VARCHAR(100) NOT NULL,
-  Valoracion NUMERIC(10,2) NOT NULL,
   cod_categoria CHAR (5) NOT NULL,
   PRIMARY KEY (Cod_prodFriday)
 );
