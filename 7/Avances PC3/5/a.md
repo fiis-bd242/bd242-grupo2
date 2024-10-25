@@ -16,7 +16,6 @@ VALUES (
 );
  
 
-## Cambios a tabla MOVIMIENTO
 DROP TABLE IF EXISTS Movimiento CASCADE;
 CREATE TABLE Movimiento (
   Cantidad_movimiento NUMERIC(10,2) NOT NULL,
@@ -31,5 +30,13 @@ CREATE TABLE Movimiento (
   PRIMARY KEY (Cod_Movimiento)
 );
 
+INSERT INTO Movimiento (Cod_Movimiento, Cantidad_movimiento, Codigo_empleado, Cod_Stock, Cod_Insumo, Cod_Almacen, Cod_tipomovimiento, FechaHora_inicio, FechaHora_fin) VALUES
+('MV456', 50, 'JQ87415321', 'ST145', 'HB254', 'RR123', 'S',
+  TIMESTAMP '2024-10-09 06:35:12',  -- Combinando fecha y hora de inicio
+  TIMESTAMP '2024-10-09 07:01:00'), -- Combinando fecha y hora de fin
+('MV457', 70, 'JQ87415321', 'ST568', 'LC154', 'RR123', 'E',
+  TIMESTAMP '2024-10-09 05:43:45',  -- Combinando fecha y hora de inicio
+  TIMESTAMP '2024-10-09 06:02:48'); -- Combinando fecha y hora de fin
 
- 
+
+
