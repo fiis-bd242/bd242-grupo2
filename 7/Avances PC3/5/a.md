@@ -16,6 +16,7 @@ VALUES (
 );
  
 
+
 DROP TABLE IF EXISTS Movimiento CASCADE;
 CREATE TABLE Movimiento (
   Cantidad_movimiento NUMERIC(10,2) NOT NULL,
@@ -26,7 +27,7 @@ CREATE TABLE Movimiento (
   Cod_Almacen VARCHAR(5) NOT NULL,
   Cod_tipomovimiento CHAR(1) NOT NULL,
   FechaHora_inicio TIMESTAMP NOT NULL,
-  FechaHora_fin TIMESTAMP NOT NULL,
+  FechaHora_fin TIMESTAMP,
   PRIMARY KEY (Cod_Movimiento)
 );
 
@@ -39,4 +40,14 @@ INSERT INTO Movimiento (Cod_Movimiento, Cantidad_movimiento, Codigo_empleado, Co
   TIMESTAMP '2024-10-09 06:02:48'); -- Combinando fecha y hora de fin
 
 
+
+select * from movimiento m 
+-- INGRESO DE INSUMOS, resigtrar hora inicio
+  INSERT INTO Movimiento (Cod_Movimiento, Cantidad_movimiento, Codigo_empleado, Cod_Stock, Cod_Insumo, Cod_Almacen, Cod_tipomovimiento, FechaHora_inicio, FechaHora_fin) VALUES
+('MV458', 50, 'JQ87415321', 'ST145', 'HB254', 'RR123', 'S',
+  NOW(),                               -- Timestamp actual para FechaHora_inicio
+  NOW() + INTERVAL '30 minutes'),      -- Timestamp actual más 30 minutos para FechaHora_fin
+('MV459', 70, 'JQ87415321', 'ST568', 'LC154', 'RR123', 'E',
+  NOW(),                               -- Timestamp actual para FechaHora_inicio
+  NOW() + INTERVAL '1 hour');          -- Timestamp actual más 1 hora para FechaHora_fin
 
