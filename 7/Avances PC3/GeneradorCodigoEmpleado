@@ -1,0 +1,20 @@
+
+CREATE OR REPLACE FUNCTION generar_codigo_empleado() 
+RETURNS TRIGGER AS $$
+BEGIN
+  NEW.Codigo_empleado := SUBSTRING(NEW.Primer_nombre FROM 1 FOR 1) || 
+                         SUBSTRING(NEW.Primer_apellido FROM 1 FOR 1) || 
+                         NEW.DNI;
+  RETURN NEW;
+END;
+$$ LANGUAGE plpgsql;
+
+CREATE TRIGGER before_insert_empleado
+BEFORE INSERT ON Empleado
+FOR EACH ROW
+EXECUTE FUNCTION generar_codigo_empleado();
+
+
+INSERT INTO Empleado (Direccion, Contacto, DNI, Primer_nombre, Primer_apellido, Segundo_apellido, Cod_turno, Cod_contrato, Cod_area, Cod_cargo, Cod_local)
+VALUES 
+('Av. Siempreviva 742', '987654321', '12345678', 'Mario', 'Lopez', 'Sanches', 'MAN', 'CT001','ALM', 'AL', 'AE');
