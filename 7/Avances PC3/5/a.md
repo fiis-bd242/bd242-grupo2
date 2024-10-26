@@ -51,3 +51,18 @@ select * from movimiento m
   NOW(),                               -- Timestamp actual para FechaHora_inicio
   NOW() + INTERVAL '1 hour');          -- Timestamp actual más 1 hora para FechaHora_fin
 
+
+
+-- Buscar productos
+SELECT ci.nombre_categoriainsumo , s.nombre_subcategoria , i.cod_insumo , i.Nombre_Insumo, um.nombre_unidad, i.cantidad_total, a.nombre_almacen, s2.fecha_vencimiento, p.nombre_empresa , s2.cod_stock 
+FROM Insumo i
+left JOIN subcategoria s ON i.Cod_subcategoria = s.Cod_subcategoria
+left JOIN categoria_insumo ci ON s.cod_categoria = ci.cod_categoriainsumo
+left join unidad_medidad um on i.cod_unidad = um.cod_unidad
+left join stock s2 on i.cod_insumo = s2.cod_insumo 
+left join almacen a on s2.cod_almacen = a.cod_almacen 
+left join proveedor p on s2.cod_proveedor = p.cod_proveedor 
+WHERE (ci.cod_categoriainsumo = COALESCE(NULL, ci.cod_categoriainsumo))
+	AND (s.Cod_subcategoria = COALESCE(NULL, s.Cod_subcategoria))
+	AND (i.Nombre_Insumo ILIKE COALESCE('%' || 'tomate' || '%', '%'));
+
