@@ -168,7 +168,7 @@ CREATE TABLE Insumo (
 
 drop table if exists Almacenado cascade;
 CREATE TABLE Almacenado (
-  Cod_Insumo CHAR (5) NOT NULL,
+  Cod_Insumo CHAR (10) NOT NULL,
   Cod_Almacen VARCHAR(5) NOT NULL,
   PRIMARY KEY (Cod_Insumo, Cod_Almacen)
 );
@@ -176,14 +176,14 @@ CREATE TABLE Almacenado (
 drop table if exists Tiene cascade;
 CREATE TABLE Tiene (
   Cod_Proveedor CHAR (10) NOT NULL,
-  Cod_Insumo CHAR (5) NOT NULL,
+  Cod_Insumo CHAR (10) NOT NULL,
   PRIMARY KEY (Cod_Proveedor, Cod_Insumo)
 );
 
 drop table if exists SeConviertenEn cascade;
 CREATE TABLE SeConviertenEn (
   Cantidad_Receta INT NOT NULL,
-  Cod_Insumo CHAR (5) NOT NULL,
+  Cod_Insumo CHAR (10) NOT NULL,
   Cod_Producto CHAR (10) NOT NULL,
   PRIMARY KEY (Cod_Insumo, Cod_Producto)
 );
@@ -206,7 +206,7 @@ CREATE TABLE Movimiento (
   Cod_Movimiento CHAR (5) NOT NULL,
   Codigo_empleado CHAR (10) NOT NULL,
   Cod_Stock VARCHAR(5) NOT NULL,
-  Cod_Insumo CHAR (5) NOT NULL,
+  Cod_Insumo CHAR (10) NOT NULL,
   Cod_Almacen VARCHAR(5) NOT NULL,
   Cod_tipomovimiento CHAR (1) NOT NULL,
   PRIMARY KEY (Cod_Movimiento)
@@ -217,7 +217,7 @@ CREATE TABLE Stock (
   Fecha_Vencimiento DATE NOT NULL,
   Cantidad NUMERIC(10,2) NOT NULL,
   Cod_Stock VARCHAR(5) NOT NULL,
-  Cod_Insumo CHAR (5) NOT NULL,
+  Cod_Insumo CHAR (10) NOT NULL,
   Cod_Proveedor CHAR (10) NOT NULL,
   Cod_Almacen VARCHAR(5) NOT NULL,
   PRIMARY KEY (Cod_Stock)
@@ -229,7 +229,7 @@ CREATE TABLE Reporte_disponibilidad
   Cod_reporte_disponibilidad CHAR(10) NOT NULL,
   Fecha_reporte DATE NOT NULL,
   Hora_reporte TIME NOT NULL,
-  Cod_Insumo CHAR(5) NOT NULL,
+  Cod_Insumo CHAR(10) NOT NULL,
   Emisor CHAR(10) NOT NULL,
   Receptor CHAR(10) NOT NULL
 );
