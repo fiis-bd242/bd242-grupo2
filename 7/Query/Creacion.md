@@ -155,7 +155,7 @@ CREATE TABLE Almacen (
 
 drop table if exists Insumo cascade;
 CREATE TABLE Insumo (
-  Cod_Insumo CHAR (5) NOT NULL,
+  Cod_Insumo CHAR (10) NOT NULL,
   Nombre_Insumo VARCHAR(20) NOT NULL,
   Cantidad_total NUMERIC(10,2) NOT NULL,
   umbral NUMERIC(5, 2) NOT NULL,
