@@ -56,19 +56,19 @@ VALUES ('S', 'Salida');
 
 
 INSERT INTO Categoria_insumo (Cod_categoriainsumo, Nombre_categoriainsumo) 
-VALUES ('C1', 'Abastecim.');
+VALUES ('AB', 'Abastecim.');
 
 INSERT INTO Categoria_insumo (Cod_categoriainsumo, Nombre_categoriainsumo) 
-VALUES ('C2', 'Bebidas');
+VALUES ('BE', 'Bebidas');
 
 INSERT INTO Categoria_insumo (Cod_categoriainsumo, Nombre_categoriainsumo) 
-VALUES ('C3', 'Comida');
+VALUES ('CO', 'Comida');
 
 INSERT INTO Categoria_insumo (Cod_categoriainsumo, Nombre_categoriainsumo) 
-VALUES ('C4', 'ProcesadoC');
+VALUES ('PC', 'ProcesadoC');
 
 INSERT INTO Categoria_insumo (Cod_categoriainsumo, Nombre_categoriainsumo) 
-VALUES ('C5', 'ProcesadoB');
+VALUES ('PB', 'ProcesadoB');
 
 
 
@@ -84,36 +84,36 @@ VALUES ('U3', 'Unidad');
 
 
 INSERT INTO Subcategoria (Cod_subcategoria, Nombre_subcategoria, Cod_categoria) 
-VALUES ('S01', 'Artículo de cocina', 'C1'),
-       ('S02', 'Artículo de limpieza', 'C1'),
-       ('S03', 'Descartable', 'C1'),
-       ('S04', 'Menús', 'C1'),
-       ('S05', 'Otros', 'C1'),
-       ('S06', 'Papelería', 'C1'),
-       ('S07', 'Uniformes', 'C1'),
-       ('S08', 'Vajillas', 'C1'),
-       ('S09', 'Barmix', 'C2'),
-       ('S10', 'Cervezas', 'C2'),
-       ('S11', 'Licores', 'C2'),
-       ('S12', 'No alcohólicos', 'C2'),
-       ('S13', 'Vinos', 'C2'),
-       ('S14', 'Abarrotes', 'C3'),
-       ('S15', 'Aves', 'C3'),
-       ('S16', 'Carnes y embutidos', 'C3'),
-       ('S17', 'Hamburguesas', 'C3'),
-       ('S18', 'Lácteos', 'C3'),
-       ('S19', 'Pan', 'C3'),
-       ('S20', 'Papas', 'C3'),
-       ('S21', 'Pescados', 'C3'),
-       ('S22', 'Quesos', 'C3'),
-       ('S23', 'Verduras', 'C3'),
-       ('S24', 'Aceites', 'C4'),
-       ('S25', 'Calientes', 'C4'),
-       ('S26', 'Fríos', 'C4'),
-       ('S27', 'Secos', 'C4'),
-       ('S28', 'Vegetales', 'C4'),
-       ('S29', 'Barmix Preps 1', 'C5'),
-       ('S30', 'Barmix Preps 2', 'C5');
+VALUES ('ADC', 'Artículo de cocina', 'C1'),
+       ('ADL', 'Artículo de limpieza', 'C1'),
+       ('DES', 'Descartable', 'C1'),
+       ('MNS', 'Menús', 'C1'),
+       ('OTR', 'Otros', 'C1'),
+       ('PAP', 'Papelería', 'C1'),
+       ('UNI', 'Uniformes', 'C1'),
+       ('VAJ', 'Vajillas', 'C1'),
+       ('BAR', 'Barmix', 'C2'),
+       ('CER', 'Cervezas', 'C2'),
+       ('LIC', 'Licores', 'C2'),
+       ('NAL', 'No alcohólicos', 'C2'),
+       ('VIN', 'Vinos', 'C2'),
+       ('ABA', 'Abarrotes', 'C3'),
+       ('AVE', 'Aves', 'C3'),
+       ('CAR', 'Carnes y embutidos', 'C3'),
+       ('HAM', 'Hamburguesas', 'C3'),
+       ('LAC', 'Lácteos', 'C3'),
+       ('PAN', 'Pan', 'C3'),
+       ('PPS', 'Papas', 'C3'),
+       ('PEZ', 'Pescados', 'C3'),
+       ('QUE', 'Quesos', 'C3'),
+       ('VER', 'Verduras', 'C3'),
+       ('ACE', 'Aceites', 'C4'),
+       ('CAL', 'Calientes', 'C4'),
+       ('FRI', 'Fríos', 'C4'),
+       ('SEC', 'Secos', 'C4'),
+       ('VEG', 'Vegetales', 'C4'),
+       ('BP1', 'Barmix Preps 1', 'C5'),
+       ('BP2', 'Barmix Preps 2', 'C5');
 
 
 INSERT INTO Condiciones (Cod_condiciones, Nombre_condiciones) 
