@@ -124,15 +124,15 @@ VALUES ('A1', 'Congelado'),
       
 INSERT INTO Insumo (Cod_Insumo, Nombre_Insumo, Cantidad_total, umbral, Cod_unidad, Cod_condiciones, Cod_subcategoria, Cod_categoriainsumo)
 VALUES 
-('HB254', 'hamburguesa 200g', 230, 100, 'U3', 'A1', 'HAM', 'CO'),
-('QC658', 'queso chedar', 45, 20, 'U3', 'A2', 'QUE', 'CO'),
-('TL659', 'tocino loncha', 26, 20, 'U3', 'A2', 'CAR', 'CO'),
-('LC154', 'lechuga', 48, 20, 'U3', 'A2', 'VER', 'CO'),
-('TM265', 'tomate', 45, 20, 'U3', 'A2', 'VER', 'CO'),
-('CB985', 'cebollas', 47, 20, 'U3', 'A2', 'VER', 'CO'),
-('PP346', 'papas', 150, 20, 'U3', 'A3', 'PPS', 'CO'),
-('TP978', 'tiras de pollo', 170, 20, 'U1', 'A1', 'AVE', 'CO'),
-('SS265', 'salsa salame', 30, 20, 'U3', 'A3', 'FRI', 'PC');
+('CO-HAM0001', 'hamburguesa 200g', 230, 100, 'U3', 'A1', 'HAM', 'CO'),
+('CO-QUE0001', 'queso chedar', 45, 20, 'U3', 'A2', 'QUE', 'CO'),
+('CO-CAR0001', 'tocino loncha', 26, 20, 'U3', 'A2', 'CAR', 'CO'),
+('CO-VER0001', 'lechuga', 48, 20, 'U3', 'A2', 'VER', 'CO'),
+('CO-VER0002', 'tomate', 45, 20, 'U3', 'A2', 'VER', 'CO'),
+('CO-VER0003', 'cebollas', 47, 20, 'U3', 'A2', 'VER', 'CO'),
+('CO-PPS0001', 'papas', 150, 20, 'U3', 'A3', 'PPS', 'CO'),
+('CO-AVE0001', 'tiras de pollo', 170, 20, 'U1', 'A1', 'AVE', 'CO'),
+('PC-FRI0001', 'salsa salame', 30, 20, 'U3', 'A3', 'FRI', 'PC');
 
 
 
@@ -154,16 +154,16 @@ INSERT INTO Tipo_Almacen (Cod_tipo_almacen, Nombre_tipo_almacen) VALUES
 
 
 INSERT INTO SeConviertenEn (Cantidad_Receta, Cod_Insumo, Cod_Producto) VALUES
-(0.2, 'TP978', 'CHK5147856'),
-(30, 'PP346', 'CHK5147856'),
-(1, 'SS265', 'CHK5147856'),
-(1, 'HB254', 'BUR1254785'),
-(1, 'QC658', 'BUR1254785'),
-(2, 'TL659', 'BUR1254785'),
-(2, 'LC154', 'BUR1254785'),
-(2, 'TM265', 'BUR1254785'),
-(1, 'CB985', 'BUR1254785'),
-(8, 'PP346', 'BUR1254785');
+(0.2, 'CO-AVE0001', 'CHK5147856'),
+(30, 'CO-PPS0001', 'CHK5147856'),
+(1, 'PC-FRI0001', 'CHK5147856'),
+(1, 'CO-HAM0001', 'BUR1254785'),
+(1, 'CO-QUE0001', 'BUR1254785'),
+(2, 'CO-CAR0001', 'BUR1254785'),
+(2, 'CO-VER0001', 'BUR1254785'),
+(2, 'CO-VER0002', 'BUR1254785'),
+(1, 'CO-VER0003', 'BUR1254785'),
+(8, 'CO-PPS0001', 'BUR1254785');
 
 
 INSERT INTO Almacen (Cod_Almacen, Nombre_Almacen, Cod_tipo_almacen) VALUES
@@ -173,22 +173,22 @@ INSERT INTO Almacen (Cod_Almacen, Nombre_Almacen, Cod_tipo_almacen) VALUES
 
 
 INSERT INTO Tiene (Cod_Proveedor, Cod_Insumo) VALUES
-('PLL1547852', 'HB254'),
-('PLL1547852', 'TP978'),
-('LCH2586475', 'LC154');
+('PLL1547852', 'CO-HAM0001'),
+('PLL1547852', 'CO-AVE0001'),
+('LCH2586475', 'CO-VER0001');
 
 
 
 
 INSERT INTO Almacenado (Cod_Insumo, Cod_Almacen) VALUES
-('HB254', 'RR123'),
-('TP978', 'RR123');
+('CO-HAM0001', 'RR123'),
+('CO-AVE0001', 'RR123');
 
 
 
 INSERT INTO Stock (Cod_Stock, Fecha_Vencimiento, Cantidad, Cod_Insumo, Cod_Proveedor, Cod_Almacen) VALUES
-('ST145', '2025-01-01', 45, 'HB254', 'PLL1547852', 'RR123'),
-('ST568', '2005-04-03', 25, 'LC154', 'LCH2586475', 'RR123');
+('ST145', '2025-01-01', 45, 'CO-HAM0001', 'PLL1547852', 'RR123'),
+('ST568', '2005-04-03', 25, 'CO-VER0001', 'LCH2586475', 'RR123');
 
 INSERT INTO HojaProduccion (Cod_Hoja, Fecha_elaboracion, Codigo_empleado) VALUES
 ('HP45', '2024-10-08', 'JQ87415321'),
@@ -203,14 +203,14 @@ INSERT INTO Incluye (Cod_Hoja, Cod_prodFriday, Cantidad) VALUES
 
 
 INSERT INTO Movimiento (Cod_Movimiento, Fecha_Movimiento, Hora_inicio, Cantidad_movimiento, Hora_fin, Codigo_empleado, Cod_Stock, Cod_Insumo, Cod_Almacen, Cod_tipomovimiento) VALUES
-('MV456', '2024-10-09', '06:35:12', 50, '07:01:00', 'JQ87415321', 'ST145', 'HB254', 'RR123', 'S'),
-('MV457', '2024-10-09', '05:43:45', 70, '06:02:48', 'JQ87415321', 'ST568', 'LC154', 'RR123', 'E');
+('MV456', '2024-10-09', '06:35:12', 50, '07:01:00', 'JQ87415321', 'ST145', 'CO-HAM0001', 'RR123', 'S'),
+('MV457', '2024-10-09', '05:43:45', 70, '06:02:48', 'JQ87415321', 'ST568', 'CO-VER0001', 'RR123', 'E');
 
 
 INSERT INTO Reporte_disponibilidad (Cod_reporte_disponibilidad, Fecha_reporte, Hora_reporte, Cod_Insumo, Emisor, Receptor)
 VALUES
-('RD25478569', '2024-10-09', '07:15:02', 'HB254', 'JQ87415321', 'BP87654121'),
-('RD25478570', '2024-10-09', '07:18:23', 'LC154', 'JQ87415321', 'BP87654121');
+('RD25478569', '2024-10-09', '07:15:02', 'CO-HAM0001', 'JQ87415321', 'BP87654121'),
+('RD25478570', '2024-10-09', '07:18:23', 'CO-VER0001', 'JQ87415321', 'BP87654121');
 
 
 
