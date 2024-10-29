@@ -124,15 +124,15 @@ VALUES ('A1', 'Congelado'),
       
 INSERT INTO Insumo (Cod_Insumo, Nombre_Insumo, Cantidad_total, umbral, Cod_unidad, Cod_condiciones, Cod_subcategoria, Cod_categoriainsumo)
 VALUES 
-('HB254', 'hamburguesa 200g', 230, 100, 'U3', 'A1', 'S17', 'C3'),
-('QC658', 'queso chedar', 45, 20, 'U3', 'A2', 'S18', 'C3'),
-('TL659', 'tocino loncha', 26, 20, 'U3', 'A2', 'S16', 'C3'),
-('LC154', 'lechuga', 48, 20, 'U3', 'A2', 'S23', 'C3'),
-('TM265', 'tomate', 45, 20, 'U3', 'A2', 'S23', 'C3'),
-('CB985', 'cebollas', 47, 20, 'U3', 'A2', 'S23', 'C3'),
-('PP346', 'papas', 150, 20, 'U3', 'A3', 'S20', 'C3'),
-('TP978', 'tiras de pollo', 170, 20, 'U1', 'A1', 'S15', 'C3'),
-('SS265', 'salsa salame', 30, 20, 'U3', 'A3', 'S25', 'C4');
+('HB254', 'hamburguesa 200g', 230, 100, 'U3', 'A1', 'HAM', 'CO'),
+('QC658', 'queso chedar', 45, 20, 'U3', 'A2', 'QUE', 'CO'),
+('TL659', 'tocino loncha', 26, 20, 'U3', 'A2', 'CAR', 'CO'),
+('LC154', 'lechuga', 48, 20, 'U3', 'A2', 'VER', 'CO'),
+('TM265', 'tomate', 45, 20, 'U3', 'A2', 'VER', 'CO'),
+('CB985', 'cebollas', 47, 20, 'U3', 'A2', 'VER', 'CO'),
+('PP346', 'papas', 150, 20, 'U3', 'A3', 'PPS', 'CO'),
+('TP978', 'tiras de pollo', 170, 20, 'U1', 'A1', 'AVE', 'CO'),
+('SS265', 'salsa salame', 30, 20, 'U3', 'A3', 'FRI', 'PC');
 
 
 
