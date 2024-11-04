@@ -1,0 +1,13 @@
+insert into Notificacion (fecha_envio, hora_envio, mensaje, destino, codigo_empleado, cod_tipo_notificacion) values ('2021-09-23', '0:46:19', 'Ha sido asignado al turno tarde', 49, 13, 1);
+insert into Notificacion (fecha_envio, hora_envio, mensaje, destino, codigo_empleado, cod_tipo_notificacion) values ('2024-09-14', '14:56:00', 'Se ha hecho el cambio de turno correctamente', 42, 92, 2);
+insert into Notificacion (fecha_envio, hora_envio, mensaje, destino, codigo_empleado, cod_tipo_notificacion) values ('2022-01-12', '20:41:46', 'Se ha aprobado su solicitud de permiso', 91, 5, 3);
+insert into Notificacion (fecha_envio, hora_envio, mensaje, destino, codigo_empleado, cod_tipo_notificacion) values ('2019-10-22', '15:17:55', 'Se ha rechazado su solicitud de vacaciones', 77, 24, 4);
+insert into Notificacion (fecha_envio, hora_envio, mensaje, destino, codigo_empleado, cod_tipo_notificacion) values ('2019-07-09', '8:13:07', 'Te recordamos que tu turno empieza a las 8 am', 24, 75, 5);
+insert into Notificacion (fecha_envio, hora_envio, mensaje, destino, codigo_empleado, cod_tipo_notificacion) values ('2019-04-07', '17:09:54', 'Se ha detectado su ausencia durante el horario de trabajo', 78, 28, 6);
+insert into Notificacion (fecha_envio, hora_envio, mensaje, destino, codigo_empleado, cod_tipo_notificacion) values ('2024-08-22', '15:40:49', 'Se ha detectado una tardanza el día de hoy', 7, 12, 7);
+insert into Notificacion (fecha_envio, hora_envio, mensaje, destino, codigo_empleado, cod_tipo_notificacion) values ('2023-06-19', '10:23:36', 'Se ha presentado una solicitud', 35, 52, 8);
+insert into Notificacion (fecha_envio, hora_envio, mensaje, destino, codigo_empleado, cod_tipo_notificacion) values ('2020-08-05', '5:22:03', 'Se ha presentado un descargo', 75, 100, 9);
+insert into Notificacion (fecha_envio, hora_envio, mensaje, destino, codigo_empleado, cod_tipo_notificacion) values ('2020-03-28', '14:54:31', 'Se ha aprobado su descargo', 68, 73, 10);
+insert into Notificacion (fecha_envio, hora_envio, mensaje, destino, codigo_empleado, cod_tipo_notificacion) values ('2019-09-21', '19:22:10', 'Se rechaza su descargo por falta de evidencia', 30, 82, 11);
+insert into Notificacion (fecha_envio, hora_envio, mensaje, destino, codigo_empleado, cod_tipo_notificacion) values ('2020-01-26', '12:48:20', 'Su contrato esta próximo en vencer', 21, 85, 12);
+insert into Notificacion (fecha_envio, hora_envio, mensaje, destino, codigo_empleado, cod_tipo_notificacion) values ('2024-02-28', '19:48:06', 'Tuviste un gran desempeño laboral.', 98, 37, 13);
