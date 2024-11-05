@@ -98,3 +98,5 @@ insert into Contrato (fecha_contratacion, cod_tipo_contrato) values ('2020-09-22
 insert into Contrato (fecha_contratacion, cod_tipo_contrato) values ('2022-04-04', 2);
 insert into Contrato (fecha_contratacion, cod_tipo_contrato) values ('2021-03-13', 4);
 insert into Contrato (fecha_contratacion, cod_tipo_contrato) values ('2024-08-01', 4);
+insert into Contrato (fecha_contratacion, cod_tipo_contrato) values ('2022-05-11', 1);
+insert into Contrato (fecha_contratacion, cod_tipo_contrato) values ('2022-05-10', 1);
