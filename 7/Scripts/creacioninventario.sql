@@ -182,12 +182,6 @@ CREATE TABLE Proveedor (
 
 
 
-drop table if exists Recepcion cascade;
-create table Recepcion(
-	cod_Recepcion SERIAL,
-	nombre_recepcion varchar(10) not null,
-	primary key (cod_Recepcion)
-);
 
 drop table if exists Orden_compra cascade;
 CREATE TABLE Orden_compra
@@ -203,7 +197,12 @@ CREATE TABLE Orden_compra
   PRIMARY KEY (Cod_ordencompra)
 );
 
-
+drop table if exists Recepcion cascade;
+create table Recepcion(
+	cod_Recepcion SERIAL,
+	nombre_recepcion varchar(10) not null,
+	primary key (cod_Recepcion)
+)
 
 
 
@@ -289,13 +288,11 @@ CREATE TABLE Movimiento (
   Cod_Movimiento SERIAL,
   Codigo_empleado INT NOT NULL,
   Cod_Stock INT NOT NULL,
-  Cod_Almacen INT NOT NULL,
   Cod_tipomovimiento INT NOT NULL,
   PRIMARY KEY (Cod_Movimiento)
 );
 ALTER TABLE Movimiento ADD FOREIGN KEY (Codigo_empleado) REFERENCES Empleado (Codigo_empleado);
 ALTER TABLE Movimiento ADD FOREIGN KEY (Cod_Stock) REFERENCES Stock (Cod_Stock);
-ALTER TABLE Movimiento ADD FOREIGN KEY (Cod_Almacen) REFERENCES Almacen (Cod_Almacen);
 ALTER TABLE Movimiento ADD FOREIGN KEY (Cod_tipomovimiento) REFERENCES Tipo_movimiento (Cod_tipomovimiento);
 
 
