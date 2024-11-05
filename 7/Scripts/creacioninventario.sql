@@ -303,4 +303,27 @@ ALTER TABLE Almacen ADD FOREIGN KEY (Cod_tipo_almacen) REFERENCES Tipo_Almacen(C
 
 
 
+drop table if exists Insumo cascade;
+CREATE TABLE Insumo (
+  Cod_Insumo SERIAL,
+  Nombre_Insumo VARCHAR(50) NOT NULL,
+  umbral NUMERIC(5, 2) NOT NULL,
+  tolerancia INT not null,
+  Cod_unidad CHAR (2) NOT NULL,
+  Cod_condiciones CHAR (2) NOT NULL,
+  Cod_subcategoria CHAR (3) NOT NULL,
+  Cod_categoriainsumo CHAR (2) NOT NULL,
+  PRIMARY KEY (Cod_Insumo)
+);
+
+DROP TABLE IF EXISTS Insumo_Local CASCADE;
+CREATE TABLE Insumo_Local (
+  Cod_insumo INT NOT NULL,
+  Cod_local INT NOT NULL,
+  Cantidad NUMERIC(10,2) NOT NULL,
+  PRIMARY KEY (Cod_insumo, Cod_local),
+  FOREIGN KEY (Cod_insumo) REFERENCES Insumo(Cod_Insumo) ON DELETE CASCADE,
+  FOREIGN KEY (Cod_local) REFERENCES Local(Cod_local) ON DELETE CASCADE
+);
+
 
