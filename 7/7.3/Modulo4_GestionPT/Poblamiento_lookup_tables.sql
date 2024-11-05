@@ -89,6 +89,7 @@ VALUES
 (11,'LIMPIEZA'),
 (12,'BARTENDER'),
 (13,'ANFITRION');
+(14, 'JEFE ALMACEN');
 INSERT INTO Area (Cod_area, Nombre_area,cod_cargo)
 VALUES 
 (1, 'Almacén y compras',1),
