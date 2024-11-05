@@ -1,4 +1,4 @@
-
+```sql
 -- Creacion de tablas
 DROP TABLE IF EXISTS CATEGORIA CASCADE;
 CREATE TABLE CATEGORIA (
@@ -848,3 +848,6 @@ CREATE TABLE Usuario
   FOREIGN KEY (Codigo_empleado) REFERENCES Empleado(Codigo_empleado),
   FOREIGN KEY (Cod_estado_usuario) REFERENCES Estado_usuario(Cod_estado_usuario)
 );
+
+
+```
