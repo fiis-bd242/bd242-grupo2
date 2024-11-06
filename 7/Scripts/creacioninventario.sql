@@ -181,7 +181,13 @@ CREATE TABLE Proveedor (
 
 
 
-
+drop table if exists proceso_ingreso cascade;
+create table proceso_ingreso
+(
+	cod_proceso SERIAL,
+	nombre_proceso VARCHAR(20),
+	primary key (cod_proceso)
+);
 
 drop table if exists Orden_compra cascade;
 CREATE TABLE Orden_compra
@@ -191,18 +197,12 @@ CREATE TABLE Orden_compra
   Codigo_empleado INT not null,
   fecha_requeridaentrega DATE NOT NULL,
   Cod_Proveedor INT not null,
-  cod_Recepcion INT not null,
+  cod_proceso INT not null,
+  foreign key (cod_proceso) references proceso_ingreso(cod_proceso),
   foreign key (Cod_Proveedor) references Proveedor(Cod_Proveedor),
-  foreign key (cod_Recepcion) references Recepcion(cod_Recepcion),
   PRIMARY KEY (Cod_ordencompra)
 );
 
-drop table if exists Recepcion cascade;
-create table Recepcion(
-	cod_Recepcion SERIAL,
-	nombre_recepcion varchar(10) not null,
-	primary key (cod_Recepcion)
-)
 
 
 
@@ -226,7 +226,7 @@ CREATE TABLE Revision_Cantidad (
     cod_ordencompra INT NOT NULL,
     cod_insumo INT,
     cantidad_revisada NUMERIC NOT NULL,  -- Cantidad revisada de insumo
-    fecha_revision TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    fecha_revision TIMESTAMP,
     Cod_supervisor INT not null,
     FOREIGN KEY (cod_supervisor) REFERENCES Empleado(codigo_empleado),
     FOREIGN KEY (cod_ordencompra) REFERENCES Orden_compra(cod_ordencompra),
