@@ -33,8 +33,6 @@ drop table if exists Insumo cascade;
 CREATE TABLE Insumo (
   Cod_Insumo SERIAL,
   Nombre_Insumo VARCHAR(100) NOT NULL,
-  umbral NUMERIC(5, 2) NOT NULL,
-  tolerancia INT not null,
   Cod_unidad INT NOT NULL,
   Cod_condiciones INT NOT NULL,
   Cod_subcategoria INT NOT NULL,
