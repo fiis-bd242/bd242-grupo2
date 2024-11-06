@@ -223,7 +223,7 @@ CREATE TABLE Revision_Cantidad (
     id_revision_cantidad SERIAL PRIMARY KEY,
     cod_ordencompra INT NOT NULL,
     cod_insumo INT,
-    cantidad_revisada NUMERIC NOT NULL,  -- Cantidad revisada de insumo
+    cantidad_revisada NUMERIC,  -- Cantidad revisada de insumo
     fecha_revision TIMESTAMP,
     Cod_supervisor INT not null,
     FOREIGN KEY (cod_supervisor) REFERENCES Empleado(codigo_empleado),
