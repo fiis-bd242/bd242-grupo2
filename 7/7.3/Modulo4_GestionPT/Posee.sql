@@ -98,3 +98,5 @@ insert into Posee (codigo_empleado, cod_habilidad) values (97, 20);
 insert into Posee (codigo_empleado, cod_habilidad) values (98, 25);
 insert into Posee (codigo_empleado, cod_habilidad) values (99, 38);
 insert into Posee (codigo_empleado, cod_habilidad) values (100, 35);
+insert into Posee (codigo_empleado, cod_habilidad) values (103, 6);
+insert into Posee (codigo_empleado, cod_habilidad) values (104, 6);
