@@ -1,4 +1,4 @@
-
+-- los csv están en bd242-grupo2/7/7.3/Modulo5_Inventario/CSV/
 DO $$
 DECLARE
     base_path TEXT := 'C:/DBD CABALLERO/bd242-grupo2/7/7.3/Modulo5_Inventario/CSV/';
