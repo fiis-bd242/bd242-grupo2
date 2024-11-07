@@ -1,0 +1,12 @@
+"cod_sd","titulo","descripcion","evidencia","respuesta","codigo_empleado","cod_estado_sd","cod_tipo_sd"
+1,Solicito vacaciones,Solicito permiso por salud debido a un malestar,https://www.empresa.com/descargo-ausencia,Tu solicitud de permiso por salud ha sido procesada y se te ha concedido el tiempo,24,1,1
+2,solicito cambio de turno,Descargo por ausencia por una emergencia familiar,https://www.empresa.com/descargo-tardanza,Tu licencia ha sido aprobada y podrás tomar el tiempo necesario,85,2,2
+3,solicito permiso por salud,Descargo por tardanza debido a tráfico inesperado,https://www.empresa.com/solicitud-cambio-turno,Tu solicitud de permiso por salud ha sido procesada y se te ha concedido el tiempo,84,2,3
+4,Solicito licencia,Descargo por incidente personal que afectó mi asistencia,https://www.empresa.com/solicitud-vacaciones,Tu solicitud de permiso por salud ha sido procesada y se te ha concedido el tiempo,67,1,4
+5,solicito horas extra,Solicitud especial para gestionar una situación urgente,https://www.empresa.com/descargo-ausencia,,30,1,5
+6,solicito cambio de area,Solicito horas extra para completar un proyecto importante,https://www.empresa.com/solicitud-cambio-cargo,,72,2,6
+7,solicito cambio de cargo,Descargo por incidente personal que afectó mi asistencia,https://www.empresa.com/solicitud-horas-extra,Tu descargo por tardanza ha sido revisado y se ha tomado en cuenta tu situación,38,2,7
+8,Desacrgo por ausencia,Solicito licencia por motivos personales que requieren atención,https://www.empresa.com/solicitud-especial,Tu solicitud de permiso por salud ha sido procesada y se te ha concedido el tiempo,71,1,8
+9,Descargo por tardanza,Descargo por tardanza debido a tráfico inesperado,https://www.empresa.com/solicitud-cambio-area,Tu solicitud de cambio de área ha sido aceptada y se coordinará tu traslado,41,2,9
+10,Descargo por incidente personal,Solicito horas extra para completar un proyecto importante,https://www.empresa.com/solicitud-cambio-area,Tu solicitud de permiso por salud ha sido procesada y se te ha concedido el tiempo,42,1,10
+11,solicitud especial,Descargo por tardanza debido a tráfico inesperado,https://www.empresa.com/descargo-ausencia,Tu solicitud de cambio de área ha sido aceptada y se coordinará tu traslado,7,1,11
