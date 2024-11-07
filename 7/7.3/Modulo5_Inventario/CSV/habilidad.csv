@@ -1,51 +1,51 @@
-"nombre_habilidad","descripcion","cod_habilidad"
-Negociación,Toma de decisiones para resolver situaciones de manera oportuna,1
-Organización,Servicio al cliente para brindar una experiencia satisfactoria,2
-Servicio al cliente,Comunicación efectiva para transmitir información de manera clara,3
-Toma de decisiones,Negociación para alcanzar acuerdos beneficiosos,4
-Creatividad,Disciplina para mantener un rendimiento constante y responsable,5
-Supervisión,Negociación para alcanzar acuerdos beneficiosos,6
-Servicio al cliente,Atención al detalle para asegurar precisión en el trabajo,7
-Trabajo en equipo,Adaptabilidad para ajustarse a cambios en el entorno laboral,8
-Disciplina,Adaptabilidad para ajustarse a cambios en el entorno laboral,9
-Orientación a resultados,Trabajo en equipo para colaborar con colegas y lograr objetivos comunes,10
-Negociación,Resiliencia para manejar la presión en el trabajo,11
-Flexibilidad,Atención al detalle para asegurar precisión en el trabajo,12
-Control de calidad,Creatividad para aportar ideas innovadoras,13
-Resolución de problemas,Atención al detalle para asegurar precisión en el trabajo,14
-Servicio al cliente,Control de calidad para verificar que el trabajo se mantenga en altos niveles,15
-Trabajo en equipo,Orientación a resultados para enfocarse en cumplir objetivos,16
-Resolución de problemas,Resolución de problemas para encontrar soluciones a inconvenientes,17
-Control de calidad,Servicio al cliente para brindar una experiencia satisfactoria,18
-Adaptabilidad,Trabajo en equipo para colaborar con colegas y lograr objetivos comunes,19
-Resiliencia,Supervisión para garantizar el cumplimiento de estándares,20
-Resolución de problemas,Disciplina para mantener un rendimiento constante y responsable,21
-Toma de decisiones,Resolución de problemas para encontrar soluciones a inconvenientes,22
-Liderazgo,Trabajo en equipo para colaborar con colegas y lograr objetivos comunes,23
-Control de calidad,Capacidad de análisis para evaluar situaciones y tomar decisiones informadas,24
-Comunicación efectiva,Liderazgo para guiar y motivar al equipo,25
-Negociación,Control de calidad para verificar que el trabajo se mantenga en altos niveles,26
-Atención al detalle,Flexibilidad para adaptarse a diversas tareas,27
-Resolución de problemas,Negociación para alcanzar acuerdos beneficiosos,28
-Servicio al cliente,Servicio al cliente para brindar una experiencia satisfactoria,29
-Liderazgo,Flexibilidad para adaptarse a diversas tareas,30
-Adaptabilidad,Servicio al cliente para brindar una experiencia satisfactoria,31
-Trabajo en equipo,Organización para gestionar eficientemente las tareas diarias,32
-Supervisión,Comunicación efectiva para transmitir información de manera clara,33
-Capacidad de análisis,Trabajo en equipo para colaborar con colegas y lograr objetivos comunes,34
-Resolución de problemas,Servicio al cliente para brindar una experiencia satisfactoria,35
-Control de calidad,Supervisión para garantizar el cumplimiento de estándares,36
-Negociación,Toma de decisiones para resolver situaciones de manera oportuna,37
-Adaptabilidad,Orientación a resultados para enfocarse en cumplir objetivos,38
-Trabajo en equipo,Resiliencia para manejar la presión en el trabajo,39
-Capacidad de análisis,Supervisión para garantizar el cumplimiento de estándares,40
-Disciplina,Disciplina para mantener un rendimiento constante y responsable,41
-Gestión del tiempo,Supervisión para garantizar el cumplimiento de estándares,42
-Gestión del tiempo,Disciplina para mantener un rendimiento constante y responsable,43
-Gestión del tiempo,Orientación a resultados para enfocarse en cumplir objetivos,44
-Empatía,Resolución de problemas para encontrar soluciones a inconvenientes,45
-Trabajo en equipo,Negociación para alcanzar acuerdos beneficiosos,46
-Comunicación efectiva,Disciplina para mantener un rendimiento constante y responsable,47
-Orientación a resultados,Liderazgo para guiar y motivar al equipo,48
-Disciplina,Empatía para comprender y apoyar a otros,49
-Negociación,Organización para gestionar eficientemente las tareas diarias,50
+nombre_habilidad,descripcion
+Negociación,Toma de decisiones para resolver situaciones de manera oportuna
+Organización,Servicio al cliente para brindar una experiencia satisfactoria
+Servicio al cliente,Comunicación efectiva para transmitir información de manera clara
+Toma de decisiones,Negociación para alcanzar acuerdos beneficiosos
+Creatividad,Disciplina para mantener un rendimiento constante y responsable
+Supervisión,Negociación para alcanzar acuerdos beneficiosos
+Servicio al cliente,Atención al detalle para asegurar precisión en el trabajo
+Trabajo en equipo,Adaptabilidad para ajustarse a cambios en el entorno laboral
+Disciplina,Adaptabilidad para ajustarse a cambios en el entorno laboral
+Orientación a resultados,Trabajo en equipo para colaborar con colegas y lograr objetivos comunes
+Negociación,Resiliencia para manejar la presión en el trabajo
+Flexibilidad,Atención al detalle para asegurar precisión en el trabajo
+Control de calidad,Creatividad para aportar ideas innovadoras
+Resolución de problemas,Atención al detalle para asegurar precisión en el trabajo
+Servicio al cliente,Control de calidad para verificar que el trabajo se mantenga en altos niveles
+Trabajo en equipo,Orientación a resultados para enfocarse en cumplir objetivos
+Resolución de problemas,Resolución de problemas para encontrar soluciones a inconvenientes
+Control de calidad,Servicio al cliente para brindar una experiencia satisfactoria
+Adaptabilidad,Trabajo en equipo para colaborar con colegas y lograr objetivos comunes
+Resiliencia,Supervisión para garantizar el cumplimiento de estándares
+Resolución de problemas,Disciplina para mantener un rendimiento constante y responsable
+Toma de decisiones,Resolución de problemas para encontrar soluciones a inconvenientes
+Liderazgo,Trabajo en equipo para colaborar con colegas y lograr objetivos comunes
+Control de calidad,Capacidad de análisis para evaluar situaciones y tomar decisiones informadas
+Comunicación efectiva,Liderazgo para guiar y motivar al equipo
+Negociación,Control de calidad para verificar que el trabajo se mantenga en altos niveles
+Atención al detalle,Flexibilidad para adaptarse a diversas tareas
+Resolución de problemas,Negociación para alcanzar acuerdos beneficiosos
+Servicio al cliente,Servicio al cliente para brindar una experiencia satisfactoria
+Liderazgo,Flexibilidad para adaptarse a diversas tareas
+Adaptabilidad,Servicio al cliente para brindar una experiencia satisfactoria
+Trabajo en equipo,Organización para gestionar eficientemente las tareas diarias
+Supervisión,Comunicación efectiva para transmitir información de manera clara
+Capacidad de análisis,Trabajo en equipo para colaborar con colegas y lograr objetivos comunes
+Resolución de problemas,Servicio al cliente para brindar una experiencia satisfactoria
+Control de calidad,Supervisión para garantizar el cumplimiento de estándares
+Negociación,Toma de decisiones para resolver situaciones de manera oportuna
+Adaptabilidad,Orientación a resultados para enfocarse en cumplir objetivos
+Trabajo en equipo,Resiliencia para manejar la presión en el trabajo
+Capacidad de análisis,Supervisión para garantizar el cumplimiento de estándares
+Disciplina,Disciplina para mantener un rendimiento constante y responsable
+Gestión del tiempo,Supervisión para garantizar el cumplimiento de estándares
+Gestión del tiempo,Disciplina para mantener un rendimiento constante y responsable
+Gestión del tiempo,Orientación a resultados para enfocarse en cumplir objetivos
+Empatía,Resolución de problemas para encontrar soluciones a inconvenientes
+Trabajo en equipo,Negociación para alcanzar acuerdos beneficiosos
+Comunicación efectiva,Disciplina para mantener un rendimiento constante y responsable
+Orientación a resultados,Liderazgo para guiar y motivar al equipo
+Disciplina,Empatía para comprender y apoyar a otros
+Negociación,Organización para gestionar eficientemente las tareas diarias
