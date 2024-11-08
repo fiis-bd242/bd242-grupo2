@@ -1,0 +1,12 @@
+"cod_tipo_sd","nombre_tipo_sd"
+1,Solicitud de Vacaciones
+2,Solicitude de cambio de turno
+3,Solicitud de permiso
+4,Solicitud de licencia
+5,Solicitud de horas extra
+6,Solicitud de cambio de área
+7,Solicitud de cambio de cargo
+8,Descargo por ausencia
+9,Descargo por tardanza
+10,Descargo por incidente operacional
+11,Otro específico

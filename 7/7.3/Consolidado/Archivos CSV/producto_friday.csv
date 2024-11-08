@@ -1,0 +1,33 @@
+"cod_prodfriday","nombre_producto","precio_producto","descripcion","cod_categoria","cod_area_ec"
+APP1000001,Fried Mozzarella,37.00,"Palitos de mozzarella empanizados y fritos, servidos con salsa marinara",AP   ,EF
+APP1000002,Chips and Salsa,22.00,Crujientes chips de tortilla de maiz,AP   ,EF
+APP1000003,Boneless Wings,40.00,Tiernos cortes de pecuchas de pollo empanizados,AP   ,EF
+APP1000004,Loaded Potato Skins,36.00,"Cáscaras de papa con queso derretido, tocino y crema agria",AP   ,EF
+PAS1000001,Fried Chicken Pasta,40.00,Crocantes tiritas de pecucha de pollo empanizadas con cajún,PA   ,ES
+PAS1000002,Brushetas Pasta Platter,40.00,Pasta ensalada de tomate,PA   ,ES
+PAS1000003,Cajun Shrimp and Pasta,42.00,Langostinos de tiritas d pecucha de pollo,PA   ,ES
+PAS1000004,Bufalo Chicken Pasta,40.00,Combinación de tres aperitivos favoritos en un solo plato,PA   ,ES
+SAL1000001,Caesar Salad,28.00,"Ensalada clásica César con lechuga romana, parmesano y crutones",SA   ,EP
+SAL1000002,House Salad,35.00,"Ensalada de la casa con lechuga mixta, tomate, zanahoria y aderezo a elección",SA   ,EP
+SAL1000003,Cobb Salad,40.00,Pollo a la parrilla sazonada con especiales cajun,SA   ,EP
+SAL1000004,Chipote Yucatan,39.00,Pollo asado desmenuzado sobre una base de lechugas y palta,SA   ,EP
+CSF1000001,Fried Shrimp,35.00,Camarones empanizados y fritos servidos con salsa de cóctel,CS   ,EF
+CSF1000002,Grilled Chicken,30.00,"Pollo a la parrilla sazonado con especias, servido con vegetales",CS   ,EF
+CSF1000003,Fridays Shrimp,48.00,Langostinos empanizados y dorados a la perfeccion,CS   ,EF
+CSF1000004,Sesame Chicken Strips,40.00,"Tiritas de pollo empanizadas en pan japonés, en salsa glaze fridays",CS   ,EF
+POS1000001,Brownie Obsession,27.00,"Brownie caliente con helado de vainilla, chocolate y caramelo",PO   ,EP
+POS1000002,Double Berry Jack,25.00,Deliciosa tarta de manzana,PO   ,EP
+POS1000003,Churro Brownie,27.00,Crujientes churros cubiertos con canela,PO   ,EP
+POS1000004,Cheesecake,28.00,Clásico pastel de queso con cobertura de fresas,PO   ,EP
+BS10000001,Fridays Signature Burger,36.00,Hamburguesa con el sello único de Fridays y guarniciones frescas,BS   ,EA
+BS10000002,BBQ Chicken Sandwich,32.00,Sándwich de pollo a la parrilla con salsa BBQ y queso derretido,BS   ,EA
+BS10000003,Bacon Cheeseburger,38.00,"Hamburguesa de 200gr, gratinada con queso Cheddar y cubierta con dos tiras de tocino",BS   ,EA
+BS10000004,Texas Chili,39.00,Hamburguesa cubierta con el delicioso chili meat,BS   ,EA
+BEV1000001,Lemonade,10.00,Limonada fresca servida con hielo,BE   ,EB
+BEV1000002,Arnold Palmer,14.00,"Te negro, jugo de lima y limón",BE   ,EB
+BEV1000003,Green Apple Slush,15.00,Jarabe de manzana,BE   ,EB
+BEV1000004,Iced Tea,9.00,Té helado con un toque de limón,BE   ,EB
+COC1000001,Margarita,18.00,Margarita clásica servida en las rocas con sal,CO   ,EB
+COC1000002,Cosmo Rita Shaker,30.00,Tequila Jose Cuervo,CO   ,EB
+COC1000003,Blackberry Mojito,26.00,Jarabe de guayaba,CO   ,EB
+COC1000004,Long Island Iced Tea,20.00,Cóctel con mezcla de licores y un toque de cola,CO   ,EB
