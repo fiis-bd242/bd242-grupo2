@@ -427,8 +427,10 @@ CREATE TABLE Subcategoria (
   Cod_subcategoria SERIAL,
   Nombre_subcategoria VARCHAR(25) NOT NULL,
   Cod_categoria INT,
-  PRIMARY KEY (Cod_subcategoria)
+  PRIMARY KEY (Cod_subcategoria),
+  FOREIGN KEY (Cod_categoria) REFERENCES Categoria_insumo(Cod_categoriainsumo)
 );
+
 
 
 drop table if exists Insumo cascade;
