@@ -50,9 +50,7 @@ EXECUTE 'TRUNCATE TABLE Turno CASCADE';
     EXECUTE 'TRUNCATE TABLE Insumo CASCADE';
     EXECUTE 'TRUNCATE TABLE Orden_compra CASCADE';
     EXECUTE 'TRUNCATE TABLE Orden_comprainsumo CASCADE';
-    EXECUTE 'TRUNCATE TABLE Revision_Cantidad CASCADE';
     EXECUTE 'TRUNCATE TABLE Calidad CASCADE';
-    EXECUTE 'TRUNCATE TABLE Revision_Calidad CASCADE';
     EXECUTE 'TRUNCATE TABLE Incluye CASCADE';
     EXECUTE 'TRUNCATE TABLE SeConviertenEn CASCADE';
     EXECUTE 'TRUNCATE TABLE Stock CASCADE';
@@ -82,6 +80,7 @@ EXECUTE 'TRUNCATE TABLE Turno CASCADE';
 	ALTER SEQUENCE unidad_medidad_cod_unidad_seq RESTART WITH 1;
 	ALTER SEQUENCE categoria_insumo_Cod_categoriainsumo_seq RESTART WITH 1;
 	ALTER SEQUENCE subcategoria_cod_subcategoria_seq RESTART WITH 1;
+	ALTER SEQUENCE Condiciones_Cod_condiciones_seq RESTART WITH 1;
 	ALTER SEQUENCE tipo_almacen_cod_tipo_almacen_seq RESTART WITH 1;
 	ALTER SEQUENCE Almacen_Cod_Almacen_seq RESTART WITH 1;
 	ALTER SEQUENCE public.hojaproduccion_cod_hoja_seq RESTART WITH 1;
@@ -92,8 +91,6 @@ EXECUTE 'TRUNCATE TABLE Turno CASCADE';
 	ALTER SEQUENCE solicitud_compra_Cod_solicitudcompra_seq RESTART WITH 1;
 	ALTER SEQUENCE proceso_ingreso_cod_proceso_seq RESTART WITH 1;
 	ALTER SEQUENCE Orden_compra_Cod_ordencompra_seq RESTART WITH 1;
-	ALTER SEQUENCE Revision_Cantidad_id_revision_cantidad_seq RESTART WITH 1;
-	ALTER SEQUENCE Revision_Calidad_Cod_revision_calidad_seq RESTART WITH 1;
 	ALTER SEQUENCE Calidad_Cod_calidad_seq RESTART WITH 1;
 	ALTER SEQUENCE Tipo_movimiento_Cod_tipomovimiento_seq RESTART WITH 1;
 -- CARGA DE DATOS
@@ -187,18 +184,14 @@ EXECUTE 'TRUNCATE TABLE Turno CASCADE';
              FROM ' || quote_literal(base_path || 'Almacen.csv') || ' DELIMITER '','' CSV HEADER';
 	EXECUTE 'COPY Proveedor(Nombre_Empresa, RUC, Direccion_Proveedor, Correo_proveedor)
              FROM ' || quote_literal(base_path || 'Proveedor.csv') || ' DELIMITER '','' CSV HEADER';
-	EXECUTE 'COPY Insumo(Nombre_Insumo, Cod_unidad, Cod_condiciones, Cod_subcategoria, Cod_categoriainsumo)
+	EXECUTE 'COPY Insumo(Nombre_Insumo, Cod_unidad, Cod_condiciones, Cod_subcategoria)
              FROM ' || quote_literal(base_path || 'Insumo.csv') || ' DELIMITER '','' CSV HEADER';
 	EXECUTE 'COPY Orden_compra(fecha_ordencompra, Codigo_empleado, fecha_requeridaentrega, Cod_Proveedor, cod_proceso)
              FROM ' || quote_literal(base_path || 'Orden_compra.csv') || ' DELIMITER '','' CSV HEADER';
 	EXECUTE 'COPY Orden_comprainsumo(cantidad_compra, cod_ordencompra, Cod_Insumo)
              FROM ' || quote_literal(base_path || 'Orden_comprainsumo.csv') || ' DELIMITER '','' CSV HEADER';
-	EXECUTE 'COPY Revision_Cantidad(Cod_ordencompra, cod_insumo, cantidad_revisada, fecha_revision, Cod_supervisor)
-             FROM ' || quote_literal(base_path || 'Revision_Cantidad.csv') || ' DELIMITER '','' CSV HEADER';
 	EXECUTE 'COPY Calidad(Estado)
              FROM ' || quote_literal(base_path || 'Calidad.csv') || ' DELIMITER '','' CSV HEADER';
-	EXECUTE 'COPY Revision_Calidad(Cod_ordencompra, cod_insumo, Cod_calidad, fecha_revision, Cod_supervisor, descripcion)
-             FROM ' || quote_literal(base_path || 'Revision_Calidad.csv') || ' DELIMITER '','' CSV HEADER';
 	EXECUTE 'COPY Incluye(Cantidad, Cod_Hoja, Cod_prodFriday)
              FROM ' || quote_literal(base_path || 'Incluye.csv') || ' DELIMITER '','' CSV HEADER';
 	EXECUTE 'COPY SeConviertenEn(Cantidad_Receta, Cod_Insumo, Cod_Producto)
