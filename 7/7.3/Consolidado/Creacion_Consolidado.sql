@@ -227,7 +227,7 @@ DROP TABLE IF EXISTS Horario_libre_Dias CASCADE;
 CREATE TABLE Horario_libre_Dias
 (
   Dias VARCHAR(20) NOT NULL,
-  Cod_horario SERIAL NOT NULL,
+  Cod_horario INT NOT NULL,
   PRIMARY KEY (Dias, Cod_horario),
   FOREIGN KEY (Cod_horario) REFERENCES Horario_libre(Cod_horario)
 );
@@ -438,7 +438,6 @@ CREATE TABLE Insumo (
   Cod_unidad INT NOT NULL,
   Cod_condiciones INT NOT NULL,
   Cod_subcategoria INT NOT NULL,
-  Cod_categoriainsumo INT NOT NULL,
   PRIMARY KEY (Cod_Insumo)
 );
 
@@ -447,8 +446,6 @@ ALTER TABLE Insumo ADD FOREIGN KEY (Cod_unidad) REFERENCES Unidad_medidad (Cod_u
 ALTER TABLE Insumo ADD FOREIGN KEY (Cod_condiciones) REFERENCES Condiciones (Cod_condiciones);
 
 ALTER TABLE Insumo ADD FOREIGN KEY (Cod_subcategoria) REFERENCES Subcategoria (Cod_subcategoria);
-
-ALTER TABLE Insumo ADD FOREIGN KEY (Cod_categoriainsumo) REFERENCES Categoria_insumo (Cod_categoriainsumo);
 
 
 drop table if exists Tipo_Almacen cascade;
@@ -526,20 +523,26 @@ CREATE TABLE Orden_comprainsumo
 );
 
 
-
-
-DROP TABLE IF EXISTS Revision_Cantidad CASCADE;
-CREATE TABLE Revision_Cantidad (
-    id_revision_cantidad SERIAL PRIMARY KEY,
-    cod_ordencompra INT NOT NULL,
-    cod_insumo INT,
-    cantidad_revisada NUMERIC,  -- Cantidad revisada de insumo
-    fecha_revision TIMESTAMP,
-    Cod_supervisor INT not null,
-    FOREIGN KEY (cod_supervisor) REFERENCES Empleado(codigo_empleado),
-    FOREIGN KEY (cod_ordencompra) REFERENCES Orden_compra(cod_ordencompra),
-    FOREIGN KEY (cod_insumo) REFERENCES Insumo(cod_insumo)
+drop table if exists Revision cascade;
+create table Revision (
+	cod_revision serial primary key,
+	cod_ordencompra int not null,
+	cod_insumo int not null,
+	cod_supcantidad int not null,
+	cod_supcalidad int not null,
+	cantidad_recibida numeric (7, 2),
+	fechahora_cantidad timestamp,
+	Cod_Calidad int,
+	fechahora_calidad timestamp,
+	descripcion varchar (200),
+	foreign key (cod_supcantidad) references Empleado(codigo_empleado),
+	foreign key (cod_supcalidad) references Empleado(codigo_empleado),
+	FOREIGN KEY (cod_ordencompra) REFERENCES Orden_compra(cod_ordencompra),
+	FOREIGN KEY (cod_insumo) REFERENCES Insumo(cod_insumo),
+	FOREIGN KEY (Cod_calidad) REFERENCES Calidad(cod_calidad)
 );
+
+
 
 
 DROP TABLE IF EXISTS Calidad CASCADE;
@@ -547,21 +550,6 @@ CREATE TABLE Calidad (
     Cod_calidad SERIAL,
     Estado VARCHAR(15) not null,
     primary key(Cod_calidad)
-);
-
-drop table if exists Revision_Calidad cascade;
-CREATE TABLE Revision_Calidad (
-    Cod_revision_calidad SERIAL PRIMARY KEY,
-    Cod_ordencompra INT NOT NULL,
-    Cod_insumo INT,
-    Cod_calidad int,
-    fecha_revision TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    Cod_supervisor INT not null,
-    descripcion VARCHAR(200),
-    foreign key (Cod_supervisor) references Empleado(Codigo_empleado),
-    FOREIGN KEY (cod_ordencompra) REFERENCES Orden_compra(cod_ordencompra),
-    FOREIGN KEY (Cod_calidad) REFERENCES Calidad(cod_calidad),
-    FOREIGN KEY (Cod_insumo) REFERENCES Insumo(Cod_Insumo)
 );
 
 
@@ -652,6 +640,7 @@ CREATE TABLE Cotizacion
   FOREIGN KEY (Cod_Proveedor) REFERENCES Proveedor(Cod_Proveedor),
   FOREIGN KEY (Codigo_empleado) REFERENCES Empleado(Codigo_empleado)
 );
+
 
 
 drop table if exists Solicitud_comprainsumo cascade;
