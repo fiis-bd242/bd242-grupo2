@@ -1,7 +1,0 @@
-"cod_estado","nombre_estado","descripcion_estado"
-1,Ok,La asistencia está correctamente
-2,Falta marcar,El empleado no ha marcado su asistencias
-3,Tardanza,El empleado ha registrado fuera del horario de ingreso
-4,Falta injustificado,El empleado no ha justificado su falta
-5,Ausencia injustificada,"El empleado ha registrado su asistencia, pero no se encuentra en su labor designado"
-6,Sobretiempo injustificado,"El empleado ha marcado su salida fuera de lo previsto, generando sobretiempo"
