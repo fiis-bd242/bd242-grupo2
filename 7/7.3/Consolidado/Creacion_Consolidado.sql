@@ -525,6 +525,18 @@ CREATE TABLE Orden_comprainsumo
 );
 
 
+
+
+
+
+DROP TABLE IF EXISTS Calidad CASCADE;
+CREATE TABLE Calidad (
+    Cod_calidad SERIAL,
+    Estado VARCHAR(15) not null,
+    primary key(Cod_calidad)
+);
+
+
 drop table if exists Revision cascade;
 create table Revision (
 	cod_revision serial primary key,
@@ -544,15 +556,6 @@ create table Revision (
 	FOREIGN KEY (Cod_calidad) REFERENCES Calidad(cod_calidad)
 );
 
-
-
-
-DROP TABLE IF EXISTS Calidad CASCADE;
-CREATE TABLE Calidad (
-    Cod_calidad SERIAL,
-    Estado VARCHAR(15) not null,
-    primary key(Cod_calidad)
-);
 
 
 drop table if exists Stock cascade;
