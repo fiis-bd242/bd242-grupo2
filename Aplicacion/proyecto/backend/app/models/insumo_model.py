@@ -9,20 +9,17 @@ def insertar_insumo(nombre_insumo, nombre_unidad, nombre_condiciones, nombre_sub
     try:
         with conn.cursor() as cursor:
             sql = """
-            INSERT INTO insumo (nombre_insumo, cod_unidad, cod_condiciones, cod_subcategoria)
-            VALUES
-            (
-                %s,  -- Nombre del insumo
-                (SELECT um.cod_unidad FROM unidad_medidad um WHERE um.nombre_unidad = %s),
-                (SELECT c.cod_condiciones FROM condiciones c WHERE c.nombre_condiciones = %s),
-                (SELECT s.cod_subcategoria FROM subcategoria s WHERE s.nombre_subcategoria = %s)
+            INSERT INTO Insumo (Nombre_Insumo, Cod_unidad, Cod_condiciones, Cod_subcategoria)
+            VALUES (%s, 
+                    (SELECT Cod_unidad FROM Unidad_medidad WHERE Nombre_Unidad = %s),
+                    (SELECT Cod_condiciones FROM Condiciones WHERE Nombre_Condiciones = %s),
+                    (SELECT Cod_subcategoria FROM Subcategoria WHERE Nombre_Subcategoria = %s)
             );
             """
-            # Ejecutar la consulta SQL
             cursor.execute(sql, (nombre_insumo, nombre_unidad, nombre_condiciones, nombre_subcategoria))
             conn.commit()
             return {"message": "Insumo agregado correctamente"}
     except Exception as e:
-        return {"error": str(e)}
+        return {"error": f"Error al agregar insumo: {str(e)}"}  # Mostrar el error completo
     finally:
-        conn.close()  # Cerrar la conexión siempre
+        conn.close()
