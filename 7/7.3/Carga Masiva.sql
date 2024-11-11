@@ -1,9 +1,102 @@
--- los csv están en bd242-grupo2/7/7.3/Modulo5_Inventario/CSV/
 DO $$
 DECLARE
-    base_path TEXT := 'C:/DBD CABALLERO/bd242-grupo2/7/7.3/Modulo5_Inventario/CSV/';
+    base_path TEXT := 'C:\DBD CABALLERO\bd242-grupo2\7\7.3\Consolidado\Archivos CSV\'; -- colocar ubicacion de los csv
 BEGIN
--- modulo 4
+-- ELIMINACION DE DATOS
+EXECUTE 'TRUNCATE TABLE Turno CASCADE';
+    EXECUTE 'TRUNCATE TABLE Estado_Asistencia CASCADE';
+    EXECUTE 'TRUNCATE TABLE Tipo_generacion CASCADE';
+    EXECUTE 'TRUNCATE TABLE Estado_SD CASCADE';
+    EXECUTE 'TRUNCATE TABLE Tipo_SD CASCADE';
+    EXECUTE 'TRUNCATE TABLE Tipo_notificacion CASCADE';
+    EXECUTE 'TRUNCATE TABLE Estado_usuario CASCADE';
+    EXECUTE 'TRUNCATE TABLE Local CASCADE';
+    EXECUTE 'TRUNCATE TABLE Cargo CASCADE';
+    EXECUTE 'TRUNCATE TABLE Area CASCADE';
+    EXECUTE 'TRUNCATE TABLE Tipo_contrato CASCADE';
+    EXECUTE 'TRUNCATE TABLE Asistencia CASCADE';
+    EXECUTE 'TRUNCATE TABLE Contrato CASCADE';
+    EXECUTE 'TRUNCATE TABLE Empleado CASCADE';
+    EXECUTE 'TRUNCATE TABLE Habilidad CASCADE';
+    EXECUTE 'TRUNCATE TABLE Horario_libre CASCADE';
+    EXECUTE 'TRUNCATE TABLE Horario_libre_dias CASCADE';
+    EXECUTE 'TRUNCATE TABLE Notificacion CASCADE';
+    EXECUTE 'TRUNCATE TABLE Posee CASCADE';
+    EXECUTE 'TRUNCATE TABLE Registra CASCADE';
+    EXECUTE 'TRUNCATE TABLE Usuario CASCADE';
+    EXECUTE 'TRUNCATE TABLE historial_laboral CASCADE';
+    EXECUTE 'TRUNCATE TABLE solicitud_o_descargo CASCADE';
+    EXECUTE 'TRUNCATE TABLE CATEGORIA CASCADE';
+    EXECUTE 'TRUNCATE TABLE AREA_EC CASCADE';
+    EXECUTE 'TRUNCATE TABLE Producto_Friday CASCADE';
+    EXECUTE 'TRUNCATE TABLE TAMANO CASCADE';
+    EXECUTE 'TRUNCATE TABLE TIPO_DE_MESA CASCADE';
+    EXECUTE 'TRUNCATE TABLE ESTADO_DP CASCADE';
+    EXECUTE 'TRUNCATE TABLE ESTADO_ITEM_DP CASCADE';
+    EXECUTE 'TRUNCATE TABLE MESA CASCADE';
+    EXECUTE 'TRUNCATE TABLE IDENTIFICACION_MESERO CASCADE';
+    EXECUTE 'TRUNCATE TABLE DETALLE_PEDIDO CASCADE';
+    EXECUTE 'TRUNCATE TABLE ITEM_DETALLE_PEDIDO CASCADE';
+    EXECUTE 'TRUNCATE TABLE KDS CASCADE';
+    EXECUTE 'TRUNCATE TABLE Unidad_medidad CASCADE';
+	EXECUTE 'TRUNCATE TABLE Condiciones CASCADE';
+    EXECUTE 'TRUNCATE TABLE Categoria_insumo CASCADE';
+    EXECUTE 'TRUNCATE TABLE Subcategoria CASCADE';
+    EXECUTE 'TRUNCATE TABLE Tipo_Almacen CASCADE';
+    EXECUTE 'TRUNCATE TABLE HojaProduccion CASCADE';
+    EXECUTE 'TRUNCATE TABLE proceso_ingreso CASCADE';
+    EXECUTE 'TRUNCATE TABLE Tipo_movimiento CASCADE';
+    EXECUTE 'TRUNCATE TABLE Almacen CASCADE';
+    EXECUTE 'TRUNCATE TABLE Proveedor CASCADE';
+    EXECUTE 'TRUNCATE TABLE Insumo CASCADE';
+    EXECUTE 'TRUNCATE TABLE Orden_compra CASCADE';
+    EXECUTE 'TRUNCATE TABLE Orden_comprainsumo CASCADE';
+    EXECUTE 'TRUNCATE TABLE Calidad CASCADE';
+    EXECUTE 'TRUNCATE TABLE revision CASCADE';
+    EXECUTE 'TRUNCATE TABLE Incluye CASCADE';
+    EXECUTE 'TRUNCATE TABLE SeConviertenEn CASCADE';
+    EXECUTE 'TRUNCATE TABLE Stock CASCADE';
+    EXECUTE 'TRUNCATE TABLE Movimiento CASCADE';
+    EXECUTE 'TRUNCATE TABLE Solicitud_compra CASCADE';
+    EXECUTE 'TRUNCATE TABLE Solicitud_comprainsumo CASCADE';
+--REINICIAR SECUENCIA
+	ALTER SEQUENCE estado_asistencia_cod_estado_seq RESTART WITH 1;
+	ALTER SEQUENCE tipo_generacion_cod_tipo_generacion_seq RESTART WITH 1;
+	ALTER SEQUENCE estado_sd_cod_estado_sd_seq RESTART WITH 1;
+	ALTER SEQUENCE tipo_sd_cod_tipo_sd_seq RESTART WITH 1;
+	ALTER SEQUENCE tipo_notificacion_cod_tipo_notificacion_seq RESTART WITH 1;
+	ALTER SEQUENCE estado_usuario_cod_estado_usuario_seq RESTART WITH 1;
+	ALTER SEQUENCE local_cod_local_seq RESTART WITH 1;
+	ALTER SEQUENCE cargo_cod_cargo_seq RESTART WITH 1;
+	ALTER SEQUENCE area_cod_area_seq RESTART WITH 1;
+	ALTER SEQUENCE tipo_contrato_cod_tipo_contrato_seq RESTART WITH 1;
+	ALTER SEQUENCE asistencia_cod_asistencia_seq RESTART WITH 1;
+	ALTER SEQUENCE contrato_cod_contrato_seq RESTART WITH 1;
+	ALTER SEQUENCE empleado_Codigo_empleado_seq RESTART WITH 1;
+	ALTER SEQUENCE habilidad_cod_habilidad_seq RESTART WITH 1;
+	ALTER SEQUENCE horario_libre_cod_horario_seq RESTART WITH 1;
+	ALTER SEQUENCE notificacion_cod_notificacion_seq RESTART WITH 1;
+	ALTER SEQUENCE usuario_cod_usuario_seq RESTART WITH 1;
+	ALTER SEQUENCE historial_laboral_Cod_his_lab_seq RESTART WITH 1;
+	ALTER SEQUENCE solicitud_o_descargo_Cod_sd_seq RESTART WITH 1;
+	ALTER SEQUENCE unidad_medidad_cod_unidad_seq RESTART WITH 1;
+	ALTER SEQUENCE categoria_insumo_Cod_categoriainsumo_seq RESTART WITH 1;
+	ALTER SEQUENCE subcategoria_cod_subcategoria_seq RESTART WITH 1;
+	ALTER SEQUENCE Condiciones_Cod_condiciones_seq RESTART WITH 1;
+	ALTER SEQUENCE tipo_almacen_cod_tipo_almacen_seq RESTART WITH 1;
+	ALTER SEQUENCE Almacen_Cod_Almacen_seq RESTART WITH 1;
+	ALTER SEQUENCE public.hojaproduccion_cod_hoja_seq RESTART WITH 1;
+	ALTER SEQUENCE proveedor_cod_proveedor_seq RESTART WITH 1;
+	ALTER SEQUENCE insumo_cod_insumo_seq RESTART WITH 1;
+	ALTER SEQUENCE stock_cod_stock_seq RESTART WITH 1;
+	ALTER SEQUENCE movimiento_cod_movimiento_seq RESTART WITH 1;
+	ALTER SEQUENCE solicitud_compra_Cod_solicitudcompra_seq RESTART WITH 1;
+	ALTER SEQUENCE proceso_ingreso_cod_proceso_seq RESTART WITH 1;
+	ALTER SEQUENCE Orden_compra_Cod_ordencompra_seq RESTART WITH 1;
+	ALTER SEQUENCE Calidad_Cod_calidad_seq RESTART WITH 1;
+	ALTER SEQUENCE revision_cod_revision_seq RESTART WITH 1;
+	ALTER SEQUENCE Tipo_movimiento_Cod_tipomovimiento_seq RESTART WITH 1;
+-- CARGA DE DATOS
 	EXECUTE 'COPY Turno (Cod_turno, Nombre_turno, Hora_inicio, Hora_fin) 
              FROM ' || quote_literal(base_path || 'Turno.csv') || ' DELIMITER '','' CSV HEADER';
 	EXECUTE 'COPY Estado_Asistencia (Cod_estado, Nombre_Estado,Descripcion_estado)
@@ -30,13 +123,13 @@ BEGIN
              FROM ' || quote_literal(base_path || 'Asistencia.csv') || ' DELIMITER '','' CSV HEADER';
 	EXECUTE 'COPY Contrato (fecha_contratacion, cod_tipo_contrato)
              FROM ' || quote_literal(base_path || 'contrato.csv') || ' DELIMITER '','' CSV HEADER';
-	EXECUTE 'COPY Empleado (direccion, contacto, dni, primer_nombre, primer_apellido, segundo_apellido, cod_turno, cod_contrato, cod_cargo, cod_local)
-             FROM ' || quote_literal(base_path || 'empleado.csv') || ' DELIMITER '','' CSV HEADER';
 	EXECUTE 'COPY Habilidad (nombre_habilidad, descripcion)
              FROM ' || quote_literal(base_path || 'habilidad.csv') || ' DELIMITER '','' CSV HEADER';
+	EXECUTE 'COPY Empleado (direccion, contacto, dni, primer_nombre, primer_apellido, segundo_apellido, cod_turno, cod_contrato, cod_cargo, cod_local)
+             FROM ' || quote_literal(base_path || 'empleado.csv') || ' DELIMITER '','' CSV HEADER';
 	EXECUTE 'COPY Horario_libre (hora_inicio, hora_fin, codigo_empleado)
              FROM ' || quote_literal(base_path || 'horario_libre.csv') || ' DELIMITER '','' CSV HEADER';
-	EXECUTE 'COPY Horario_libre_dias (dias)
+	EXECUTE 'COPY Horario_libre_dias (dias, cod_horario)
              FROM ' || quote_literal(base_path || 'horario_libre_dias.csv') || ' DELIMITER '','' CSV HEADER';
 	EXECUTE 'COPY Notificacion (fecha_envio, hora_envio, mensaje, destino, codigo_empleado, cod_tipo_notificacion)
              FROM ' || quote_literal(base_path || 'notificacion.csv') || ' DELIMITER '','' CSV HEADER';
@@ -50,7 +143,6 @@ BEGIN
              FROM ' || quote_literal(base_path || 'historial_laboral.csv') || ' DELIMITER '','' CSV HEADER';
 	EXECUTE 'COPY solicitud_o_descargo (titulo, descripcion, evidencia, respuesta, codigo_empleado, cod_estado_sd, cod_tipo_sd)
              FROM ' || quote_literal(base_path || 'solicitud_o_descargo.csv') || ' DELIMITER '','' CSV HEADER';
--- modulo 2
 	EXECUTE 'COPY CATEGORIA (cod_categoria, nombre_categoria)
              FROM ' || quote_literal(base_path || 'categoria.csv') || ' DELIMITER '','' CSV HEADER';
 	EXECUTE 'COPY AREA_EC (cod_area_ec, descripcion_ec)
@@ -59,7 +151,6 @@ BEGIN
              FROM ' || quote_literal(base_path || 'producto_friday.csv') || ' DELIMITER '','' CSV HEADER';
 	EXECUTE 'COPY TAMANO (cod_tamano, descripcion_tamano)
              FROM ' || quote_literal(base_path || 'tamano.csv') || ' DELIMITER '','' CSV HEADER';
-
 	EXECUTE 'COPY TIPO_DE_MESA (cod_tipo_de_mesa, descripcion_tipo_mesa)
              FROM ' || quote_literal(base_path || 'tipo_de_mesa.csv') || ' DELIMITER '','' CSV HEADER';
 	EXECUTE 'COPY ESTADO_DP (cod_estado_dp, descripcion_estado_dp)
@@ -76,9 +167,6 @@ BEGIN
              FROM ' || quote_literal(base_path || 'item_detalle_pedido.csv') || ' DELIMITER '','' CSV HEADER';
 	EXECUTE 'COPY KDS (cod_kds_item, cod_kds, cod_area_ec, cod_item_dp)
              FROM ' || quote_literal(base_path || 'kds.csv') || ' DELIMITER '','' CSV HEADER';
-	
-	-- modulo 5
-
 	EXECUTE 'COPY Unidad_medidad(Nombre_unidad) 
              FROM ' || quote_literal(base_path || 'Unidad_medidad.csv') || ' DELIMITER '','' CSV HEADER';
 	EXECUTE 'COPY Categoria_insumo(Nombre_categoriainsumo) 
@@ -99,16 +187,16 @@ BEGIN
              FROM ' || quote_literal(base_path || 'Almacen.csv') || ' DELIMITER '','' CSV HEADER';
 	EXECUTE 'COPY Proveedor(Nombre_Empresa, RUC, Direccion_Proveedor, Correo_proveedor)
              FROM ' || quote_literal(base_path || 'Proveedor.csv') || ' DELIMITER '','' CSV HEADER';
-	EXECUTE 'COPY Insumo(Nombre_Insumo, Cod_unidad, Cod_condiciones, Cod_subcategoria, Cod_categoriainsumo)
+	EXECUTE 'COPY Insumo(Nombre_Insumo, Cod_unidad, Cod_condiciones, Cod_subcategoria)
              FROM ' || quote_literal(base_path || 'Insumo.csv') || ' DELIMITER '','' CSV HEADER';
 	EXECUTE 'COPY Orden_compra(fecha_ordencompra, Codigo_empleado, fecha_requeridaentrega, Cod_Proveedor, cod_proceso)
              FROM ' || quote_literal(base_path || 'Orden_compra.csv') || ' DELIMITER '','' CSV HEADER';
-	EXECUTE 'COPY Revision_Cantidad(Cod_ordencompra, cod_insumo, cantidad_revisada, fecha_revision, Cod_supervisor)
-             FROM ' || quote_literal(base_path || 'Revision_Cantidad.csv') || ' DELIMITER '','' CSV HEADER';
+	EXECUTE 'COPY Orden_comprainsumo(cantidad_compra, cod_ordencompra, Cod_Insumo)
+             FROM ' || quote_literal(base_path || 'Orden_comprainsumo.csv') || ' DELIMITER '','' CSV HEADER';
 	EXECUTE 'COPY Calidad(Estado)
              FROM ' || quote_literal(base_path || 'Calidad.csv') || ' DELIMITER '','' CSV HEADER';
-	EXECUTE 'COPY Revision_Calidad(Cod_ordencompra, cod_insumo, Cod_calidad, fecha_revision, Cod_supervisor, descripcion)
-             FROM ' || quote_literal(base_path || 'Revision_Calidad.csv') || ' DELIMITER '','' CSV HEADER';
+	EXECUTE 'COPY Revision(cod_ordencompra, cod_insumo, cod_supcantidad, cod_supcalidad, cantidad_recibida, fechahora_cantidad, Cod_Calidad, fechahora_calidad, descripcion)
+             FROM ' || quote_literal(base_path || 'revision.csv') || ' DELIMITER '','' CSV HEADER';
 	EXECUTE 'COPY Incluye(Cantidad, Cod_Hoja, Cod_prodFriday)
              FROM ' || quote_literal(base_path || 'Incluye.csv') || ' DELIMITER '','' CSV HEADER';
 	EXECUTE 'COPY SeConviertenEn(Cantidad_Receta, Cod_Insumo, Cod_Producto)
@@ -120,22 +208,9 @@ BEGIN
 	EXECUTE 'COPY Movimiento(Fecha_Movimiento, Cantidad_movimiento, Fecha_fin, Codigo_empleado, Cod_Stock, Cod_tipomovimiento)
              FROM ' || quote_literal(base_path || 'Movimiento.csv') || ' DELIMITER '','' CSV HEADER';
 
-	-- modulo 1
-	
 	EXECUTE 'COPY Solicitud_compra (fecha_creacion, Estado_solicicompra, Codigo_empleado)
              FROM ' || quote_literal(base_path || 'Solicitud_compra.csv') || ' DELIMITER '','' CSV HEADER';
-	
 	EXECUTE 'COPY Solicitud_comprainsumo (cantidad_solicitud, cod_solicitudcompra, Cod_Insumo)
              FROM ' || quote_literal(base_path || 'Solicitud_comprainsumo.csv') || ' DELIMITER '','' CSV HEADER';
-	
 
 END $$;
-
-
-
-            
-            
-            
-            
-
-            
