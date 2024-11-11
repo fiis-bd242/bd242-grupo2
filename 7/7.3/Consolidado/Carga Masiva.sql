@@ -1,6 +1,6 @@
 DO $$
 DECLARE
-    base_path TEXT := 'C:/DBD CABALLERO/bd242-grupo2/7/7.3/Modulo5_Inventario/CSV/'; -- colocar ubicacion de los csv
+    base_path TEXT := 'C:\DBD CABALLERO\bd242-grupo2\7\7.3\Consolidado\Archivos CSV\'; -- colocar ubicacion de los csv
 BEGIN
 -- ELIMINACION DE DATOS
 EXECUTE 'TRUNCATE TABLE Turno CASCADE';
@@ -52,6 +52,7 @@ EXECUTE 'TRUNCATE TABLE Turno CASCADE';
     EXECUTE 'TRUNCATE TABLE Orden_compra CASCADE';
     EXECUTE 'TRUNCATE TABLE Orden_comprainsumo CASCADE';
     EXECUTE 'TRUNCATE TABLE Calidad CASCADE';
+    EXECUTE 'TRUNCATE TABLE revision CASCADE';
     EXECUTE 'TRUNCATE TABLE Incluye CASCADE';
     EXECUTE 'TRUNCATE TABLE SeConviertenEn CASCADE';
     EXECUTE 'TRUNCATE TABLE Stock CASCADE';
@@ -93,6 +94,7 @@ EXECUTE 'TRUNCATE TABLE Turno CASCADE';
 	ALTER SEQUENCE proceso_ingreso_cod_proceso_seq RESTART WITH 1;
 	ALTER SEQUENCE Orden_compra_Cod_ordencompra_seq RESTART WITH 1;
 	ALTER SEQUENCE Calidad_Cod_calidad_seq RESTART WITH 1;
+	ALTER SEQUENCE revision_cod_revision_seq RESTART WITH 1;
 	ALTER SEQUENCE Tipo_movimiento_Cod_tipomovimiento_seq RESTART WITH 1;
 -- CARGA DE DATOS
 	EXECUTE 'COPY Turno (Cod_turno, Nombre_turno, Hora_inicio, Hora_fin) 
@@ -193,6 +195,8 @@ EXECUTE 'TRUNCATE TABLE Turno CASCADE';
              FROM ' || quote_literal(base_path || 'Orden_comprainsumo.csv') || ' DELIMITER '','' CSV HEADER';
 	EXECUTE 'COPY Calidad(Estado)
              FROM ' || quote_literal(base_path || 'Calidad.csv') || ' DELIMITER '','' CSV HEADER';
+	EXECUTE 'COPY Revision(cod_ordencompra, cod_insumo, cod_supcantidad, cod_supcalidad, cantidad_recibida, fechahora_cantidad, Cod_Calidad, fechahora_calidad, descripcion)
+             FROM ' || quote_literal(base_path || 'revision.csv') || ' DELIMITER '','' CSV HEADER';
 	EXECUTE 'COPY Incluye(Cantidad, Cod_Hoja, Cod_prodFriday)
              FROM ' || quote_literal(base_path || 'Incluye.csv') || ' DELIMITER '','' CSV HEADER';
 	EXECUTE 'COPY SeConviertenEn(Cantidad_Receta, Cod_Insumo, Cod_Producto)
