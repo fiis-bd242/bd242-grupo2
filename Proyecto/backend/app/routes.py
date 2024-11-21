@@ -80,20 +80,55 @@ def get_unidad():
         return jsonify({"error": str(e)}), 500
     
 
+
+
 #Ruta para ver las órdenes de compra que deben llegar ese día
-@router.route("/ordencompramismodia", methods=["GET"])
-def get_ordencompra_mismodia_route():
+@router.route("/ordencompra/<int:codigo_empleado>", methods=["GET"])
+def get_ordencompra_mismodia_route(codigo_empleado):
     try:
         # Llamamos a la función que obtiene las órdenes de compra para el mismo día
-        ordenes = get_ordencompra_mismodia()
+        ordenes = get_ordencompra_mismodia(codigo_empleado)
 
         # Si no se encuentran órdenes de compra
+        if isinstance(ordenes, dict) and "error" in ordenes:
+            return jsonify(ordenes), 404
+
         if not ordenes:
             return jsonify({"message": "No se encontraron órdenes de compra para hoy"}), 404
         
+        # Convertimos las tuplas de resultados en una lista de diccionarios
+        ordenes_response = []
+        for orden in ordenes:
+            ordenes_response.append({
+                "cod_ordencompra": orden[0],
+                "nombre_empresa": orden[1],
+                "nombre_proceso": orden[2]
+            })
+        
         # Si hay órdenes de compra, las devolvemos
-        return jsonify(ordenes), 200
+        return jsonify(ordenes_response), 200
 
     except Exception as e:
         # Si ocurre un error, lo manejamos y lo devolvemos
         return jsonify({"error": str(e)}), 500
+
+# Ruta para obtener el código de local del empleado
+# Ruta para obtener el código de local del empleado
+@router.route('/local/<int:codigo_empleado>', methods=['GET'])
+def get_local(codigo_empleado):
+    try:
+        # Llamamos a la función para obtener el código del local
+        local = get_local_empleado(codigo_empleado)
+
+        # Verificamos si se devolvió un error
+        if isinstance(local, dict) and "error" in local:
+            return jsonify(local), 404
+
+        # Devolvemos el código de local
+        return jsonify({"cod_local": local}), 200
+
+    except Exception as e:
+        # Manejo de excepciones generales
+        return jsonify({"error": str(e)}), 500
+
+

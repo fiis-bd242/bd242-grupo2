@@ -80,34 +80,39 @@ def get_all_unidades():
         conn.close()
 
 
-## Obtener codigo de local de empleado
 def get_local_empleado(codigo_empleado):
     conn = get_db_connection()
     cursor = conn.cursor()
     try:
-        cursor.execute("select e.cod_local from empleado e where e.codigo_empleado = %s", (codigo_empleado, ))
-        local = cursor.fetchone()
-        if local:
-            return local[0]
+        cursor.execute(
+            "SELECT e.cod_local FROM empleado e WHERE e.codigo_empleado = %s",
+            (codigo_empleado,)
+        )
+        local = cursor.fetchone()  # Devuelve la primera tupla
+        if local and local[0] is not None:  # Si encuentra un valor no nulo
+            return int(local)
         else:
-            return {"error": "No existe empleado con ese código"}
+            return {"error": "No existe empleado con ese código"}  # Error si no se encuentra
     finally:
         cursor.close()
         conn.close()
 
-## Obtener órdenes de compra que deberían llegar ese mismo día
-def get_ordencompra_mismodia():
+
+## Ver órdenes de compra que deberían llegar el mismo día
+def get_ordencompra_mismodia(codigo_empleado):
     conn = get_db_connection()
     cursor = conn.cursor()
     try:
+        local=get_local_empleado(codigo_empleado)
         cursor.execute("""
             select oc.cod_ordencompra ,p.nombre_empresa, pi2.nombre_proceso from orden_compra oc 
             inner join proveedor p on p.cod_proveedor = oc.cod_proveedor 
             inner join proceso_ingreso pi2 on pi2.cod_proceso = oc.cod_proceso 
-            inner join empleado e on e.codigo_empleado = oc.codigo_empleado 
-            where oc.fecha_requeridaentrega = current_date
+            inner join empleado e on e.codigo_empleado = oc.codigo_empleado
+            where e.cod_local = %s
+            and oc.fecha_requeridaentrega = current_date
             order by pi2.cod_proceso asc;
-        """)
+        """, (local, ))
         return cursor.fetchall()
     finally:
         cursor.close()
