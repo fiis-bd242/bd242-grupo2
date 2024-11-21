@@ -1,5 +1,5 @@
 from flask import Blueprint, jsonify, request
-from .models import get_all_empleados, create_empleado, update_empleado
+from .models import get_all_empleados, create_empleado, update_empleado, get_all_insumos
 
 router = Blueprint("router", __name__)
 
@@ -48,5 +48,15 @@ def edit_empleado(id):
         if filas_afectadas == 0:
             return jsonify({"error": "Empleado no encontrado"}), 404
         return jsonify({"message": "Empleado actualizado"}), 200
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
+
+
+# Módulo 5 (Gestión de Inventario)
+@router.route("/insumo", methods=["GET"])
+def get_insumo():
+    try:
+        insumo = get_all_insumos()
+        return jsonify(insumo), 200
     except Exception as e:
         return jsonify({"error": str(e)}), 500

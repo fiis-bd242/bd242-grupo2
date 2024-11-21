@@ -6,7 +6,7 @@ def get_all_empleados():
     conn = get_db_connection()
     cursor = conn.cursor()
     try:
-        cursor.execute("SELECT * FROM empleados;")
+        cursor.execute("SELECT * FROM empleado;")
         return cursor.fetchall()
     finally:
         cursor.close()
@@ -40,6 +40,19 @@ def update_empleado(id, nombre, email, salario):
         )
         conn.commit()
         return cursor.rowcount
+    finally:
+        cursor.close()
+        conn.close()
+
+# Módulo 5 (Inventario)
+
+## Obtener todos los insumos
+def get_all_insumos():
+    conn = get_db_connection()
+    cursor = conn.cursor()
+    try:
+        cursor.execute("SELECT * FROM insumo;")
+        return cursor.fetchall()
     finally:
         cursor.close()
         conn.close()
