@@ -88,14 +88,24 @@ def get_local_empleado(codigo_empleado):
             "SELECT e.cod_local FROM empleado e WHERE e.codigo_empleado = %s",
             (codigo_empleado,)
         )
-        local = cursor.fetchone()  # Devuelve la primera tupla
-        if local and local[0] is not None:  # Si encuentra un valor no nulo
-            return int(local)
+        local = cursor.fetchone()  # Devuelve la primera fila como un RealDictRow o None
+        
+        # Verificar si local es None
+        if local is None:
+            return None  # Si no se encuentra ningún valor, devolver None
+        
+        # Acceder al valor utilizando la clave 'cod_local' en lugar de un índice
+        if 'cod_local' in local and local['cod_local'] is not None:
+            return int(local['cod_local'])  # Convertir explícitamente a entero
         else:
-            return {"error": "No existe empleado con ese código"}  # Error si no se encuentra
+            return None  # Si el valor de 'cod_local' es None, devolver None
     finally:
         cursor.close()
         conn.close()
+
+
+
+
 
 
 ## Ver órdenes de compra que deberían llegar el mismo día
@@ -103,16 +113,26 @@ def get_ordencompra_mismodia(codigo_empleado):
     conn = get_db_connection()
     cursor = conn.cursor()
     try:
-        local=get_local_empleado(codigo_empleado)
+        # Obtener el local del empleado
+        local = get_local_empleado(codigo_empleado)
+        if local is None:  # Si no se encuentra el local, devolver un mensaje de error o lanzar una excepción
+            raise ValueError("El empleado no tiene un local asignado o no existe.")
+
+        # Consultar órdenes de compra para el mismo día
         cursor.execute("""
-            select oc.cod_ordencompra ,p.nombre_empresa, pi2.nombre_proceso from orden_compra oc 
-            inner join proveedor p on p.cod_proveedor = oc.cod_proveedor 
-            inner join proceso_ingreso pi2 on pi2.cod_proceso = oc.cod_proceso 
-            inner join empleado e on e.codigo_empleado = oc.codigo_empleado
-            where e.cod_local = %s
-            and oc.fecha_requeridaentrega = current_date
-            order by pi2.cod_proceso asc;
-        """, (local, ))
+            SELECT 
+                oc.cod_ordencompra, 
+                p.nombre_empresa, 
+                pi2.nombre_proceso 
+            FROM orden_compra oc
+            INNER JOIN proveedor p ON p.cod_proveedor = oc.cod_proveedor
+            INNER JOIN proceso_ingreso pi2 ON pi2.cod_proceso = oc.cod_proceso
+            INNER JOIN empleado e ON e.codigo_empleado = oc.codigo_empleado
+            WHERE e.cod_local = %s
+            AND oc.fecha_requeridaentrega = current_date
+            ORDER BY pi2.cod_proceso ASC;
+        """, (local,))
+        
         return cursor.fetchall()
     finally:
         cursor.close()
