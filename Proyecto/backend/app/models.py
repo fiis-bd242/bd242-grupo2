@@ -56,3 +56,25 @@ def get_all_insumos():
     finally:
         cursor.close()
         conn.close()
+
+## Mostrar condiciones
+def get_all_condiciones():
+    conn = get_db_connection()
+    cursor = conn.cursor()
+    try:
+        cursor.execute("select c.nombre_condiciones from condiciones c ;")
+        return cursor.fetchall()
+    finally:
+        cursor.close()
+        conn.close()
+
+## Mostrar unidades de medida
+def get_all_unidades():
+    conn = get_db_connection()
+    cursor = conn.cursor()
+    try:
+        cursor.execute("select um.nombre_unidad from unidad_medidad um;")
+        return cursor.fetchall()
+    finally:
+        cursor.close()
+        conn.close()

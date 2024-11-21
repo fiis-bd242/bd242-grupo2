@@ -1,5 +1,5 @@
 from flask import Blueprint, jsonify, request
-from .models import get_all_empleados, create_empleado, update_empleado, get_all_insumos
+from .models import get_all_empleados, create_empleado, update_empleado, get_all_insumos, get_all_condiciones, get_all_unidades
 
 router = Blueprint("router", __name__)
 
@@ -58,5 +58,23 @@ def get_insumo():
     try:
         insumo = get_all_insumos()
         return jsonify(insumo), 200
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
+    
+
+@router.route("/condicion", methods=["GET"])
+def get_condicion():
+    try:
+        condiciones = get_all_condiciones()
+        return jsonify(condiciones), 200
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
+    
+
+@router.route("/unidad", methods=["GET"])
+def get_unidad():
+    try:
+        unidades = get_all_unidades()
+        return jsonify(unidades), 200
     except Exception as e:
         return jsonify({"error": str(e)}), 500
