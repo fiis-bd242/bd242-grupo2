@@ -246,3 +246,50 @@ def actualizar_proceso_orden_a_2(cod_ordencompra):
     finally:
         cursor.close()
         conn.close()
+
+
+
+# Función para obtener la información de una orden de compra y sus insumos
+def obtener_detalles_revision(cod_ordencompra):
+    conn = get_db_connection()  # Asegúrate de tener una función de conexión a tu base de datos
+    cursor = conn.cursor()
+    
+    try:
+        cursor.execute(
+            """
+            SELECT 
+                i.cod_insumo, 
+                i.nombre_insumo, 
+                oc2.cantidad_compra, 
+                r.cantidad_recibida, 
+                c.estado, 
+                r.descripcion  
+            FROM 
+                revision r
+            INNER JOIN 
+                insumo i ON r.cod_insumo = i.cod_insumo 
+            INNER JOIN 
+                orden_compra oc ON oc.cod_ordencompra = r.cod_ordencompra
+            INNER JOIN 
+                orden_comprainsumo oc2 ON oc.cod_ordencompra = oc2.cod_ordencompra 
+            AND 
+                oc2.cod_insumo = r.cod_insumo
+            INNER JOIN 
+                calidad c ON c.cod_calidad = r.cod_calidad 
+            WHERE 
+                r.cod_ordencompra = %s
+            """,
+            (cod_ordencompra,)  # Parámetro de la consulta
+        )
+        
+        # Obtener todos los resultados de la consulta
+        resultados = cursor.fetchall()
+        
+        # Si no hay resultados, devolver None o una respuesta vacía
+        if not resultados:
+            return None
+        
+        return resultados
+    finally:
+        cursor.close()
+        conn.close()

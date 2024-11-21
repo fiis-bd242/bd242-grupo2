@@ -1,5 +1,5 @@
 from flask import Blueprint, jsonify, request
-from .models import get_all_empleados, create_empleado, update_empleado, get_all_insumos, get_all_condiciones, get_all_unidades,get_local_empleado, get_ordencompra_mismodia, ver_contenido_orden_compra, get_empleado_supervisor, insertar_revision, actualizar_proceso_orden_a_2
+from .models import get_all_empleados, create_empleado, update_empleado, get_all_insumos, get_all_condiciones, get_all_unidades,get_local_empleado, get_ordencompra_mismodia, ver_contenido_orden_compra, get_empleado_supervisor, insertar_revision, actualizar_proceso_orden_a_2, obtener_detalles_revision
 
 router = Blueprint("router", __name__)
 
@@ -170,9 +170,7 @@ def crear_revision(cod_ordencompra):
     except Exception as e:
         return jsonify({"error": "Ocurrió un error en el servidor: " + str(e)}), 500
 
-# Ruta para actualizar proceso a etapa 2
-# Ruta para actualizar el proceso de una orden de compra
-# Función para actualizar el proceso de una orden de compra a 2
+
 # Ruta para actualizar el proceso de una orden de compra a 2
 @router.route("/ordencompra/<int:cod_ordencompra>/proceso2", methods=["PUT"])
 def actualizar_proceso_a_2(cod_ordencompra):
@@ -188,5 +186,25 @@ def actualizar_proceso_a_2(cod_ordencompra):
         return jsonify({"message": "Proceso de orden de compra actualizado a 2 exitosamente"}), 200
     except Exception as e:
         # Manejo de errores
+        return jsonify({"error": f"Error del servidor: {str(e)}"}), 500
+
+
+# Ruta para ver las revisiones hechas a los insumos
+# Ruta para obtener los detalles de una orden de compra
+@router.route("/ordencompra/<int:cod_ordencompra>/detalles", methods=["GET"])
+def obtener_detalles(cod_ordencompra):
+    try:
+        # Llamamos a la función para obtener los detalles de la orden de compra
+        detalles = obtener_detalles_revision(cod_ordencompra)
+        
+        # Si no se encuentra la orden, devolver un error 404
+        if not detalles:
+            return jsonify({"error": "Detalles de la orden de compra no encontrados"}), 404
+        
+        # Devolver la respuesta con los detalles de la orden
+        return jsonify({"detalles": detalles}), 200  # Corrección aquí
+        
+    except Exception as e:
+        # Si ocurre un error, devolvemos un mensaje de error
         return jsonify({"error": f"Error del servidor: {str(e)}"}), 500
 
