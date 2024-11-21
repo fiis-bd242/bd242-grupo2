@@ -224,3 +224,25 @@ def insertar_revision(cod_ordencompra, cod_supcantidad, cod_supcalidad):
     finally:
         cursor.close()
         conn.close()
+
+## Actualizar proceso
+# Función para actualizar el proceso de una orden de compra
+def actualizar_proceso_orden_a_2(cod_ordencompra):
+    conn = get_db_connection()
+    cursor = conn.cursor()
+    try:
+        # Actualizar el proceso de la orden a 2
+        cursor.execute(
+            """
+            UPDATE orden_compra 
+            SET cod_proceso = 2 
+            WHERE cod_ordencompra = %s
+            """,
+            (cod_ordencompra,)
+        )
+        filas_afectadas = cursor.rowcount  # Número de filas actualizadas
+        conn.commit()
+        return filas_afectadas
+    finally:
+        cursor.close()
+        conn.close()
