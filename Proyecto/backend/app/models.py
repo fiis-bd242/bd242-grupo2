@@ -78,3 +78,37 @@ def get_all_unidades():
     finally:
         cursor.close()
         conn.close()
+
+
+## Obtener codigo de local de empleado
+def get_local_empleado(codigo_empleado):
+    conn = get_db_connection()
+    cursor = conn.cursor()
+    try:
+        cursor.execute("select e.cod_local from empleado e where e.codigo_empleado = %s", (codigo_empleado, ))
+        local = cursor.fetchone()
+        if local:
+            return local[0]
+        else:
+            return {"error": "No existe empleado con ese código"}
+    finally:
+        cursor.close()
+        conn.close()
+
+## Obtener órdenes de compra que deberían llegar ese mismo día
+def get_ordencompra_mismodia():
+    conn = get_db_connection()
+    cursor = conn.cursor()
+    try:
+        cursor.execute("""
+            select oc.cod_ordencompra ,p.nombre_empresa, pi2.nombre_proceso from orden_compra oc 
+            inner join proveedor p on p.cod_proveedor = oc.cod_proveedor 
+            inner join proceso_ingreso pi2 on pi2.cod_proceso = oc.cod_proceso 
+            inner join empleado e on e.codigo_empleado = oc.codigo_empleado 
+            where oc.fecha_requeridaentrega = current_date
+            order by pi2.cod_proceso asc;
+        """)
+        return cursor.fetchall()
+    finally:
+        cursor.close()
+        conn.close()
