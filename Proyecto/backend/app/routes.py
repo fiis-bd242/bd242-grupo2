@@ -1,5 +1,5 @@
 from flask import Blueprint, jsonify, request
-from .models import get_all_empleados, create_empleado, update_empleado, get_all_insumos, get_all_condiciones, get_all_unidades,get_local_empleado, get_ordencompra_mismodia
+from .models import get_all_empleados, create_empleado, update_empleado, get_all_insumos, get_all_condiciones, get_all_unidades,get_local_empleado, get_ordencompra_mismodia, ver_contenido_orden_compra, get_empleado_supervisor, insertar_revision
 
 router = Blueprint("router", __name__)
 
@@ -102,7 +102,6 @@ def get_ordencompra_mismodia_route(codigo_empleado):
             }
             for orden in ordenes
         ]
-        
         # Si hay órdenes de compra, las devolvemos
         return jsonify(ordenes_response), 200
 
@@ -113,4 +112,60 @@ def get_ordencompra_mismodia_route(codigo_empleado):
     except Exception as e:
         # Si ocurre un error inesperado, lo manejamos y devolvemos un mensaje de error genérico
         print(f"Error inesperado: {e}")  # Para depuración
+        return jsonify({"error": "Ocurrió un error en el servidor: " + str(e)}), 500
+
+#Ruta para ver contenido de orden de compra
+@router.route("/contenido/<int:cod_orden>", methods=["GET"])
+def contenido_orden_compra(cod_orden):
+    try:
+        # Llamar a la función que obtiene el contenido de la orden de compra
+        contenido = ver_contenido_orden_compra(cod_orden)
+        
+        if not contenido:
+            return jsonify({"error": "Orden de compra no encontrada"}), 404
+        
+        # Estructurar la respuesta
+        return jsonify({"contenido": contenido}), 200
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
+    
+
+#Ruta para ver los empleados que pueden ser supervisores
+@router.route("/asignacion/<int:cod_empleado>", methods=["GET"])
+def asignacion_empleado(cod_empleado):
+    try:
+        # Llamamos a la función que obtiene la asignación del empleado
+        contenido = get_empleado_supervisor(cod_empleado)
+
+        # Si no se encuentra contenido, devolvemos un error 404
+        if not contenido:
+            return jsonify({"error": "Empleado no encontrado o no tiene la asignación correspondiente"}), 404
+        
+        # Estructuramos la respuesta
+        return jsonify({"empleado": contenido}), 200
+
+    except Exception as e:
+        # Si ocurre un error inesperado, lo manejamos y devolvemos un mensaje de error genérico
+        return jsonify({"error": "Ocurrió un error en el servidor: " + str(e)}), 500
+    
+
+## Ruta para la creación de supervisiones
+@router.route("/revision/<int:cod_ordencompra>", methods=["POST"])
+def crear_revision(cod_ordencompra):
+    try:
+        # Obtén los datos enviados en la solicitud (suponemos que vienen como JSON)
+        data = request.json
+        cod_supcantidad = data.get("cod_supcantidad")
+        cod_supcalidad = data.get("cod_supcalidad")
+
+        # Verificamos que los datos necesarios estén presentes
+        if cod_supcantidad is None or cod_supcalidad is None:
+            return jsonify({"error": "Faltan datos en la solicitud"}), 400
+
+        # Llamamos a la función para insertar la revisión
+        response, status_code = insertar_revision(cod_ordencompra, cod_supcantidad, cod_supcalidad)
+        
+        return jsonify(response), status_code
+
+    except Exception as e:
         return jsonify({"error": "Ocurrió un error en el servidor: " + str(e)}), 500

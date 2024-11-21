@@ -137,3 +137,90 @@ def get_ordencompra_mismodia(codigo_empleado):
     finally:
         cursor.close()
         conn.close()
+
+
+## Ver contenido de la orden de compra
+def ver_contenido_orden_compra(cod_orden):
+    conn = get_db_connection()
+    cursor = conn.cursor()
+    try:
+        # Consultar contenido de la orden de compra
+        cursor.execute(
+            """
+            select i.nombre_insumo, um.nombre_unidad, oc2.cantidad_compra from orden_compra oc 
+            inner join orden_comprainsumo oc2 on oc2.cod_ordencompra = oc.cod_ordencompra
+            inner join insumo i on oc2.cod_insumo = i.cod_insumo 
+            inner join unidad_medidad um on um.cod_unidad = i.cod_unidad 
+            where oc.cod_ordencompra = %s
+            """,
+            (cod_orden,)
+        )
+        
+        return cursor.fetchall()
+    finally:
+        cursor.close()
+        conn.close()
+
+
+
+## Mostrar empleados para seleccionar supervisores
+def get_empleado_supervisor(cod_empleado):
+    conn = get_db_connection()
+    cursor = conn.cursor()
+    try:
+        local = get_local_empleado(cod_empleado)
+        cursor.execute(
+            """
+            select 
+            e.codigo_empleado,
+            CONCAT(e.primer_nombre,' ', e.primer_apellido,' ', e.segundo_apellido) as "Nombre"
+            from empleado e 
+            inner join posee p on p.codigo_empleado = e.codigo_empleado 
+            where p.cod_habilidad = 6
+            and e.cod_cargo = 1
+            and e.cod_local = %s
+            """,
+            (local,)
+        )
+        return cursor.fetchall()
+    finally:
+        cursor.close()
+        conn.close()
+
+
+
+## Creación de supervisiones
+
+def insertar_revision(cod_ordencompra, cod_supcantidad, cod_supcalidad):
+    conn = get_db_connection()
+    cursor = conn.cursor()
+    try:
+        # Inserción de los datos en la tabla Revision basados en los parámetros proporcionados
+        cursor.execute(
+            """
+            INSERT INTO Revision (cod_ordencompra, cod_insumo, cod_supcantidad, cod_supcalidad, cantidad_recibida, fechahora_cantidad, Cod_Calidad, fechahora_calidad, descripcion)
+            SELECT 
+                oci.cod_ordencompra,
+                oci.cod_insumo,
+                %s,
+                %s,
+                NULL,
+                NULL,
+                NULL,
+                NULL,
+                NULL
+            FROM 
+                Orden_comprainsumo oci
+            WHERE 
+                oci.cod_ordencompra = %s;
+            """,
+            (cod_supcantidad, cod_supcalidad, cod_ordencompra)
+        )
+        conn.commit()
+        return {"message": "Revisión insertada correctamente"}, 200
+    except Exception as e:
+        conn.rollback()
+        return {"error": str(e)}, 500
+    finally:
+        cursor.close()
+        conn.close()
