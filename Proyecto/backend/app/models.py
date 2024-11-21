@@ -1,4 +1,5 @@
 from .db import get_db_connection
+from psycopg2.extras import RealDictCursor
 
 
 # Obtener todos los empleados
@@ -49,7 +50,7 @@ def update_empleado(id, nombre, email, salario):
 ## Obtener todos los insumos
 def get_all_insumos():
     conn = get_db_connection()
-    cursor = conn.cursor()
+    cursor = conn.cursor(cursor_factory=RealDictCursor)
     try:
         cursor.execute("SELECT * FROM insumo;")
         return cursor.fetchall()
@@ -57,10 +58,11 @@ def get_all_insumos():
         cursor.close()
         conn.close()
 
+
 ## Mostrar condiciones
 def get_all_condiciones():
     conn = get_db_connection()
-    cursor = conn.cursor()
+    cursor = conn.cursor(cursor_factory=RealDictCursor)
     try:
         cursor.execute("select c.nombre_condiciones from condiciones c ;")
         return cursor.fetchall()
@@ -71,7 +73,7 @@ def get_all_condiciones():
 ## Mostrar unidades de medida
 def get_all_unidades():
     conn = get_db_connection()
-    cursor = conn.cursor()
+    cursor = conn.cursor(cursor_factory=RealDictCursor)
     try:
         cursor.execute("select um.nombre_unidad from unidad_medidad um;")
         return cursor.fetchall()
@@ -163,10 +165,9 @@ def ver_contenido_orden_compra(cod_orden):
 
 
 
-## Mostrar empleados para seleccionar supervisores
 def get_empleado_supervisor(cod_empleado):
     conn = get_db_connection()
-    cursor = conn.cursor()
+    cursor = conn.cursor(cursor_factory=RealDictCursor)  # Usar RealDictCursor
     try:
         local = get_local_empleado(cod_empleado)
 
@@ -184,14 +185,10 @@ def get_empleado_supervisor(cod_empleado):
             (local,)
         )
         
-        # Obtener los resultados de la consulta
-        resultados = cursor.fetchall()
+        # Obtener los resultados de la consulta como RealDictRow
+        resultados = cursor.fetchall()  # Esto ya es una lista de RealDictRow
         
-        # Imprimir los resultados para verificar qué devuelve la consulta
-        print(f"Resultados de la consulta: {resultados}")  # Ver los datos crudos
-        
-        # No es necesario crear nuevos diccionarios, ya que 'resultados' son 'RealDictRow'
-        return [dict(row) for row in resultados]  # Convertir 'RealDictRow' a diccionario, si es necesario.
+        return resultados  # Devuelve directamente los resultados en formato RealDictRow
         
     finally:
         cursor.close()
@@ -263,7 +260,7 @@ def actualizar_proceso_orden_a_2(cod_ordencompra):
 # Función para obtener la información de una orden de compra y sus insumos
 def obtener_detalles_revision(cod_ordencompra):
     conn = get_db_connection()  # Asegúrate de tener una función de conexión a tu base de datos
-    cursor = conn.cursor()
+    cursor = conn.cursor(cursor_factory=RealDictCursor)
     
     try:
         cursor.execute(

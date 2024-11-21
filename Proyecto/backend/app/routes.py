@@ -56,17 +56,27 @@ def edit_empleado(id):
 @router.route("/insumo", methods=["GET"])
 def get_insumo():
     try:
-        insumo = get_all_insumos()
-        return jsonify(insumo), 200
+        # Llamamos a la función que obtiene todos los insumos
+        insumos = get_all_insumos()
+
+        # Si no se encuentra contenido, devolvemos un error 404
+        if not insumos:
+            return jsonify({"error": "No se encontraron insumos"}), 404
+        
+        # Estructuramos la respuesta correctamente, incluyendo la lista de insumos
+        return jsonify({"insumos": insumos}), 200
+
     except Exception as e:
-        return jsonify({"error": str(e)}), 500
+        # Si ocurre un error inesperado, lo manejamos y devolvemos un mensaje de error genérico
+        return jsonify({"error": "Ocurrió un error en el servidor: " + str(e)}), 500
+
     
 
 @router.route("/condicion", methods=["GET"])
 def get_condicion():
     try:
         condiciones = get_all_condiciones()
-        return jsonify(condiciones), 200
+        return jsonify({"condiciones": condiciones}), 200
     except Exception as e:
         return jsonify({"error": str(e)}), 500
     
@@ -75,7 +85,7 @@ def get_condicion():
 def get_unidad():
     try:
         unidades = get_all_unidades()
-        return jsonify(unidades), 200
+        return jsonify({"unidad": unidades}), 200
     except Exception as e:
         return jsonify({"error": str(e)}), 500
     
@@ -130,7 +140,7 @@ def contenido_orden_compra(cod_orden):
         return jsonify({"error": str(e)}), 500
     
 
-#Ruta para ver los empleados que pueden ser supervisores
+# Ruta para ver los empleados que pueden ser supervisores
 @router.route("/asignacion/<int:cod_empleado>", methods=["GET"])
 def asignacion_empleado(cod_empleado):
     try:
@@ -198,14 +208,13 @@ def obtener_detalles(cod_ordencompra):
         # Llamamos a la función para obtener los detalles de la orden de compra
         detalles = obtener_detalles_revision(cod_ordencompra)
         
-        # Si no se encuentra la orden, devolver un error 404
+        # Si no se encuentran detalles, devolver un error 404
         if not detalles:
             return jsonify({"error": "Detalles de la orden de compra no encontrados"}), 404
         
-        # Devolver la respuesta con los detalles de la orden
-        return jsonify({"detalles": detalles}), 200  # Corrección aquí
+        # Devolver la respuesta con los detalles de la orden en formato JSON
+        return jsonify({"detalles": detalles}), 200  # Detalles ya es un diccionario que jsonify manejará correctamente
         
     except Exception as e:
-        # Si ocurre un error, devolvemos un mensaje de error
+        # Si ocurre un error, devolver un mensaje de error genérico
         return jsonify({"error": f"Error del servidor: {str(e)}"}), 500
-
