@@ -169,6 +169,7 @@ def get_empleado_supervisor(cod_empleado):
     cursor = conn.cursor()
     try:
         local = get_local_empleado(cod_empleado)
+
         cursor.execute(
             """
             select 
@@ -182,10 +183,20 @@ def get_empleado_supervisor(cod_empleado):
             """,
             (local,)
         )
-        return cursor.fetchall()
+        
+        # Obtener los resultados de la consulta
+        resultados = cursor.fetchall()
+        
+        # Imprimir los resultados para verificar qué devuelve la consulta
+        print(f"Resultados de la consulta: {resultados}")  # Ver los datos crudos
+        
+        # No es necesario crear nuevos diccionarios, ya que 'resultados' son 'RealDictRow'
+        return [dict(row) for row in resultados]  # Convertir 'RealDictRow' a diccionario, si es necesario.
+        
     finally:
         cursor.close()
         conn.close()
+
 
 
 

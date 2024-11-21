@@ -141,12 +141,13 @@ def asignacion_empleado(cod_empleado):
         if not contenido:
             return jsonify({"error": "Empleado no encontrado o no tiene la asignación correspondiente"}), 404
         
-        # Estructuramos la respuesta
+        # Estructuramos la respuesta correctamente, ya que 'contenido' ahora es una lista de diccionarios
         return jsonify({"empleado": contenido}), 200
 
     except Exception as e:
         # Si ocurre un error inesperado, lo manejamos y devolvemos un mensaje de error genérico
         return jsonify({"error": "Ocurrió un error en el servidor: " + str(e)}), 500
+
     
 
 ## Ruta para la creación de supervisiones
