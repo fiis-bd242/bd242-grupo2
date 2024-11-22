@@ -1,13 +1,18 @@
 from .db import get_db_connection
-import logging
+import psycopg2.extras
+import psycopg2
 
-# Obtener todos los empleados
+
 def get_all_empleados():
     conn = get_db_connection()
-    cursor = conn.cursor()
+    cursor = conn.cursor(
+        cursor_factory=psycopg2.extras.DictCursor
+    )  # Cambia el cursor a DictCursor
     try:
-        cursor.execute("SELECT * FROM empleado")
-        return cursor.fetchall()
+        cursor.execute("SELECT * FROM empleado;")
+        return [
+            dict(row) for row in cursor.fetchall()
+        ]  # Convierte a lista de diccionarios
     finally:
         cursor.close()
         conn.close()

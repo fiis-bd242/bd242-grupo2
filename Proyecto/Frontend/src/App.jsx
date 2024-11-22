@@ -1,35 +1,19 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
-
-function App() {
-  const [count, setCount] = useState(0)
-
+import React from "react";
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import Modulo4 from "./Modulos/Modulo4/App";
+const App = () => {
   return (
-    <>
+    <Router>
       <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
+        <h1>Mi Aplicación Modular</h1>
+        <Routes>
+          {/* Definir rutas para cada módulo */}
+          <Route path="/empleados" element={<Modulo4 />} />
+          {/* Ruta por defecto */}
+          <Route path="/" element={<Modulo4 />} />
+        </Routes>
       </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
+    </Router>
+  );
 }
-
-export default App
+export default App;
