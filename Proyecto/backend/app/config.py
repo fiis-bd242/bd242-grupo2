@@ -1,2 +1,2 @@
 class Config:
-    DATABASE_URI = "postgresql://postgres:usuario@localhost:5432/"
+    DATABASE_URI = "postgresql://grupo2:usuario@localhost:5432/TGI_Fridays"
