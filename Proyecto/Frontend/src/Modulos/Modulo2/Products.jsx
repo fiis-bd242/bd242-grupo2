@@ -1,15 +1,15 @@
 import React, { useEffect, useState } from 'react';
 import { useLocation } from 'react-router-dom'; // Importamos el hook useLocation
+import { useNavigate } from "react-router-dom";
 import { fetchProductsByCategory } from './Service_ProductService';
 import ProductCard from './ProductCard';
 import '../../styles/Products.css';
 
 const Products = ({ onAddToOrder, onBack }) => {
   const [products, setProducts] = useState([]);
-  // Pasando cod_categoria mediante la URL
   const location = useLocation(); // Usamos el hook useLocation para obtener el estado
   const codCategoria = location.state?.cod_categoria; // Accedemos 
-  console.log(codCategoria)
+  const navigate = useNavigate(); // Hook para redirigir
 
   useEffect(() => {
     const loadProducts = async () => {
@@ -23,16 +23,34 @@ const Products = ({ onAddToOrder, onBack }) => {
     loadProducts();
   }, [codCategoria]);
 
+  const handleAdd = () => {
+    /*
+    CODIGO PARA CONECTAR CON EL BACKEND DE INSERTAR ITEM PEDIDO
+    */
+    setTimeout(() => {
+      navigate("/categorias");
+    }, 350);
+  };
+
+  const handleReady = () => {
+    console.log("BOTÓN LISTO");
+  };
+
   return (
     <div className="products-container">
-      <button className="back-button" onClick={onBack}>ATRAS</button>
-      {products.map((product) => (
-        <ProductCard
-          key={product.cod_prodfriday}
-          product={product}
-          onAddToOrder={onAddToOrder}
-        />
-      ))}
+      <div className="product-list">
+        {products.map((product) => (
+          <ProductCard
+            key={product.cod_prodfriday}
+            product={product}
+            onAddToOrder={onAddToOrder}
+          />
+        ))}
+      </div>
+      <div className="action-buttons">
+        <button className="add-all-button" onClick={handleAdd}>AGREGAR</button>
+        <button className="ready-button" onClick={handleReady}>LISTO</button>
+      </div>
     </div>
   );
 };

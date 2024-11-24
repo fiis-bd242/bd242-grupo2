@@ -11,13 +11,10 @@ const ProductCard = ({ product, onAddToOrder }) => {
     <div className="product-card">
       <h3>{product.nombre_producto}</h3>
       <div className="quantity-controls">
-        <button onClick={decrement}>-</button>
-        <span>{quantity}</span>
-        <button onClick={increment}>+</button>
+        <button onClick={increment} className="add-button">AÑADIR</button>
+        <button onClick={decrement} className="remove-button">QUITAR</button>
+        <span className="quantity-display">{quantity}</span>
       </div>
-      <button onClick={() => onAddToOrder(product.cod_prodfriday, quantity)}>
-        Add to Order
-      </button>
     </div>
   );
 };
