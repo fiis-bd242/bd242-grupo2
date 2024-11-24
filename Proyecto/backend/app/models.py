@@ -53,15 +53,6 @@ def update_empleado(id, nombre, email, salario):
 
 
 
-
-
-
-
-
-
-
-
-
 # MODULO 2
 
 # AUTENTICACION DE MESERO
@@ -83,7 +74,6 @@ def meseros_disponibles():
         array_meseros = []
         for row in meseros_allow:
             cod = row.get('codigos_permitidos')
-            print(cod)
             array_meseros.append(cod)
 
         return array_meseros

@@ -60,15 +60,6 @@ def edit_empleado(id):
 
 
 
-
-
-
-
-
-
-
-
-
 # MODULO 2
 
 # AUTENTICACION DE MESERO
@@ -80,7 +71,6 @@ def autenticar_meseros():
         cod_empleado = data_user.get('codigo_empleado')
         if cod_empleado in meseros_allow:
             autenticar_mesero(cod_empleado)
-            print("Autenticado correctamente")
             return jsonify({"message": "Autenticación exitosa"}), 200  # Respuesta válida
         else:
             return jsonify({"error": "Empleado no permitido"}), 400  # Error si el empleado no está     permitido
