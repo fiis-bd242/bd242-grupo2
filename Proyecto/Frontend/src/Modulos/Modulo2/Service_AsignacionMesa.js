@@ -24,12 +24,8 @@ export const asignarMesaApi = async (numeroMesa) => {
       },
       body: JSON.stringify({ cod_mesa: String(numeroMesa) }),  // Esto ya es correcto
     });
-
-    if (response.ok) {
-      throw new Error("Mesa registrada");
-    }
-
-    return await response.json();
+    
+    return response.json();
   } catch (error) {
     console.error("Error en asignarMesaApi:", error);
     throw error;
