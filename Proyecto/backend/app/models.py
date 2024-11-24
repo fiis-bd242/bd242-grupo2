@@ -131,6 +131,21 @@ def mesa_disponible(num_mesa):
     finally:
         cursor.close()
         conn.close()
+        
+# ASIGNACION DE MESA
+def primer_registro_pedido(cod_estado_dp,cod_im,cod_mesa):
+    conn = get_db_connection()
+    cursor = conn.cursor()
+    try:
+        cursor.execute(
+            "INSERT INTO DETALLE_PEDIDO (cod_estado_dp,cod_im, cod_mesa) VALUES (%s, %s, %s);",
+            (cod_estado_dp,cod_im,str(cod_mesa)),
+        )
+        conn.commit()
+    finally:
+        cursor.close()
+        conn.close()
+
 
 # CAPTURANDO IDM_ACTUAL
 def idm_actual():
@@ -148,19 +163,6 @@ def idm_actual():
         cursor.close()
         conn.close()
 
-# ASIGNACION DE MESA
-def primer_registro_pedido(cod_estado_dp,cod_im,cod_mesa):
-    conn = get_db_connection()
-    cursor = conn.cursor()
-    try:
-        cursor.execute(
-            "INSERT INTO DETALLE_PEDIDO (cod_estado_dp,cod_im, cod_mesa) VALUES (%s, %s, %s);",
-            (cod_estado_dp,cod_im,str(cod_mesa)),
-        )
-        conn.commit()
-    finally:
-        cursor.close()
-        conn.close()
 
 # MOSTRANDO LAS CATEGORIAS DE LOS PRODUCTOS
 def mostrar_categorias():

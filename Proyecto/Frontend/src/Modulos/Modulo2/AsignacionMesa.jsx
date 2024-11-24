@@ -56,7 +56,7 @@ const AsignacionMesa = () => {
 
     try {
       const resultado = await asignarMesaApi(mesaSeleccionada);
-      if (resultado) {
+      if (resultado.success) {
         alert(`Mesa ${mesaSeleccionada} registrada correctamente.`);
       } else {
         alert("No se pudo registrar la mesa. Intenta nuevamente.");
