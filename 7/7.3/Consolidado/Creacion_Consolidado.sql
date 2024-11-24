@@ -616,6 +616,16 @@ ALTER TABLE SeConviertenEn ADD FOREIGN KEY (Cod_Insumo) REFERENCES Insumo (Cod_I
 ALTER TABLE SeConviertenEn ADD FOREIGN KEY (Cod_Producto) REFERENCES Producto_Friday (Cod_prodFriday);
 
 
+DROP TABLE IF EXISTS Compatibilidad CASCADE;
+CREATE TABLE Compatibilidad (
+    Cod_tipo_almacen INT NOT NULL,
+    Cod_condiciones INT NOT NULL,
+    PRIMARY KEY (Cod_tipo_almacen, Cod_condiciones),
+    FOREIGN KEY (Cod_tipo_almacen) REFERENCES Tipo_Almacen(Cod_tipo_almacen),
+    FOREIGN KEY (Cod_condiciones) REFERENCES Condiciones(Cod_condiciones)
+);
+
+
 drop table if exists Solicitud_compra cascade;
 CREATE TABLE Solicitud_compra
 (
