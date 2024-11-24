@@ -3,6 +3,7 @@ import { fetchCategories } from './Service_CategoryService';
 import CategoryCard from './CategoryCard';
 import '../../styles/Categories.css';
 
+console.log("error")
 const Categories = ({ onCategoryClick }) => {
   const [categories, setCategories] = useState([]);
 
