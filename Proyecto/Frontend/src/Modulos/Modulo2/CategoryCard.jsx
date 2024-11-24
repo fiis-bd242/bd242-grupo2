@@ -3,6 +3,8 @@ import '../../styles/CategoryCard.css';
 
 
 const CategoryCard = ({ category, onClick }) => {
+
+
   return (
     <div
       className="category-card"

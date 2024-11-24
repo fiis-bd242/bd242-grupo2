@@ -1,10 +1,15 @@
 import React, { useEffect, useState } from 'react';
-import { fetchProductsByCategory } from '../../services/ProductService';
+import { useLocation } from 'react-router-dom'; // Importamos el hook useLocation
+import { fetchProductsByCategory } from './Service_ProductService';
 import ProductCard from './ProductCard';
 import '../../styles/Products.css';
 
-const Products = ({ codCategoria, onAddToOrder, onBack }) => {
+const Products = ({ onAddToOrder, onBack }) => {
   const [products, setProducts] = useState([]);
+  // Pasando cod_categoria mediante la URL
+  const location = useLocation(); // Usamos el hook useLocation para obtener el estado
+  const codCategoria = location.state?.cod_categoria; // Accedemos 
+  console.log(codCategoria)
 
   useEffect(() => {
     const loadProducts = async () => {
@@ -20,7 +25,7 @@ const Products = ({ codCategoria, onAddToOrder, onBack }) => {
 
   return (
     <div className="products-container">
-      <button className="back-button" onClick={onBack}>Back to Categories</button>
+      <button className="back-button" onClick={onBack}>ATRAS</button>
       {products.map((product) => (
         <ProductCard
           key={product.cod_prodfriday}
