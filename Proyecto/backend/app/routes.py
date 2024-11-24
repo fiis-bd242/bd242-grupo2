@@ -1,5 +1,5 @@
 from flask import Blueprint, jsonify, request
-from .models import get_all_empleados, create_empleado, update_empleado, meseros_disponibles,autenticar_mesero,mesa_disponible,idm_actual,primer_registro_pedido,mostrar_categorias,get_all_mesas,dp_actual,boton_categoria,insert_item_pedido
+from .models import get_all_empleados, create_empleado, update_empleado, meseros_disponibles,autenticar_mesero,mesa_disponible,idm_actual,primer_registro_pedido,mostrar_categorias,get_all_mesas,dp_actual,boton_categoria,insert_item_pedido,summary
 
 import logging
 
@@ -165,5 +165,16 @@ def items_pedido(cod_categoria):
                 return jsonify({"error": "Faltan datos para un producto o cantidad inválida"}), 400
 
         return jsonify({"message": f"Items de {cod_categoria} registrados correctamente"}), 200
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
+
+# CLICK EN ALGUNA CATEOGORIA
+@router.route("/modulo2/registrando_pedido/summary", methods=["GET"])
+def mostrar_summary():
+    try:
+        data_user = request.json
+        cod_dp = data_user.get('cod_dp')
+        productos_friday = summary(cod_dp)
+        return jsonify(productos_friday), 200
     except Exception as e:
         return jsonify({"error": str(e)}), 500
