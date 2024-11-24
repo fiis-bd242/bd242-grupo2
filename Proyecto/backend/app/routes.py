@@ -1,5 +1,5 @@
 from flask import Blueprint, jsonify, request
-from .models import get_all_empleados, create_empleado, update_empleado, meseros_disponibles,autenticar_mesero,mesa_disponible,idm_actual,primer_registro_pedido,mostrar_categorias
+from .models import get_all_empleados, create_empleado, update_empleado, meseros_disponibles,autenticar_mesero,mesa_disponible,idm_actual,primer_registro_pedido,mostrar_categorias,get_all_mesas
 
 import logging
 
@@ -89,17 +89,32 @@ def mesas(num_mesa):
     except Exception as e:
         return jsonify({"error": str(e)}), 500
 
+# VER TODAS LAS MESAS
+@router.route("/modulo2/registrando_pedido", methods=["GET"])
+def mostrar_mesas():
+    try:
+        mesas = get_all_mesas()
+        return mesas
+        
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
+
 
 # ASIGNACION DE MESA
-@router.route("/modulo2/registrando_pedido/<int:num_mesa>", methods=["POST"])
-def primer_registro_pedido_mesa(num_mesa):
+@router.route("/modulo2/registrando_pedido", methods=["POST"])
+def primer_registro_pedido_mesa():
     try:
+        num_mesa = request.json
+        num_mesa = num_mesa[0].get('cod_mesa')
+        print("HOLAA")
+        num_mesa = str(num_mesa)
         mesas = mesa_disponible(num_mesa)
         cod_idm = idm_actual()
         cod_idm = cod_idm[0].get('cod_im_actual') # COD_IDM_ACTUAL
         bool_mesa = mesas[0].get('disp_mesa') # Valor de 0 : DISPONIBLE
-
+        print("dsadad")
         if bool_mesa == 0:
+            
             cod_estado_dp = 'RE'
             primer_registro_pedido(cod_estado_dp,cod_idm,num_mesa)
             return jsonify({"message": "Detalle Pedido registrado"}), 200  # Error si el empleado no está 

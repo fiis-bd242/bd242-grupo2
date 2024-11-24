@@ -98,6 +98,23 @@ def autenticar_mesero(codigo_empleado):
 
 
 
+# VER TODAS LAS MESAS 
+def get_all_mesas():
+    conn = get_db_connection()
+    cursor = conn.cursor()
+    consulta = """
+            select cod_mesa
+            from DISPONIBILIDAD_MESA
+            WHERE DISPONIBILIDAD = 'NO DISPONIBLE'
+                """
+    try:
+        cursor.execute(consulta)
+        resultado_select = cursor.fetchall()
+        return resultado_select
+    finally:
+        cursor.close()
+        conn.close()
+
 # VERIFICAR DISPONIBILIDAD DE MESA
 def mesa_disponible(num_mesa):
     conn = get_db_connection()

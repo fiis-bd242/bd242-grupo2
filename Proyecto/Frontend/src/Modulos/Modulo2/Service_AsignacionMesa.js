@@ -28,7 +28,7 @@ export const asignarMesaApi = async (numeroMesa) => {
     if (!response.ok) {
       throw new Error("Error al asignar la mesa.");
     }
-
+    console.log("HOLAAA-JS")
     return await response.json();
   } catch (error) {
     console.error("Error en asignarMesaApi:", error);
