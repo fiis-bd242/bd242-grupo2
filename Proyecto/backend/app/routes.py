@@ -1,5 +1,5 @@
 from flask import Blueprint, jsonify, request
-from .models import get_all_empleados, create_empleado, update_empleado, meseros_disponibles,autenticar_mesero,mesa_disponible,idm_actual,primer_registro_pedido,mostrar_categorias,get_all_mesas
+from .models import get_all_empleados, create_empleado, update_empleado, meseros_disponibles,autenticar_mesero,mesa_disponible,idm_actual,primer_registro_pedido,mostrar_categorias,get_all_mesas,dp_actual,boton_categoria,insert_item_pedido
 
 import logging
 
@@ -130,5 +130,40 @@ def categorias_friday():
     try:
         categories = mostrar_categorias()
         return jsonify(categories), 200
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
+
+
+# CLICK EN ALGUNA CATEOGORIA
+@router.route("/modulo2/registrando_pedido/categorias/<string:cod_categoria>/", methods=["GET"])
+def seleccionando_items(cod_categoria):
+    try:
+        productos_friday = boton_categoria(cod_categoria)
+        return jsonify(productos_friday), 200
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
+
+# REGISTRANDO ITEMS DEL PEDIDO
+@router.route("/modulo2/registrando_pedido/categorias/<string:cod_categoria>/items_pedido", methods=["POST"])
+def items_pedido(cod_categoria):
+    try:
+        data_user = request.json
+        productosFridays = data_user.get('productos', [])
+        cod_dp = dp_actual()
+        cod_dp = cod_dp[0].get('cod_dp')
+        cod_dp = int(cod_dp)-1
+        cod_dp = f"DP{cod_dp}"
+
+        for producto in productosFridays:
+            Cod_prodFriday = producto.get('Cod_prodFriday')
+            cantidad = producto.get('cantidad')
+
+            # Verificar que los datos son correctos
+            if Cod_prodFriday and cantidad is not None and cantidad > 0:
+                insert_item_pedido(Cod_prodFriday, cantidad, cod_dp)
+            else:
+                return jsonify({"error": "Faltan datos para un producto o cantidad inválida"}), 400
+
+        return jsonify({"message": f"Items de {cod_categoria} registrados correctamente"}), 200
     except Exception as e:
         return jsonify({"error": str(e)}), 500

@@ -131,7 +131,7 @@ def mesa_disponible(num_mesa):
     finally:
         cursor.close()
         conn.close()
-        
+
 # ASIGNACION DE MESA
 def primer_registro_pedido(cod_estado_dp,cod_im,cod_mesa):
     conn = get_db_connection()
@@ -163,6 +163,20 @@ def idm_actual():
         cursor.close()
         conn.close()
 
+def dp_actual():
+    conn = get_db_connection()
+    cursor = conn.cursor()
+    consulta = """
+            select index_dp() cod_dp
+                """
+    try:
+        cursor.execute(consulta)
+        resultado_select = cursor.fetchall()
+        return resultado_select
+    finally:
+        cursor.close()
+        conn.close()
+
 
 # MOSTRANDO LAS CATEGORIAS DE LOS PRODUCTOS
 def mostrar_categorias():
@@ -171,6 +185,37 @@ def mostrar_categorias():
     try:
         cursor.execute("SELECT * FROM Categoria")
         return cursor.fetchall()
+    finally:
+        cursor.close()
+        conn.close()
+
+# CLICK EN ALGUNA CATEGORÍA
+def boton_categoria(cod_categoria):
+    conn = get_db_connection()
+    cursor = conn.cursor()
+    consulta = """
+            SELECT cod_prodfriday,nombre_producto
+            FROM Producto_Friday
+            WHERE cod_categoria = %s
+                """
+    try:
+        cursor.execute(consulta,(str(cod_categoria),))
+        resultado_select = cursor.fetchall()
+        return resultado_select
+    finally:
+        cursor.close()
+        conn.close()
+
+# REGISTRANDO ITEMS DEL PEDIDO
+def insert_item_pedido(Cod_prodFriday, cantidad, cod_dp):
+    conn = get_db_connection()
+    cursor = conn.cursor()
+    try:
+        cursor.execute(
+            "INSERT INTO ITEM_DETALLE_PEDIDO (Cod_prodFriday, cantidad, cod_estado_item_dp, cod_dp) VALUES (%s, %s,'EP', %s);",
+            (Cod_prodFriday,cantidad,str(cod_dp)),
+        )
+        conn.commit()
     finally:
         cursor.close()
         conn.close()
