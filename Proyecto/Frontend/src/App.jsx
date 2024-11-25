@@ -19,10 +19,11 @@ const App = () => {
           {/* Definir rutas para cada módulo */}
           <Route path="/empleados" element={<Modulo4 />} />
           {/* Ruta por defecto */}
-          
+          <Route path="/" element={<Modulo4 />} />
+
 
           {/* MODULO 2 */}
-          <Route path="/" element={<AuthenticationForm />} />
+          <Route path="/autenticacion" element={<AuthenticationForm />} />
           <Route path="/asignacion-mesa" element={<AsignacionMesa />} />
           <Route path="/categorias" element={<Categories />} />
           <Route path="/items-pedido" element={<Products />} />
