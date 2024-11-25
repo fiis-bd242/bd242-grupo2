@@ -1,23 +1,23 @@
-import React, { useState } from 'react';
-import '../../styles/ProductCard.css';
+import React from "react";
+import "../../styles/ProductCard.css";
 
-const ProductCard = ({ product, onAddToOrder }) => {
-  const [quantity, setQuantity] = useState(0);
-
-  const increment = () => setQuantity(quantity + 1);
-  const decrement = () => setQuantity(Math.max(0, quantity - 1));
+const ProductCard = ({ product, onQuantityChange }) => {
+  const handleChange = (e) => {
+    const newQuantity = parseInt(e.target.value, 10) || 0; // Asegura que la cantidad sea un número
+    onQuantityChange(product.cod_prodfriday, newQuantity); // Notifica al componente padre sobre el cambio
+  };
 
   return (
     <div className="product-card">
       <h3>{product.nombre_producto}</h3>
-      <div className="quantity-controls">
-        <button onClick={decrement}>-</button>
-        <span>{quantity}</span>
-        <button onClick={increment}>+</button>
-      </div>
-      <button onClick={() => onAddToOrder(product.cod_prodfriday, quantity)}>
-        Add to Order
-      </button>
+      <p>CANTIDAD</p>
+      <input
+        type="number"
+        min="0"
+        defaultValue="0"
+        onChange={handleChange}
+        className="quantity-input"
+      />
     </div>
   );
 };

@@ -98,6 +98,23 @@ def autenticar_mesero(codigo_empleado):
 
 
 
+# VER TODAS LAS MESAS 
+def get_all_mesas():
+    conn = get_db_connection()
+    cursor = conn.cursor()
+    consulta = """
+            select cod_mesa
+            from DISPONIBILIDAD_MESA
+            WHERE DISPONIBILIDAD = 'NO DISPONIBLE'
+                """
+    try:
+        cursor.execute(consulta)
+        resultado_select = cursor.fetchall()
+        return resultado_select
+    finally:
+        cursor.close()
+        conn.close()
+
 # VERIFICAR DISPONIBILIDAD DE MESA
 def mesa_disponible(num_mesa):
     conn = get_db_connection()
@@ -109,22 +126,6 @@ def mesa_disponible(num_mesa):
                 """
     try:
         cursor.execute(consulta_mesas,(str(num_mesa),))
-        resultado_select = cursor.fetchall()
-        return resultado_select
-    finally:
-        cursor.close()
-        conn.close()
-
-# CAPTURANDO IDM_ACTUAL
-def idm_actual():
-    conn = get_db_connection()
-    cursor = conn.cursor()
-    consulta_im_actual = """
-            select MAX(cod_im) cod_im_actual
-            from identificacion_mesero
-                """
-    try:
-        cursor.execute(consulta_im_actual)
         resultado_select = cursor.fetchall()
         return resultado_select
     finally:
@@ -145,6 +146,38 @@ def primer_registro_pedido(cod_estado_dp,cod_im,cod_mesa):
         cursor.close()
         conn.close()
 
+
+# CAPTURANDO IDM_ACTUAL
+def idm_actual():
+    conn = get_db_connection()
+    cursor = conn.cursor()
+    consulta_im_actual = """
+            select MAX(cod_im) cod_im_actual
+            from identificacion_mesero
+                """
+    try:
+        cursor.execute(consulta_im_actual)
+        resultado_select = cursor.fetchall()
+        return resultado_select
+    finally:
+        cursor.close()
+        conn.close()
+
+def dp_actual():
+    conn = get_db_connection()
+    cursor = conn.cursor()
+    consulta = """
+            select index_dp() cod_dp
+                """
+    try:
+        cursor.execute(consulta)
+        resultado_select = cursor.fetchall()
+        return resultado_select
+    finally:
+        cursor.close()
+        conn.close()
+
+
 # MOSTRANDO LAS CATEGORIAS DE LOS PRODUCTOS
 def mostrar_categorias():
     conn = get_db_connection()
@@ -152,6 +185,67 @@ def mostrar_categorias():
     try:
         cursor.execute("SELECT * FROM Categoria")
         return cursor.fetchall()
+    finally:
+        cursor.close()
+        conn.close()
+
+# CLICK EN ALGUNA CATEGORÍA
+def boton_categoria(cod_categoria):
+    conn = get_db_connection()
+    cursor = conn.cursor()
+    consulta = """
+            SELECT cod_prodfriday,nombre_producto
+            FROM Producto_Friday
+            WHERE cod_categoria = %s
+                """
+    try:
+        cursor.execute(consulta,(str(cod_categoria),))
+        resultado_select = cursor.fetchall()
+        return resultado_select
+    finally:
+        cursor.close()
+        conn.close()
+
+# REGISTRANDO ITEMS DEL PEDIDO
+def insert_item_pedido(Cod_prodFriday, cantidad, cod_dp):
+    conn = get_db_connection()
+    cursor = conn.cursor()
+    try:
+        cursor.execute(
+            "INSERT INTO ITEM_DETALLE_PEDIDO (Cod_prodFriday, cantidad, cod_estado_item_dp, cod_dp) VALUES (%s, %s,'EP', %s);",
+            (Cod_prodFriday,cantidad,str(cod_dp)),
+        )
+        conn.commit()
+    finally:
+        cursor.close()
+        conn.close()
+
+# MOSTRANDO SUMMARY
+def summary(cod_dp):
+    conn = get_db_connection()
+    cursor = conn.cursor()
+    consulta = """
+            SELECT idp.cod_item_dp, idp.cod_dp,pf.nombre_producto , 
+            idp.cantidad , idp.precio, dp.cod_im,dp.cod_mesa num_mesa,
+            e.primer_apellido || ' ' || SUBSTRING(e.segundo_apellido FROM 1 FOR 1) || '. ' || 
+            e.primer_nombre mesero, 
+            SUM(idp.precio) OVER (PARTITION BY idp.cod_dp) AS TOTAL
+            --  Suma de precios de todas las filas que contengan el mismo "cod_dp"
+            FROM ITEM_DETALLE_PEDIDO idp
+            LEFT JOIN Producto_Friday pf
+            on idp.cod_prodfriday = pf.cod_prodfriday
+            LEFT JOIN DETALLE_PEDIDO dp
+            on dp.cod_dp = idp.cod_dp
+            LEFT JOIN IDENTIFICACION_MESERO im 
+            ON dp.cod_im = im.cod_im
+            LEFT JOIN Empleado e 
+            ON im.Codigo_empleado = e.Codigo_empleado
+            WHERE idp.cod_dp = %s
+                """
+    try:
+        cursor.execute(consulta,(cod_dp,))
+        resultado_select = cursor.fetchall()
+        return resultado_select
     finally:
         cursor.close()
         conn.close()

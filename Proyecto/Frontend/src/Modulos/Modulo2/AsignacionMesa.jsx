@@ -1,11 +1,13 @@
 import React, { useState, useEffect } from "react";
 import "../../styles/Asignacion_Mesa.css";
+import { useNavigate } from "react-router-dom";
 import { obtenerMesasApi, asignarMesaApi } from "./Service_AsignacionMesa";
 
 const AsignacionMesa = () => {
   const [mesas, setMesas] = useState([]); // Todas las mesas
   const [mesasOcupadas, setMesasOcupadas] = useState([]); // Mesas no disponibles
   const [mesaSeleccionada, setMesaSeleccionada] = useState(null);
+  const navigate = useNavigate(); // Hook para redirigir
 
   // Cargar las mesas al montar el componente
   useEffect(() => {
@@ -55,9 +57,18 @@ const AsignacionMesa = () => {
     }
 
     try {
+      console.log("ENTRO1")
       const resultado = await asignarMesaApi(mesaSeleccionada);
+      
       if (resultado) {
+        console.log("ENTRO2")
         alert(`Mesa ${mesaSeleccionada} registrada correctamente.`);
+
+        setTimeout(() => {
+          navigate("/categorias"); // Ruta que apunta a AsignacionMesa
+        }, 1000);
+
+
       } else {
         alert("No se pudo registrar la mesa. Intenta nuevamente.");
       }

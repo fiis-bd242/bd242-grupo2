@@ -1,10 +1,16 @@
-import React, { useEffect, useState } from 'react';
-import { fetchProductsByCategory } from '../../services/ProductService';
-import ProductCard from './ProductCard';
-import '../../styles/Products.css';
+import React, { useEffect, useState } from "react";
+import { useLocation, useNavigate } from "react-router-dom";
+import { fetchProductsByCategory } from "./Service_ProductService";
+import { saveOrderItems } from "./Service_OrderService";
+import ProductCard from "./ProductCard";
+import "../../styles/Products.css";
 
-const Products = ({ codCategoria, onAddToOrder, onBack }) => {
+const Products = ({ onBack }) => {
   const [products, setProducts] = useState([]);
+  const [quantities, setQuantities] = useState({}); // Estado para almacenar cantidades por producto
+  const location = useLocation();
+  const navigate = useNavigate();
+  const codCategoria = location.state?.cod_categoria;
 
   useEffect(() => {
     const loadProducts = async () => {
@@ -12,22 +18,70 @@ const Products = ({ codCategoria, onAddToOrder, onBack }) => {
         const data = await fetchProductsByCategory(codCategoria);
         setProducts(data);
       } catch (error) {
-        console.error('Error loading products', error);
+        console.error("Error loading products", error);
       }
     };
     loadProducts();
   }, [codCategoria]);
 
+  const handleQuantityChange = (codProdFriday, quantity) => {
+    setQuantities((prevQuantities) => ({
+      ...prevQuantities,
+      [codProdFriday]: quantity,
+    }));
+  };
+
+  const handleAdd = async () => {
+    const productsToSave = Object.entries(quantities)
+      .filter(([_, quantity]) => quantity > 0) // Filtra solo las cantidades mayores a 0
+      .map(([codProdFriday, quantity]) => ({
+        Cod_prodFriday: codProdFriday,
+        cantidad: quantity,
+      }));
+
+    if (productsToSave.length === 0) {
+      alert("No se han seleccionado productos para agregar.");
+      navigate("/categorias");
+    }
+
+    try {
+      await saveOrderItems(codCategoria, productsToSave);
+      alert("Productos añadidos exitosamente.");
+      navigate("/categorias");
+    } catch (error) {
+      console.error("Error saving order items:", error);
+      alert("Hubo un error al añadir los productos.");
+    }
+  };
+
+  const handleReady = () => {
+    console.log('BOTÓN LISTO');
+    setTimeout(() => {
+      navigate("/summary"); // Ruta que apunta a AsignacionMesa
+    }, 350);
+
+  };
+
   return (
     <div className="products-container">
-      <button className="back-button" onClick={onBack}>Back to Categories</button>
-      {products.map((product) => (
-        <ProductCard
-          key={product.cod_prodfriday}
-          product={product}
-          onAddToOrder={onAddToOrder}
-        />
-      ))}
+      
+      <div className="product-list">
+        {products.map((product) => (
+          <ProductCard
+            key={product.cod_prodfriday}
+            product={product}
+            onQuantityChange={handleQuantityChange} // Pasa la función de cambio de cantidad
+          />
+        ))}
+      </div>
+      <div className="action-buttons">
+        <button className="add-all-button" onClick={handleAdd}>
+          AGREGAR
+        </button>
+        <button className="ready-button" onClick={handleReady}>
+          LISTO
+        </button>
+      </div>
     </div>
   );
 };

@@ -17,19 +17,15 @@ export const obtenerMesasApi = async () => {
 // API para asignar una mesa
 export const asignarMesaApi = async (numeroMesa) => {
   try {
-    const response = await fetch(`${API_URL}/modulo2/registrando_pedido`, {
+    const response = await fetch(`${API_URL}/modulo2/registrando_pedido/mesa`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({ cod_mesa: numeroMesa }),
+      body: JSON.stringify({ cod_mesa: String(numeroMesa) }),  // Esto ya es correcto
     });
-
-    if (!response.ok) {
-      throw new Error("Error al asignar la mesa.");
-    }
-
-    return await response.json();
+    
+    return response.json();
   } catch (error) {
     console.error("Error en asignarMesaApi:", error);
     throw error;
