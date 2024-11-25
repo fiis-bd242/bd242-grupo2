@@ -7,7 +7,7 @@ import "../../styles/autenticacion.css";
 const AuthenticationForm = () => {
   const [codigo, setCodigo] = useState("");
   const [mensaje, setMensaje] = useState(null);
-  const navigate = useNavigate(); // Hook para redirigir
+  const navigate = useNavigate();
 
   const handleKeyPress = (value) => {
     if (value === "clear") {
@@ -25,9 +25,8 @@ const AuthenticationForm = () => {
       const response = await autenticarMesero(codigo);
       setMensaje({ type: "success", text: response.message });
 
-      // Redirigir a la pantalla de Asignación de Mesa
       setTimeout(() => {
-        navigate("/asignacion-mesa"); // Ruta que apunta a AsignacionMesa
+        navigate("/asignacion-mesa");
       }, 350);
     } catch (error) {
       setMensaje({ type: "error", text: error.message });
@@ -35,18 +34,23 @@ const AuthenticationForm = () => {
   };
 
   return (
-    <div className="auth-form">
-      <input
-        type="text"
-        value={codigo}
-        readOnly
-        placeholder="Ingrese su código"
-      />
-      <Keypad onKeyPress={handleKeyPress} />
-      {mensaje && <div className={mensaje.type}>{mensaje.text}</div>}
+    <div className="auth-container">
+      <div className="auth-background">
+        <div className="fr-text">FR</div>
+        <div className="auth-form">
+          <input
+            type="text"
+            value={codigo}
+            readOnly
+            placeholder="Ingrese su código"
+          />
+          <Keypad onKeyPress={handleKeyPress} />
+          {mensaje && <div className={mensaje.type}>{mensaje.text}</div>}
+        </div>
+        <div className="ay-text">AY</div>
+      </div>
     </div>
   );
 };
 
 export default AuthenticationForm;
-
