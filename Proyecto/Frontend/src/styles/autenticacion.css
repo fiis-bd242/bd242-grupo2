@@ -9,7 +9,7 @@
 .auth-background {
   width: 100%;
   height: 100%;
-  background-image: url('../../public/Images/fondo.JPG'); /* Aquí colocas la URL de tu imagen */
+  background-image: url('../../public/Images/fondo.JPG'); /* Nota: cambia la ruta */
   background-size: cover;
   background-position: center;
   display: flex;
@@ -18,47 +18,15 @@
   position: relative;
 }
 
-.auth-background::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background: repeating-linear-gradient(
-    45deg,
-    #dc143c 0px,
-    #dc143c 40px,
-    white 40px,
-    white 80px
-  );
-  z-index: 0;
-}
 
 .auth-form {
   background: white;
   padding: 20px;
   border-radius: 10px;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  z-index: 1;
   position: relative;
 }
 
-.fr-text, .ay-text {
-  font-size: 72px;
-  font-weight: bold;
-  color: black;
-  position: absolute;
-  z-index: 1;
-}
-
-.fr-text {
-  left: 20%;
-}
-
-.ay-text {
-  right: 20%;
-}
 
 input {
   width: 100%;
