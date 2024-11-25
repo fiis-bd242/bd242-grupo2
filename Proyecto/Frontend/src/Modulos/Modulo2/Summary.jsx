@@ -12,10 +12,8 @@ const Summary = () => {
   useEffect(() => {
     const fetchSummary = async () => {
       try {
-        // Aquí deberías obtener el cod_dp de donde corresponda (props, context, etc.)
-        const codDp = 'DP22'; // Este valor debería ser dinámico
-        
-        const data = await obtenerSummary(codDp);
+       
+        const data = await obtenerSummary();
         
         setSummaryData(data);
         
