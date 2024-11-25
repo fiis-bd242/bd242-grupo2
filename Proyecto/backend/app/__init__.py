@@ -7,5 +7,5 @@ def create_app():
     app = Flask(__name__)
     app.config.from_object("app.config.Config")
     app.register_blueprint(router)
-    CORS(app, origins=["http://localhost:5173"])
+    CORS(app)
     return app
