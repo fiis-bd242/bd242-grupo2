@@ -1,7 +1,7 @@
 from flask import Blueprint, jsonify, request
 from .models import get_all_empleados, create_empleado, update_empleado, meseros_disponibles,autenticar_mesero,mesa_disponible,idm_actual,primer_registro_pedido,mostrar_categorias,get_all_mesas,dp_actual,boton_categoria,insert_item_pedido,summary
 
-from .models import get_all_empleados, create_empleado, update_empleado, meseros_disponibles,autenticar_mesero,mesa_disponible,idm_actual,primer_registro_pedido,mostrar_categorias,get_all_mesas,dp_actual,boton_categoria,insert_item_pedido,summary
+from .models import get_all_empleados, create_empleado, update_empleado, get_all_insumos, get_all_condiciones, get_all_unidades, get_local_empleado, get_ordencompra_mismodia, ver_contenido_orden_compra, get_empleado_supervisor, insertar_revision, actualizar_proceso_orden, obtener_detalles_revision, mostrar_cantidades, actualizar_cantidad_recibida, valorescalidad, mostrar_calidades, actualizar_revision, ingreso_condiciones, VerAlmacen, ingresar_stock, ingresar_movimiento, actualizar_fin_ingreso, actualizar_revision_calidad, actualizar_revision_cantidad
 
 import logging
 

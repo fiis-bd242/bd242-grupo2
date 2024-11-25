@@ -1,6 +1,8 @@
 from .db import get_db_connection
 import psycopg2.extras
 import psycopg2
+from psycopg2.extras import RealDictCursor
+
 
 
 def get_all_empleados():
