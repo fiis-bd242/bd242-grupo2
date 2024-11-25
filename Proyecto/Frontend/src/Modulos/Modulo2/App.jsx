@@ -28,7 +28,7 @@ const AuthenticationForm = () => {
       // Redirigir a la pantalla de Asignación de Mesa
       setTimeout(() => {
         navigate("/asignacion-mesa"); // Ruta que apunta a AsignacionMesa
-      }, 1000);
+      }, 350);
     } catch (error) {
       setMensaje({ type: "error", text: error.message });
     }
