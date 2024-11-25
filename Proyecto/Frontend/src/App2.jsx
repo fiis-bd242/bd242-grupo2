@@ -6,10 +6,7 @@ import Categories from "./Modulos/Modulo2/Categories";
 import Products from "./Modulos/Modulo2/Products";
 import Summary from "./Modulos/Modulo2/Summary";
 
-/*
-import Categories from "./Modulos/Modulo2/Categories";
-<Route path="/categorias" element={<Categories />} />
-*/
+
 const App = () => {
   return (
     <Router>
