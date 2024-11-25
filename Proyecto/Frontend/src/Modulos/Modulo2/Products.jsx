@@ -54,11 +54,26 @@ const Products = ({ onBack }) => {
     }
   };
 
-  const handleReady = () => {
+  const handleReady = async () => {
     console.log('BOTÓN LISTO');
-    setTimeout(() => {
-      navigate("/summary"); // Ruta que apunta a AsignacionMesa
-    }, 350);
+    const productsToSave = Object.entries(quantities)
+      .filter(([_, quantity]) => quantity > 0) // Filtra solo las cantidades mayores a 0
+      .map(([codProdFriday, quantity]) => ({
+        Cod_prodFriday: codProdFriday,
+        cantidad: quantity,
+      }));
+
+    try {
+      await saveOrderItems(codCategoria, productsToSave);
+      setTimeout(() => {
+
+        navigate("/summary"); // Ruta que apunta a AsignacionMesa
+      }, 350);
+
+    } catch (error) {
+      console.error("Error saving order items:", error);
+      alert("Hubo un error al añadir los productos.");
+    }
 
   };
 
