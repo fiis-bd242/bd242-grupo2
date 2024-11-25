@@ -168,12 +168,11 @@ def items_pedido(cod_categoria):
     except Exception as e:
         return jsonify({"error": str(e)}), 500
 
-# CLICK EN ALGUNA CATEOGORIA
+# SUMMARY
 @router.route("/modulo2/registrando_pedido/summary", methods=["GET"])
 def mostrar_summary():
     try:
-        data_user = request.json
-        cod_dp = data_user.get('cod_dp')
+        cod_dp = request.args.get('cod_dp')  # Cambiar request.json por request.args.get
         productos_friday = summary(cod_dp)
         return jsonify(productos_friday), 200
     except Exception as e:

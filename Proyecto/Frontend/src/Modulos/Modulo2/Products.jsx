@@ -56,6 +56,10 @@ const Products = ({ onBack }) => {
 
   const handleReady = () => {
     console.log('BOTÓN LISTO');
+    setTimeout(() => {
+      navigate("/summary"); // Ruta que apunta a AsignacionMesa
+    }, 350);
+
   };
 
   return (
