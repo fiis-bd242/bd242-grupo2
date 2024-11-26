@@ -1,92 +1,162 @@
+:root {
+  --turquoise: #40E0D0;
+  --red: #FF3B30;
+  --white: #FFFFFF;
+  --dark-gray: #333333;
+  --yellow: #FFD700;
+  --light-gray: #F5F5F5;
+}
+
 .orden-mismo-dia-container {
-    max-width: 800px;
-    margin: 0 auto;
-    padding: 20px;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2rem;
+  font-family: 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
+}
+
+h2 {
+  font-size: 2rem;
+  color: var(--dark-gray);
+  margin-bottom: 1.5rem;
+  text-align: center;
+}
+
+.error-message, .no-orders-message {
+  color: var(--red);
+  text-align: center;
+  font-size: 1.1rem;
+  margin-top: 1rem;
+}
+
+.table-container {
+  overflow-x: auto;
+  margin-bottom: 1.5rem;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  background-color: var(--white); 
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+thead {
+  background-color: var(--yellow) !important; /* Añadir !important para asegurarse de que se aplica */
+}
+
+th, td {
+  padding: 0.5rem 1rem; /* Reducido el padding para hacer las filas más chatas */
+  text-align: left;
+  border-bottom: 1px solid #ddd;
+  line-height: 1.2; /* Ajuste de line-height para reducir la altura de las filas */
+}
+
+th {
+  font-weight: bold;
+  color: var(--dark-gray);
+}
+
+tr:nth-child(even) {
+  background-color: var(--light-gray);
+}
+
+.selected-row {
+  background-color: var(--turquoise) !important;
+  color: var(--white);
+}
+
+input[type="radio"] {
+  cursor: pointer;
+  transform: scale(0.8);
+}
+
+.button-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+}
+
+.select-button {
+  width: 100%;
+  max-width: 300px;
+  padding: 0.8rem;
+  font-size: 1rem;
+  color: var(--white);
+  background-color: var(--red);
+  border: none;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-align: center;
+  font-weight: 500;
+}
+
+.select-button:hover {
+  background-color: #FF574D;
+}
+
+.select-button:active {
+  transform: translateY(1px);
+}
+
+.back-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.8rem 1.2rem;
+  font-size: 1rem;
+  color: var(--white);
+  background-color: var(--dark-gray);
+  border: none;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  width: 100%;
+  max-width: 300px;
+}
+
+.back-button:hover {
+  background-color: #555555;
+}
+
+.back-button .icon {
+  width: 20px;
+  height: 20px;
+  color: var(--white);
+}
+
+@media (max-width: 768px) {
+  .orden-mismo-dia-container {
+    padding: 1rem;
   }
-  
+
   h2 {
-    color: #333;
-    text-align: center;
-    margin-bottom: 20px;
+    font-size: 1.5rem;
   }
-  
-  table {
-    width: 100%;
-    border-collapse: collapse;
-    margin-bottom: 20px;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-  }
-  
-  thead {
-    background-color: #FFD700; /* Yellow header */
-  }
-  
+
   th, td {
-    padding: 12px;
-    text-align: left;
-    border-bottom: 1px solid #ddd;
+    padding: 0.6rem 1rem; /* Ajuste también en dispositivos móviles */
   }
-  
-  th {
-    font-weight: bold;
+
+  .select-button, .back-button {
+    font-size: 0.9rem;
+    padding: 0.7rem 1rem;
   }
-  
-  tr:nth-child(even) {
-    background-color: #f2f2f2;
+}
+
+@media (max-width: 480px) {
+  h2 {
+    font-size: 1.25rem;
   }
-  
-  tr:hover {
-    background-color: #e6e6e6;
+
+  th, td {
+    padding: 0.5rem 0.8rem; /* Ajuste para pantallas pequeñas */
   }
-  
-  input[type="radio"] {
-    cursor: pointer;
+
+  .select-button, .back-button {
+    font-size: 0.8rem;
+    padding: 0.6rem 0.8rem;
   }
-  
-  .button-container {
-    display: flex;
-    justify-content: space-between;
-    margin-top: 20px;
-  }
-  
-  button {
-    padding: 10px 20px;
-    font-size: 16px;
-    cursor: pointer;
-    background-color: #4CAF50;
-    color: white;
-    border: none;
-    border-radius: 4px;
-    transition: background-color 0.3s;
-    width: 300px; /* Hace que el botón sea más largo */
-    margin: 0 auto; /* Centra el botón si se coloca en un contenedor flex */
-    display: flex;
-    justify-content: center;
-  }
-  
-  button:hover {
-    background-color: #45a049;
-  }
-  
-  button:last-child {
-    background-color: #f44336;
-  }
-  
-  button:last-child:hover {
-    background-color: #d32f2f;
-  }
-  
-  .error-message {
-    color: #f44336;
-    text-align: center;
-    margin-bottom: 20px;
-  }
-  
-  .no-orders-message {
-    text-align: center;
-    color: #666;
-    margin-bottom: 20px;
-  }
-  
-  
+}

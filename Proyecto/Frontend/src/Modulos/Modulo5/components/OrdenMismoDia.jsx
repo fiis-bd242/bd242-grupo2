@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { fetchOrdenesMismoDia } from "../Service";
 import { useOrden } from "../context/OrdenContext";
 import { EmpleadoContext } from "../context/EmpleadoContext";
+import { ArrowLeft } from 'lucide-react';
 import "../styles/OrdenMismoDia.css";
 
 const OrdenMismoDia = () => {
@@ -45,36 +46,44 @@ const OrdenMismoDia = () => {
       {!error && ordenes.length === 0 && <p className="no-orders-message">No se encontraron órdenes de compra.</p>}
       {!error && ordenes.length > 0 && (
         <>
-          <table>
-            <thead>
-              <tr>
-                <th>Código Orden</th>
-                <th>Proveedor</th>
-                <th>Etapa</th>
-                <th>Seleccionar</th>
-              </tr>
-            </thead>
-            <tbody>
-              {ordenes.map((orden) => (
-                <tr key={orden.cod_ordencompra}>
-                  <td>{orden.cod_ordencompra}</td>
-                  <td>{orden.nombre_empresa}</td>
-                  <td>{orden.nombre_proceso}</td>
-                  <td>
-                    <input
-                      type="radio"
-                      name="ordenSeleccionada"
-                      value={orden.cod_ordencompra}
-                      onChange={() => setOrdenSeleccionada(orden.cod_ordencompra)}
-                    />
-                  </td>
+          <div className="table-container">
+            <table>
+              <thead>
+                <tr>
+                  <th>Código Orden</th>
+                  <th>Proveedor</th>
+                  <th>Etapa</th>
+                  <th>Seleccionar</th>
                 </tr>
-              ))}
-            </tbody>
-          </table>
+              </thead>
+              <tbody>
+                {ordenes.map((orden) => (
+                  <tr 
+                    key={orden.cod_ordencompra}
+                    className={ordenSeleccionada === orden.cod_ordencompra ? 'selected-row' : ''}
+                  >
+                    <td>{orden.cod_ordencompra}</td>
+                    <td>{orden.nombre_empresa}</td>
+                    <td>{orden.nombre_proceso}</td>
+                    <td>
+                      <input
+                        type="radio"
+                        name="ordenSeleccionada"
+                        value={orden.cod_ordencompra}
+                        onChange={() => setOrdenSeleccionada(orden.cod_ordencompra)}
+                      />
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
           <div className="button-container">
-            <button onClick={handleSeleccionarOrden}>Seleccionar orden</button>
-            <button onClick={() => navigate("/modulo5/inicio")}>Volver al módulo</button>
+            <button className="select-button" onClick={handleSeleccionarOrden}>Seleccionar orden</button>
+            <button className="back-button" onClick={() => navigate("/modulo5/inicio")}>
+              <ArrowLeft className="icon" />
+              Volver al módulo
+            </button>
           </div>
         </>
       )}
