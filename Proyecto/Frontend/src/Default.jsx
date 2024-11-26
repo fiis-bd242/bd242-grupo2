@@ -1,6 +1,6 @@
 import React from 'react';
 import { useNavigate } from "react-router-dom";
-import { ShoppingCart, Book, DollarSign, Users, ClipboardCheck } from 'lucide-react'; // Reemplazamos Clock por Users
+import { ShoppingCart, Book, DollarSign, Users, ClipboardCheck } from 'lucide-react';
 import './styles/Default.css';
 
 function Default() {
@@ -10,30 +10,30 @@ function Default() {
     navigate(ruta);
   };
 
-  // Cambié Clock por Users, que está disponible
   const modules = [
-    { icon: <ShoppingCart className="icon pink" />, route: "/" },
-    { icon: <Book className="icon orange" />, route: "/autenticacion" },
-    { icon: <DollarSign className="icon black" />, route: "/" },
-    { icon: <Users className="icon blue" />, route: "/" }, // Cambié Clock por Users
-    { icon: <ClipboardCheck className="icon black" />, route: "/modulo5" }
+    { icon: <ShoppingCart className="icon" />, route: "/", name: "Pedido de compra" },
+    { icon: <Book className="icon" />, route: "/autenticacion", name: "Sistema de registro de pedidos y coordinación en la cocina" },
+    { icon: <DollarSign className="icon" />, route: "/", name: "Reporte de costos" },
+    { icon: <Users className="icon" />, route: "/", name: "Gestión de personal y turnos" },
+    { icon: <ClipboardCheck className="icon" />, route: "/modulo5", name: "Gestión de inventario" }
   ];
 
   return (
     <div className="container">
-      <h1>Por favor, seleccione un módulo</h1>
       <div className="module-grid">
         {modules.map((module, index) => (
           <div key={index} className="module-item">
-            <div className="icon-container">
-              {module.icon}
+            <div className="module-card">
+              <div className="icon-container">
+                {module.icon}
+              </div>
+              <button 
+                className="module-button"
+                onClick={() => handleNavigation(module.route)}
+              >
+                {module.name}
+              </button>
             </div>
-            <button 
-              className="module-button"
-              onClick={() => handleNavigation(module.route)}
-            >
-              Módulo {index + 1}
-            </button>
           </div>
         ))}
       </div>
@@ -42,3 +42,4 @@ function Default() {
 }
 
 export default Default;
+
