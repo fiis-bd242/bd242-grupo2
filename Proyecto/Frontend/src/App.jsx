@@ -1,9 +1,10 @@
 import React from "react";
-import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import { BrowserRouter as Router, Route, Routes, Navigate } from "react-router-dom";
+
 import Default from "./Default"
 
 import Modulo4 from "./Modulos/Modulo4/App";
-
+import Modulo5 from "./Modulos/Modulo5/App";
 
 import AuthenticationForm from "./Modulos/Modulo2/App";
 import AsignacionMesa from "./Modulos/Modulo2/AsignacionMesa";
@@ -30,8 +31,11 @@ const App = () => {
           <Route path="/categorias" element={<Categories />} />
           <Route path="/items-pedido" element={<Products />} />
           <Route path="/summary" element={<Summary />} />
-      
 
+          {/* MODULO 5 */}
+          <Route path="/modulo5/*" element={<Modulo5 />} />
+          {/* Redirigir rutas desconocidas */}
+          <Route path="*" element={<Navigate to="/" />} />
         </Routes>
       </div>
     </Router>

@@ -8,7 +8,13 @@ import logging
 
 router = Blueprint("router", __name__)
 
-
+#Ruta para verificar conexión
+@router.route("/", methods=["GET"])
+def index():
+    try:
+        return jsonify({"message": "Conexión exitosa :D"}), 200
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
 
 
 
