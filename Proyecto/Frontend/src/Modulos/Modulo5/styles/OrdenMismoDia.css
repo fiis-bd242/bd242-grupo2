@@ -1,0 +1,92 @@
+.orden-mismo-dia-container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  }
+  
+  h2 {
+    color: #333;
+    text-align: center;
+    margin-bottom: 20px;
+  }
+  
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+  }
+  
+  thead {
+    background-color: #FFD700; /* Yellow header */
+  }
+  
+  th, td {
+    padding: 12px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+  }
+  
+  th {
+    font-weight: bold;
+  }
+  
+  tr:nth-child(even) {
+    background-color: #f2f2f2;
+  }
+  
+  tr:hover {
+    background-color: #e6e6e6;
+  }
+  
+  input[type="radio"] {
+    cursor: pointer;
+  }
+  
+  .button-container {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+  }
+  
+  button {
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    transition: background-color 0.3s;
+    width: 300px; /* Hace que el botón sea más largo */
+    margin: 0 auto; /* Centra el botón si se coloca en un contenedor flex */
+    display: flex;
+    justify-content: center;
+  }
+  
+  button:hover {
+    background-color: #45a049;
+  }
+  
+  button:last-child {
+    background-color: #f44336;
+  }
+  
+  button:last-child:hover {
+    background-color: #d32f2f;
+  }
+  
+  .error-message {
+    color: #f44336;
+    text-align: center;
+    margin-bottom: 20px;
+  }
+  
+  .no-orders-message {
+    text-align: center;
+    color: #666;
+    margin-bottom: 20px;
+  }
+  
+  
