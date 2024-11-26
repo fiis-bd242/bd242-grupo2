@@ -20,6 +20,7 @@ function Default() {
 
   return (
     <div className="container">
+      <h1>Por favor, seleccione un módulo</h1>
       <div className="module-grid">
         {modules.map((module, index) => (
           <div key={index} className="module-item">

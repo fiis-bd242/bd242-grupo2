@@ -10,24 +10,22 @@ body {
   font-family: 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  overflow: hidden; /* Esto evita la barra de desplazamiento */
-
 }
 
 .container {
-  min-height: 100vh;
+  min-height: 90vh; /* Reduce la altura mínima */
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
-  padding: 2rem;
+  justify-content: flex-start; /* Cambié a flex-start para alinearlo hacia arriba */
+  padding: 1rem 2rem; /* Reducido el padding para que suba más */
   background-color: var(--white);
 }
 
 h1 {
   font-size: 2.5rem;
   color: var(--white);
-  margin-bottom: 4rem;
+  margin-bottom: 3rem; /* Reducido el margen inferior */
   text-align: center;
   font-weight: 600;
   text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
@@ -36,7 +34,7 @@ h1 {
 .module-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-  gap: 2rem;
+  gap: 1.5rem; /* Reducido el gap entre los elementos */
   max-width: 1400px;
   width: 100%;
   padding: 0 1rem;
@@ -153,4 +151,3 @@ h1 {
     grid-template-columns: 1fr;
   }
 }
-
