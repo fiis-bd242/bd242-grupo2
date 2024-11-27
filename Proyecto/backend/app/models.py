@@ -577,8 +577,8 @@ def get_ordencompra_mismodia(codigo_empleado):
             INNER JOIN proveedor p ON p.cod_proveedor = oc.cod_proveedor
             INNER JOIN proceso_ingreso pi2 ON pi2.cod_proceso = oc.cod_proceso
             INNER JOIN empleado e ON e.codigo_empleado = oc.codigo_empleado
-            WHERE e.cod_local = %s
-            AND oc.fecha_requeridaentrega = current_date
+            WHERE e.cod_local = (SELECT e.cod_local FROM empleado e WHERE e.codigo_empleado = %s)
+            AND oc.fecha_requeridaentrega::date = CURRENT_DATE
             ORDER BY pi2.cod_proceso ASC;
         """,
             (local,),
@@ -586,13 +586,13 @@ def get_ordencompra_mismodia(codigo_empleado):
 
         # Obtener todos los resultados de la consulta
         resultados = cursor.fetchall()
+        print("Resultados obtenidos:", resultados)
 
         # Si no se encuentran resultados, devolver None o una respuesta vacía
         if not resultados:
             return None
 
         return resultados  # Los resultados ya son diccionarios debido a RealDictCursor
-
     finally:
         cursor.close()
         conn.close()
