@@ -4,7 +4,7 @@ import Link from 'next/link'
 
 export default function Dashboard() {
   const options = [
-    { name: 'Crear pedido', link: '/Modulo1/' },
+    { name: 'Crear pedido', link: '/Modulo1/crearpedido' },
     { name: 'Revisar pedidos', link: '/dashboard/revisar-pedidos' },
     { name: 'Solicitar cotizaciones', link: '/dashboard/solicitar-cotizaciones' },
     { name: 'Seleccionar proveedores', link: '/dashboard/seleccionar-proveedores' },

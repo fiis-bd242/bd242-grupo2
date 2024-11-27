@@ -5,6 +5,7 @@ import Default from "./Default"
 
 import Modulo4 from "./Modulos/Modulo4/App";
 import Modulo5 from "./Modulos/Modulo5/App";
+import Modulo1 from "./Modulos/Modulo1/App"
 
 import AuthenticationForm from "./Modulos/Modulo2/App";
 import AsignacionMesa from "./Modulos/Modulo2/AsignacionMesa";
@@ -24,7 +25,7 @@ const App = () => {
           <Route path="/modulo4" element={<Modulo4 />} />
           {/* Ruta por defecto */}
           <Route path="/" element={<Default />} />
-
+          <Route path="/modulo1" element={<Modulo1 />} />
 
           {/* MODULO 2 */}
           <Route path="/autenticacion" element={<AuthenticationForm />} />
@@ -32,6 +33,8 @@ const App = () => {
           <Route path="/categorias" element={<Categories />} />
           <Route path="/items-pedido" element={<Products />} />
           <Route path="/summary" element={<Summary />} />
+
+
 
           {/* MODULO 5 */}
           <Route path="/modulo5/*" element={<Modulo5 />} />
