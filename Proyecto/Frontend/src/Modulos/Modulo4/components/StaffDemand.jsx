@@ -9,33 +9,13 @@ import {
 } from "@/components/ui/select"
 import { fetchFromAPI, postToAPI } from "../utils/api"
 
-// Estilos en línea para el desplegable
-const selectStyles = {
-  trigger: {
-    backgroundColor: 'white',
-    color: 'black',
-    border: '1px solid #ccc',
-  },
-  content: {
-    backgroundColor: 'white',
-    color: 'black',
-  },
-  item: {
-    backgroundColor: 'white',
-    color: 'black',
-    '&:hover': {
-      backgroundColor: '#f0f0f0',
-    },
-  },
-}
-
-export default function StaffDemand() {
+export default function StaffDemand({ setSelectedDay, setSelectedShift, setSelectedPosition, onSearch }) {
   const [days, setDays] = useState([])
   const [shifts, setShifts] = useState([])
   const [positions, setPositions] = useState([])
-  const [selectedDay, setSelectedDay] = useState('')
-  const [selectedShift, setSelectedShift] = useState('')
-  const [selectedPosition, setSelectedPosition] = useState('')
+  const [selectedDayLocal, setSelectedDayLocal] = useState('')
+  const [selectedShiftLocal, setSelectedShiftLocal] = useState('')
+  const [selectedPositionLocal, setSelectedPositionLocal] = useState('')
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState(null)
 
@@ -52,7 +32,6 @@ export default function StaffDemand() {
         setShifts(shiftsData);
         setPositions(positionsData);
 
-        // Log para debugging
         console.log('Opciones cargadas:', { days: daysData, shifts: shiftsData, positions: positionsData });
       } catch (error) {
         console.error('Error al cargar las opciones:', error);
@@ -64,18 +43,30 @@ export default function StaffDemand() {
   }, []);
 
   const handleSearch = async () => {
+    if (!selectedDayLocal || !selectedShiftLocal || !selectedPositionLocal) {
+      setError('Por favor, seleccione todos los campos antes de buscar.');
+      return;
+    }
+
     setLoading(true);
     setError(null);
     try {
-      const result = await postToAPI('/staff-demand', {
-        day: selectedDay,
-        shift: selectedShift,
-        position: selectedPosition
-      });
-      console.log('Resultado de la búsqueda:', result);
+      const requestData = {
+        dia: selectedDayLocal,
+        turno: selectedShiftLocal,
+        cargo: selectedPositionLocal
+      };
+      console.log('Sending request with data:', requestData);
+      const result = await postToAPI('/personal-libre', requestData);
+      console.log('Resultado de la búsqueda en StaffDemand:', result);
+      onSearch(result);
+      
+      setSelectedDay(selectedDayLocal);
+      setSelectedShift(selectedShiftLocal);
+      setSelectedPosition(selectedPositionLocal);
     } catch (error) {
       console.error('Error al buscar:', error);
-      setError('Error al realizar la búsqueda. Por favor, intente de nuevo.');
+      setError(`Error al realizar la búsqueda: ${error.message}`);
     } finally {
       setLoading(false);
     }
@@ -87,14 +78,18 @@ export default function StaffDemand() {
       <div className="space-y-4">
         <div>
           <label className="block text-sm font-medium text-gray-700 mb-1">Días</label>
-          <Select value={selectedDay} onValueChange={setSelectedDay}>
-            <SelectTrigger className="w-full" style={selectStyles.trigger}>
+          <Select onValueChange={(value) => setSelectedDayLocal(value)}>
+            <SelectTrigger className="w-full bg-white border border-gray-300 text-gray-900">
               <SelectValue placeholder="Seleccione día" />
             </SelectTrigger>
-            <SelectContent style={selectStyles.content}>
-              {days.map((day) => (
-                <SelectItem key={day.value} value={day.value} style={selectStyles.item}>
-                  {day.label}
+            <SelectContent className="bg-white border border-gray-300">
+              {days.map((day,index) => (
+                <SelectItem 
+                  key={index} 
+                  value={day.nombre} 
+                  className="text-gray-900 hover:bg-gray-100"
+                >
+                  {day.nombre}
                 </SelectItem>
               ))}
             </SelectContent>
@@ -102,14 +97,18 @@ export default function StaffDemand() {
         </div>
         <div>
           <label className="block text-sm font-medium text-gray-700 mb-1">Turno</label>
-          <Select value={selectedShift} onValueChange={setSelectedShift}>
-            <SelectTrigger className="w-full" style={selectStyles.trigger}>
+          <Select onValueChange={(value) => setSelectedShiftLocal(value)}>
+            <SelectTrigger className="w-full bg-white border border-gray-300 text-gray-900">
               <SelectValue placeholder="Seleccione turno" />
             </SelectTrigger>
-            <SelectContent style={selectStyles.content}>
-              {shifts.map((shift) => (
-                <SelectItem key={shift.value} value={shift.value} style={selectStyles.item}>
-                  {shift.label}
+            <SelectContent className="bg-white border border-gray-300">
+              {shifts.map((shift,index) => (
+                <SelectItem 
+                  key={index} 
+                  value={shift.nombre_turno} 
+                  className="text-gray-900 hover:bg-gray-100"
+                >
+                  {shift.nombre_turno}
                 </SelectItem>
               ))}
             </SelectContent>
@@ -117,14 +116,18 @@ export default function StaffDemand() {
         </div>
         <div>
           <label className="block text-sm font-medium text-gray-700 mb-1">Cargo</label>
-          <Select value={selectedPosition} onValueChange={setSelectedPosition}>
-            <SelectTrigger className="w-full" style={selectStyles.trigger}>
+          <Select onValueChange={(value) => setSelectedPositionLocal(value)}>
+            <SelectTrigger className="w-full bg-white border border-gray-300 text-gray-900">
               <SelectValue placeholder="Seleccione cargo" />
             </SelectTrigger>
-            <SelectContent style={selectStyles.content}>
-              {positions.map((position) => (
-                <SelectItem key={position.value} value={position.value} style={selectStyles.item}>
-                  {position.label}
+            <SelectContent className="bg-white border border-gray-300">
+              {positions.map((position,index) => (
+                <SelectItem 
+                  key={index} 
+                  value={position.nombre_cargo} 
+                  className="text-gray-900 hover:bg-gray-100"
+                >
+                  {position.nombre_cargo}
                 </SelectItem>
               ))}
             </SelectContent>
