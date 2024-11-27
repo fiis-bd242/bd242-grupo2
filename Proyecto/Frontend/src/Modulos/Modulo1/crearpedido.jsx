@@ -1,124 +1,91 @@
-import { useState, useEffect } from 'react'
-import { Button } from '@/components/ui/button'
-import { Input } from '@/components/ui/input'
-import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table'
-import { Checkbox } from '@/components/ui/checkbox'
+import React, { useState } from "react";
+import { crearPedido } from "./Service"; // Cambia la ruta según tu estructura de proyecto.
 
-export default function CrearPedido() {
-  const [productos, setProductos] = useState([])
-  const [selectedProducts, setSelectedProducts] = useState({})
-  const [searchTerm, setSearchTerm] = useState('')
+const CrearPedido = () => {
+  const [nombreInsumo, setNombreInsumo] = useState("");
+  const [datos, setDatos] = useState([]);
+  const [error, setError] = useState("");
 
-  useEffect(() => {
-    fetchProductos()
-  }, [])
-
-  const fetchProductos = async () => {
-    const response = await fetch('/api/productos')
-    if (response.ok) {
-      const data = await response.json()
-      setProductos(data)
-    } else {
-      console.error('Failed to fetch productos')
+  const handleCrearPedido = async () => {
+    try {
+      setError("");
+      const resultado = await crearPedido(nombreInsumo); // Llama a la función fetch
+      setDatos(resultado); // Asigna los datos recibidos a la tabla
+    } catch (err) {
+      setError(err.message);
     }
-  }
-
-  const handleProductSelect = (productId, isChecked) => {
-    setSelectedProducts((prev) => {
-      if (isChecked) {
-        return { ...prev, [productId]: 1 }
-      } else {
-        const { [productId]: _, ...rest } = prev
-        return rest
-      }
-    })
-  }
-
-  const handleQuantityChange = (productId, quantity) => {
-    setSelectedProducts((prev) => ({ ...prev, [productId]: quantity }))
-  }
-
-  const handleCreatePedido = async () => {
-    const pedidoData = {
-      productos: Object.entries(selectedProducts).map(([productId, cantidad]) => ({
-        producto_id: parseInt(productId),
-        cantidad,
-      })),
-    }
-
-    const response = await fetch('/api/pedidos', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(pedidoData),
-    })
-
-    if (response.ok) {
-      alert('Pedido creado exitosamente')
-      setSelectedProducts({})
-    } else {
-      alert('Error al crear el pedido')
-    }
-  }
-
-  const filteredProductos = productos.filter((producto) =>
-    producto.nombre.toLowerCase().includes(searchTerm.toLowerCase()) ||
-    producto.codigo.toLowerCase().includes(searchTerm.toLowerCase())
-  )
+  };
 
   return (
-    <div className="p-8">
-      <h1 className="text-2xl font-bold mb-6">Crear Pedido</h1>
-      <Input
-        type="text"
-        placeholder="Buscar productos..."
-        value={searchTerm}
-        onChange={(e) => setSearchTerm(e.target.value)}
-        className="mb-4"
-      />
-      <Table>
-        <TableHeader>
-          <TableRow>
-            <TableHead className="w-[50px]">Seleccionar</TableHead>
-            <TableHead>Código</TableHead>
-            <TableHead>Nombre</TableHead>
-            <TableHead>Categoría</TableHead>
-            <TableHead>Subcategoría</TableHead>
-            <TableHead>Unidad de Medida</TableHead>
-            <TableHead>Stock Actual</TableHead>
-            <TableHead>Cantidad a Pedir</TableHead>
-          </TableRow>
-        </TableHeader>
-        <TableBody>
-          {filteredProductos.map((producto) => (
-            <TableRow key={producto.id}>
-              <TableCell>
-                <Checkbox
-                  checked={producto.id in selectedProducts}
-                  onCheckedChange={(checked) => handleProductSelect(producto.id, checked)}
-                />
-              </TableCell>
-              <TableCell>{producto.codigo}</TableCell>
-              <TableCell>{producto.nombre}</TableCell>
-              <TableCell>{producto.categoria}</TableCell>
-              <TableCell>{producto.subcategoria}</TableCell>
-              <TableCell>{producto.unidad_medida}</TableCell>
-              <TableCell>{producto.cantidad}</TableCell>
-              <TableCell>
-                <Input
-                  type="number"
-                  min="1"
-                  value={selectedProducts[producto.id] || ''}
-                  onChange={(e) => handleQuantityChange(producto.id, parseInt(e.target.value))}
-                  disabled={!(producto.id in selectedProducts)}
-                />
-              </TableCell>
-            </TableRow>
-          ))}
-        </TableBody>
-      </Table>
-      <Button onClick={handleCreatePedido} className="mt-4">
-        Generar Solicitud de Compra
-      </Button>
+    <div style={{ padding: "20px" }}>
+      <h1>Crear Pedido</h1>
+
+      {/* Formulario para ingresar el nombre del insumo */}
+      <div style={{ marginBottom: "20px" }}>
+        <label htmlFor="nombreInsumo">Nombre del Insumo:</label>
+        <input
+          type="text"
+          id="nombreInsumo"
+          value={nombreInsumo}
+          onChange={(e) => setNombreInsumo(e.target.value)}
+          placeholder="Ingrese el nombre del insumo"
+          style={{ margin: "0 10px", padding: "5px" }}
+        />
+        <button onClick={handleCrearPedido} style={{ padding: "5px 10px" }}>
+          Buscar
+        </button>
+      </div>
+
+      {/* Mostrar errores */}
+      {error && <p style={{ color: "red" }}>{error}</p>}
+
+      {/* Tabla de resultados */}
+      {datos.length > 0 && (
+        <table
+          style={{
+            width: "100%",
+            borderCollapse: "collapse",
+            marginTop: "20px",
+          }}
+          border="1"
+        >
+          <thead>
+            <tr>
+              <th>Código</th>
+              <th>Nombre</th>
+              <th>Categoría</th>
+              <th>Subcategoría</th>
+              <th>Unidad de Medida</th>
+              <th>Cantidad</th>
+              <th>Seleccionar</th>
+            </tr>
+          </thead>
+          <tbody>
+            {datos.map((insumo, index) => (
+              <tr key={index}>
+                <td>{insumo.codigo}</td>
+                <td>{insumo.nombre}</td>
+                <td>{insumo.categoria}</td>
+                <td>{insumo.subcategoria}</td>
+                <td>{insumo.unidad_medida}</td>
+                <td>
+                  <input
+                    type="number"
+                    min="1"
+                    placeholder="Cantidad"
+                    style={{ width: "100%" }}
+                  />
+                </td>
+                <td>
+                  <input type="radio" name="seleccion" value={insumo.codigo} />
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      )}
     </div>
-  )
-}
+  );
+};
+
+export default CrearPedido;
