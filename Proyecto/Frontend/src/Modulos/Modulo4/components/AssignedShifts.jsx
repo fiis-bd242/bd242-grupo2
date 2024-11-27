@@ -78,7 +78,7 @@ export default function AssignedShifts() {
         <div>
           <label className="block text-sm font-medium mb-2">DNI</label>
           <Input 
-            type="text" 
+            type="number" min="10000000" max="99999999" required
             placeholder="Ingrese DNI" 
             value={dni}
             onChange={(e) => setDni(e.target.value)}
