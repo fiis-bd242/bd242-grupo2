@@ -91,9 +91,9 @@ export default function AssignedShifts() {
               <SelectValue placeholder="Seleccione turno" />
             </SelectTrigger>
             <SelectContent>
-              {shifts.map((shift) => (
-                <SelectItem key={shift.value} value={shift.value}>
-                  {shift.label}
+              {shifts.map((shift,index) => (
+                <SelectItem key={index} value={shift.nombre_turno}>
+                  {shift.nombre_turno}
                 </SelectItem>
               ))}
             </SelectContent>
@@ -106,9 +106,9 @@ export default function AssignedShifts() {
               <SelectValue placeholder="Seleccione cargo" />
             </SelectTrigger>
             <SelectContent>
-              {positions.map((position) => (
-                <SelectItem key={position.value} value={position.value}>
-                  {position.label}
+              {positions.map((position,index) => (
+                <SelectItem key={index} value={position.nombre_cargo}>
+                  {position.nombre_cargo}
                 </SelectItem>
               ))}
             </SelectContent>
@@ -121,9 +121,9 @@ export default function AssignedShifts() {
               <SelectValue placeholder="Seleccione local" />
             </SelectTrigger>
             <SelectContent>
-              {locations.map((location) => (
-                <SelectItem key={location.value} value={location.value}>
-                  {location.label}
+              {locations.map((location,index) => (
+                <SelectItem key={index} value={location.nombre_local}>
+                  {location.nombre_local}
                 </SelectItem>
               ))}
             </SelectContent>

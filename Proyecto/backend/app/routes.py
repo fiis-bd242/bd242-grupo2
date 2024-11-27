@@ -16,6 +16,10 @@ from .models import (
     insert_item_pedido,
     summary,
     get_dias,
+    mostrar_calidades,
+    mostrar_cantidades,
+    get_personal_libre,
+    assign_shift,
 )
 
 from .models import get_all_insumos, get_all_condiciones, get_all_unidades, get_local_empleado, get_ordencompra_mismodia, ver_contenido_orden_compra, get_empleado_supervisor, insertar_revision, actualizar_proceso_orden, obtener_detalles_revision, mostrar_cantidades, actualizar_cantidad_recibida, valorescalidad, mostrar_calidades, actualizar_revision, ingreso_condiciones, VerAlmacen, ingresar_stock, ingresar_movimiento, actualizar_fin_ingreso, actualizar_revision_calidad, actualizar_revision_cantidad
@@ -25,6 +29,23 @@ import logging
 
 
 router = Blueprint("router", __name__)
+
+
+@router.route("/asignar-turno", methods=["POST"])
+def asignar_turno():
+    data = request.json
+    if not data or not all(key in data for key in ("dni", "turno")):
+        return jsonify({"success": False, "message": "Datos incompletos"}), 400
+
+    dni = data["dni"]
+    turno = data["turno"]
+
+    success, message = assign_shift(dni, turno)
+
+    if success:
+        return jsonify({"success": True, "message": message}), 200
+    else:
+        return jsonify({"success": False, "message": message}), 500
 
 
 # Ruta para verificar conexión
@@ -94,7 +115,7 @@ def get_locales():
         return jsonify({"error": str(e)}), 500
 
 
-@router.route("/staff-demand", methods=["GET"])
+@router.route("/staff-demand", methods=["POST"])
 def staff_demand():
     day = request.args.get("day")
     shift = request.args.get("shift")

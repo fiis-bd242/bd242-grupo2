@@ -2,6 +2,7 @@ from .db import get_db_connection
 import psycopg2.extras
 import psycopg2
 from psycopg2.extras import RealDictCursor
+from flask import current_app
 
 from . import models, schemas
 from datetime import date
@@ -131,25 +132,58 @@ def get_assigned_shifts(dni=None, shift=None, position=None, location=None):
         conn.close()
 
 
-def assign_shift(dni, day, shift_type, location):
+def assign_shift(dni, turno):
     conn = get_db_connection()
-    cursor = conn.cursor(cursor_factory=psycopg2.extras.DictCursor)
     try:
-        cursor.execute(
-            """
-        INSERT INTO shift (employee_id, day, shift_type, location)
-        VALUES ((SELECT id FROM employee WHERE dni = %s), %s, %s, %s)
-        RETURNING id
-        """,
-            (dni, day, shift_type, location),
-        )
-        conn.commit()
-        return dict(cursor.fetchone())
+        with conn.cursor(cursor_factory=psycopg2.extras.DictCursor) as cursor:
+            # Iniciar la transacción
+            cursor.execute("BEGIN;")
+
+            # Paso 1: Actualizar el turno del empleado
+            cursor.execute(
+                """
+                UPDATE Empleado
+                SET Cod_turno = (SELECT cod_turno FROM TURNO WHERE Nombre_turno = %s)
+                WHERE dni = %s;
+            """,
+                (turno, dni),
+            )
+
+            # Paso 2: Eliminar la disponibilidad previa en la tabla Horario_libre_Dias
+            cursor.execute(
+                """
+                DELETE FROM Horario_libre_Dias
+                WHERE Cod_horario IN (
+                    SELECT Cod_horario
+                    FROM Horario_libre
+                    WHERE Codigo_empleado = (SELECT codigo_empleado FROM empleado WHERE dni = %s)
+                );
+            """,
+                (dni,),
+            )
+
+            # Paso 3: Eliminar la disponibilidad previa en la tabla Horario_libre
+            cursor.execute(
+                """
+                DELETE FROM Horario_libre
+                WHERE Codigo_empleado = (SELECT codigo_empleado FROM empleado WHERE dni = %s);
+            """,
+                (dni,),
+            )
+
+            # Confirmar la transacción
+            conn.commit()
+            return True, "Turno asignado con éxito"
+
+    except psycopg2.Error as e:
+        conn.rollback()
+        current_app.logger.error(f"Error de base de datos: {str(e)}")
+        return False, f"Error al asignar el turno: {str(e)}"
     except Exception as e:
         conn.rollback()
-        raise e
+        current_app.logger.error(f"Error inesperado: {str(e)}")
+        return False, "Error inesperado al asignar el turno"
     finally:
-        cursor.close()
         conn.close()
 
 
