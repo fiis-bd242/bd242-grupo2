@@ -1,9 +1,9 @@
 import React from 'react'
-import Sidebar from '../Modulo4/components/Sidebar'
-import Header from '../Modulo4/components/Header'
-import StaffDemand from '../Modulo4/components/StaffDemand'
-import AvailableStaff from '../Modulo4/components/AvailableStaff'
-import AssignedShifts from '../Modulo4/components/AssignedShifts'
+import Sidebar from './Sidebar'
+import Header from './Header'
+import StaffDemand from './StaffDemand'
+import AvailableStaff from './AvailableStaff'
+import AssignedShifts from './AssignedShifts'
 
 export default function ShiftManagement() {
   return (
