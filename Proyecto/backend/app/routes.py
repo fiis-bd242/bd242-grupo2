@@ -844,3 +844,96 @@ def actualizar_revision_cantidad_ruta():
 
     except Exception as e:
         return jsonify({"error": str(e)}), 500
+
+
+# MODULO 1
+
+
+# Módulo 1 (Pedido de compras)
+
+from fastapi import FastAPI, HTTPException, APIRouter
+from . import crud, schemas
+from typing import List
+
+app = FastAPI()
+
+# Crear routers para cada grupo de endpoints
+solicitud_compra_router = APIRouter()
+cotizacion_router = APIRouter()
+proveedor_router = APIRouter()
+orden_compra_router = APIRouter()
+insumo_router = APIRouter()
+empleado_router = APIRouter()
+
+@solicitud_compra_router.post("/", response_model=schemas.Solicitud_compra)
+def create_solicitud_compra(solicitud_compra: schemas.Solicitud_compraCreate):
+    return crud.create_solicitud_compra(solicitud_compra)
+
+@solicitud_compra_router.get("/{cod_solicitudcompra}", response_model=schemas.Solicitud_compra)
+def read_solicitud_compra(cod_solicitudcompra: int):
+    db_solicitud = crud.get_solicitud_compra(cod_solicitudcompra)
+    if db_solicitud is None:
+        raise HTTPException(status_code=404, detail="Solicitud de compra not found")
+    return db_solicitud
+
+@solicitud_compra_router.put("/{cod_solicitudcompra}", response_model=schemas.Solicitud_compra)
+def update_solicitud_compra_estado(cod_solicitudcompra: int, nuevo_estado: str):
+    return crud.update_solicitud_compra_estado(cod_solicitudcompra, nuevo_estado)
+
+@cotizacion_router.post("/", response_model=schemas.Cotizacion)
+def create_cotizacion(cotizacion: schemas.CotizacionCreate):
+    return crud.create_cotizacion(cotizacion)
+
+@cotizacion_router.get("/{Cod_cotizacion}", response_model=schemas.Cotizacion)
+def read_cotizacion(Cod_cotizacion: int):
+    db_cotizacion = crud.get_cotizacion(Cod_cotizacion)
+    if db_cotizacion is None:
+        raise HTTPException(status_code=404, detail="Cotización not found")
+    return db_cotizacion
+
+@cotizacion_router.get("/solicitud/{cod_solicitudcompra}", response_model=List[schemas.Cotizacion])
+def read_cotizaciones_for_solicitud(cod_solicitudcompra: int):
+    return crud.get_cotizaciones_for_solicitud(cod_solicitudcompra)
+
+@proveedor_router.put("/{Cod_Proveedor}", response_model=schemas.Proveedor)
+def update_proveedor_estado(Cod_Proveedor: int, nuevo_estado: str):
+    return crud.update_proveedor_estado(Cod_Proveedor, nuevo_estado)
+
+@proveedor_router.get("/", response_model=List[schemas.Proveedor])
+def read_proveedores():
+    return crud.get_proveedores()
+
+@orden_compra_router.post("/", response_model=schemas.Orden_compra)
+def create_orden_compra(orden_compra: schemas.Orden_compraCreate):
+    return crud.create_orden_compra(orden_compra)
+
+@orden_compra_router.get("/{Cod_ordencompra}", response_model=schemas.Orden_compra)
+def read_orden_compra(Cod_ordencompra: int):
+    db_orden = crud.get_orden_compra(Cod_ordencompra)
+    if db_orden is None:
+        raise HTTPException(status_code=404, detail="Orden de compra not found")
+    return db_orden
+
+@insumo_router.get("/", response_model=List[schemas.Insumo])
+def read_insumos():
+    return crud.get_insumos()
+
+@empleado_router.get("/{Codigo_empleado}", response_model=schemas.Empleado)
+def read_empleado(Codigo_empleado: int):
+    db_empleado = crud.get_empleado(Codigo_empleado)
+    if db_empleado is None:
+        raise HTTPException(status_code=404, detail="Empleado not found")
+    return db_empleado
+
+# Incluir los routers en la aplicación principal
+app.include_router(solicitud_compra_router, prefix="/solicitudes-compra", tags=["solicitudes-compra"])
+app.include_router(cotizacion_router, prefix="/cotizaciones", tags=["cotizaciones"])
+app.include_router(proveedor_router, prefix="/proveedores", tags=["proveedores"])
+app.include_router(orden_compra_router, prefix="/ordenes-compra", tags=["ordenes-compra"])
+app.include_router(insumo_router, prefix="/insumos", tags=["insumos"])
+app.include_router(empleado_router, prefix="/empleados", tags=["empleados"])
+
+# Ruta raíz
+@app.get("/")
+def read_root():
+    return {"message": "Bienvenido al sistema de compras"}
