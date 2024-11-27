@@ -332,11 +332,7 @@ def get_ordencompra_mismodia(codigo_empleado):
     cursor = conn.cursor(cursor_factory=RealDictCursor)  # Usamos RealDictCursor para que los resultados sean diccionarios
     
     try:
-        # Obtener el local del empleado
-        local = get_local_empleado(codigo_empleado)
-        if local is None:  # Si no se encuentra el local, devolver un mensaje de error o lanzar una excepción
-            raise ValueError("El empleado no tiene un local asignado o no existe.")
-
+        
         # Consultar órdenes de compra para el mismo día
         cursor.execute("""
             SELECT 
@@ -347,10 +343,10 @@ def get_ordencompra_mismodia(codigo_empleado):
             INNER JOIN proveedor p ON p.cod_proveedor = oc.cod_proveedor
             INNER JOIN proceso_ingreso pi2 ON pi2.cod_proceso = oc.cod_proceso
             INNER JOIN empleado e ON e.codigo_empleado = oc.codigo_empleado
-            WHERE e.cod_local = %s
+            WHERE e.cod_local = (SELECT e.cod_local FROM empleado e WHERE e.codigo_empleado = %s)
             AND oc.fecha_requeridaentrega = current_date
             ORDER BY pi2.cod_proceso ASC;
-        """, (local,))
+        """, (codigo_empleado,))
 
         # Obtener todos los resultados de la consulta
         resultados = cursor.fetchall()
