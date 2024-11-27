@@ -14,7 +14,7 @@ function Default() {
     { icon: <ShoppingCart className="icon" />, route: "/", name: "Pedido de compra" },
     { icon: <Book className="icon" />, route: "/autenticacion", name: "Sistema de registro de pedidos y coordinación en la cocina" },
     { icon: <DollarSign className="icon" />, route: "/", name: "Reporte de costos" },
-    { icon: <Users className="icon" />, route: "/", name: "Gestión de personal y turnos" },
+    { icon: <Users className="icon" />, route: "/modulo4", name: "Gestión de personal y turnos" },
     { icon: <ClipboardCheck className="icon" />, route: "/modulo5", name: "Gestión de inventario" }
   ];
 
