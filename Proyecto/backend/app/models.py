@@ -4,9 +4,6 @@ import psycopg2
 from psycopg2.extras import RealDictCursor
 from flask import current_app
 
-from . import models, schemas
-from datetime import date
-from typing import List
 
 # MODULO 4
 def get_personal_libre(dia, turno, cargo):
@@ -1224,106 +1221,34 @@ def actualizar_revision_cantidad(cod_ordencompra):
 
 # Módulo 1 (Pedido de compras)
 
-def create_solicitud_compra(db: Session, solicitud_compra: schemas.Solicitud_compraCreate):
-    result = db.execute(text(CREATE_SOLICITUD_COMPRA), {
-        "fecha_creacion": solicitud_compra.fecha_creacion,
-        "Estado_solicicompra": solicitud_compra.Estado_solicicompra,
-        "Codigo_empleado": solicitud_compra.Codigo_empleado
-    })
-    cod_solicitudcompra = result.fetchone()[0]
-
-    for insumo in solicitud_compra.insumos:
-        db.execute(text(ADD_INSUMO_TO_SOLICITUD), {
-            "cod_solicitudcompra": cod_solicitudcompra,
-            "Cod_Insumo": insumo["Cod_Insumo"],
-            "cantidad_solicitud": insumo["cantidad_solicitud"]
-        })
+def crear_pedido(search_name):
+    # Establecer la conexión a la base de datos
+    conn = get_db_connection()
+    cursor = conn.cursor(cursor_factory=RealDictCursor)
     
-    db.commit()
-    return get_solicitud_compra(db, cod_solicitudcompra)
-
-def get_solicitud_compra(db: Session, cod_solicitudcompra: int):
-    result = db.execute(text(GET_SOLICITUD_COMPRA), {"cod_solicitudcompra": cod_solicitudcompra})
-    solicitud = result.fetchone()
-    if solicitud:
-        insumos_result = db.execute(text(GET_INSUMOS_FOR_SOLICITUD), {"cod_solicitudcompra": cod_solicitudcompra})
-        insumos = insumos_result.fetchall()
-        return {**solicitud, "insumos": insumos}
-    return None
-
-def update_solicitud_compra_estado(db: Session, cod_solicitudcompra: int, nuevo_estado: str):
-    db.execute(text(UPDATE_SOLICITUD_ESTADO), {
-        "nuevo_estado": nuevo_estado,
-        "cod_solicitudcompra": cod_solicitudcompra
-    })
-    db.commit()
-    return get_solicitud_compra(db, cod_solicitudcompra)
-
-def create_cotizacion(db: Session, cotizacion: schemas.CotizacionCreate):
-    result = db.execute(text(CREATE_COTIZACION), {
-        "Fecha_vencimiento": cotizacion.Fecha_vencimiento,
-        "Fecha_creacion": cotizacion.Fecha_creacion,
-        "Monto": cotizacion.Monto,
-        "Estado_cotizacion": cotizacion.Estado_cotizacion,
-        "Fecha_entregaestimada": cotizacion.Fecha_entregaestimada,
-        "cod_solicitudcompra": cotizacion.cod_solicitudcompra,
-        "Cod_Proveedor": cotizacion.Cod_Proveedor,
-        "Codigo_empleado": cotizacion.Codigo_empleado
-    })
-    Cod_cotizacion = result.fetchone()[0]
-    db.commit()
-    return get_cotizacion(db, Cod_cotizacion)
-
-def get_cotizacion(db: Session, Cod_cotizacion: int):
-    result = db.execute(text("SELECT * FROM Cotizacion WHERE Cod_cotizacion = :Cod_cotizacion"), 
-                        {"Cod_cotizacion": Cod_cotizacion})
-    return result.fetchone()
-
-def get_cotizaciones_for_solicitud(db: Session, cod_solicitudcompra: int):
-    result = db.execute(text(GET_COTIZACIONES_FOR_SOLICITUD), {"cod_solicitudcompra": cod_solicitudcompra})
-    return result.fetchall()
-
-def update_proveedor_estado(db: Session, Cod_Proveedor: int, nuevo_estado: str):
-    db.execute(text(UPDATE_PROVEEDOR_ESTADO), {
-        "nuevo_estado": nuevo_estado,
-        "Cod_Proveedor": Cod_Proveedor
-    })
-    db.commit()
-    return get_proveedor(db, Cod_Proveedor)
-
-def create_orden_compra(db: Session, orden_compra: schemas.Orden_compraCreate):
-    result = db.execute(text(CREATE_ORDEN_COMPRA), {
-        "fecha_ordencompra": orden_compra.fecha_ordencompra,
-        "Codigo_empleado": orden_compra.Codigo_empleado,
-        "fecha_requeridaentrega": orden_compra.fecha_requeridaentrega,
-        "Cod_Proveedor": orden_compra.Cod_Proveedor
-    })
-    Cod_ordencompra = result.fetchone()[0]
-
-    for insumo in orden_compra.insumos:
-        db.execute(text(ADD_INSUMO_TO_ORDEN), {
-            "cod_ordencompra": Cod_ordencompra,
-            "Cod_Insumo": insumo["Cod_Insumo"],
-            "cantidad_compra": insumo["cantidad_compra"]
-        })
-    
-    db.commit()
-    return get_orden_compra(db, Cod_ordencompra)
-
-def get_orden_compra(db: Session, Cod_ordencompra: int):
-    result = db.execute(text("SELECT * FROM Orden_compra WHERE Cod_ordencompra = :Cod_ordencompra"), 
-                        {"Cod_ordencompra": Cod_ordencompra})
-    return result.fetchone()
-
-def get_insumos(db: Session):
-    result = db.execute(text(GET_INSUMOS))
-    return result.fetchall()
-
-def get_proveedores(db: Session):
-    result = db.execute(text(GET_PROVEEDORES))
-    return result.fetchall()
-
-def get_empleado(db: Session, Codigo_empleado: int):
-    result = db.execute(text(GET_EMPLEADO), {"Codigo_empleado": Codigo_empleado})
-    return result.fetchone()
-
+    try:
+        # Consulta SQL que selecciona los insumos, categorías, subcategorías y unidades
+        query = """
+        SELECT i.cod_insumo, 
+               i.Nombre_Insumo, 
+               ci.nombre_categoriainsumo,
+               s.nombre_subcategoria,
+               um.nombre_unidad
+        FROM Insumo i 
+        INNER JOIN Subcategoria s ON s.Cod_subcategoria = i.Cod_subcategoria
+        INNER JOIN Categoria_insumo ci ON ci.Cod_categoriainsumo = s.Cod_categoria
+        INNER JOIN Unidad_medidad um ON um.Cod_unidad = i.Cod_unidad
+        WHERE i.Nombre_Insumo ILIKE %s;
+        """
+        
+        # Ejecutar la consulta con el nombre del insumo como parámetro
+        cursor.execute(query, (f'{search_name}%',))
+        
+        # Obtener todos los resultados
+        results = cursor.fetchall()
+        
+        return results
+    finally:
+        # Cerrar el cursor y la conexión
+        cursor.close()
+        conn.close()
