@@ -11,6 +11,7 @@ import AsignacionMesa from "./Modulos/Modulo2/AsignacionMesa";
 import Categories from "./Modulos/Modulo2/Categories";
 import Products from "./Modulos/Modulo2/Products";
 import Summary from "./Modulos/Modulo2/Summary";
+import '../src/index.css'
 
 
 const App = () => {
@@ -20,7 +21,7 @@ const App = () => {
         
         <Routes>
           {/* Definir rutas para cada módulo */}
-          <Route path="/empleados" element={<Modulo4 />} />
+          <Route path="/modulo4" element={<Modulo4 />} />
           {/* Ruta por defecto */}
           <Route path="/" element={<Default />} />
 
