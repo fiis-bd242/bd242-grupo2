@@ -47,7 +47,7 @@ UPdate empleado set cod_turno=2
 where codigo_empleado=3;
 select*from turno;
 Select*from cargo;
-Select*from empleado where dni='91327168';
+Select*from empleado where dni='521084407';
 BEGIN;
 -- Paso 1: Actualizar el turno del empleado
 UPDATE
