@@ -25,6 +25,59 @@ WHERE idp.cod_dp = (
 -- Modulo 3
 
 -- Modulo 4
+        SELECT 
+            e.DNI,
+            e.Primer_apellido
+        FROM 
+            Empleado e
+        JOIN 
+            Horario_libre hl ON e.Codigo_empleado = hl.Codigo_empleado
+        JOIN 
+            Horario_libre_Dias hld ON hl.Cod_horario = hld.Cod_horario
+        JOIN 
+            Turno t ON t.Cod_turno = (SELECT cod_turno FROM TURNO WHERE nombre_turno = 'Mañana')
+        JOIN 
+            Cargo c ON e.Cod_cargo = c.Cod_cargo
+        WHERE 
+            hld.Dias = 'Domingo' AND
+            c.Nombre_cargo = 'LIMPIEZA' AND
+            hl.Hora_inicio <= t.Hora_inicio AND
+            hl.Hora_fin >= t.Hora_fin;
+UPdate empleado set cod_turno=2
+where codigo_empleado=3;
+select*from turno;
+Select*from cargo;
+Select*from empleado where dni='521084407';
+BEGIN;
+-- Paso 1: Actualizar el turno del empleado
+UPDATE
+Empleado
+SET
+Cod_turno = (SELECT cod_turno FROM TURNO WHERE Nombre_turno='Tarde')
+WHERE
+dni = '76688037';
+
+
+-- Paso 2: Eliminar la disponibilidad previa en la tabla Horario_libre_Dias
+DELETE FROM
+Horario_libre_Dias
+WHERE
+Cod_horario IN (
+SELECT Cod_horario
+FROM Horario_libre
+WHERE Codigo_empleado = (select codigo_empleado from empleado where dni='76688037')
+);
+
+
+-- Paso 3: Eliminar la disponibilidad previa en la tabla Horario_libre
+DELETE FROM
+Horario_libre
+WHERE
+Codigo_empleado = (SELECT codigo_empleado from  empleado where dni='76688037');
+
+
+COMMIT;
+rollback;
 
 -- Modulo 5
 select * from revision r order by r.cod_revision desc
