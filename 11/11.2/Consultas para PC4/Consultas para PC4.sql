@@ -19,7 +19,7 @@ ON im.Codigo_empleado = e.Codigo_empleado
 WHERE idp.cod_dp = (
 		select cod_dp 
 		from DETALLE_PEDIDO
-		order by cod_dp desc
+		order by fecha_pedido desc
 		LIMIT 1)
 
 -- Modulo 3
