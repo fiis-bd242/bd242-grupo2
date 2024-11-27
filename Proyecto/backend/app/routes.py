@@ -18,6 +18,8 @@ from .models import (
     get_dias,
 )
 
+from .models import get_all_insumos, get_all_condiciones, get_all_unidades, get_local_empleado, get_ordencompra_mismodia, ver_contenido_orden_compra, get_empleado_supervisor, insertar_revision, actualizar_proceso_orden, obtener_detalles_revision, mostrar_cantidades, actualizar_cantidad_recibida, valorescalidad, mostrar_calidades, actualizar_revision, ingreso_condiciones, VerAlmacen, ingresar_stock, ingresar_movimiento, actualizar_fin_ingreso, actualizar_revision_calidad, actualizar_revision_cantidad
+
 
 import logging
 

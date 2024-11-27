@@ -581,7 +581,7 @@ def get_ordencompra_mismodia(codigo_empleado):
             AND oc.fecha_requeridaentrega::date = CURRENT_DATE
             ORDER BY pi2.cod_proceso ASC;
         """,
-            (local,),
+            (codigo_empleado,),
         )
 
         # Obtener todos los resultados de la consulta
