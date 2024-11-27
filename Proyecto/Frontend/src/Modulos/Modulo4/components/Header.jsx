@@ -5,7 +5,7 @@ export default function Header() {
     <header className="bg-red-600 text-white p-4 flex justify-between items-center">
       <div className="flex-1 flex justify-center">
         <img 
-          src="/../../../../public/Images/logoFR.svg" 
+          src="/../../../../public/Images/fondo.JPG" 
           alt="TGI Fridays Logo" 
           className="h-10 object-contain" 
         />
