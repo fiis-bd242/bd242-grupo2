@@ -1,6 +1,6 @@
 import { Button } from '@/components/ui/button'
 import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/card'
-import Link from 'next/link'
+import { BrowserRouter as Router, Route, Routes, Navigate } from "react-router-dom";
 
 export default function Dashboard() {
   const options = [
