@@ -583,7 +583,7 @@ drop table if exists Movimiento cascade;
 CREATE TABLE Movimiento (
   Fecha_Movimiento TIMESTAMP not null,
   Cantidad_movimiento NUMERIC(10,2) NOT NULL,
-  Fecha_fin TIME NOT NULL,
+  Fecha_fin TIMESTAMP,
   Cod_Movimiento SERIAL,
   Codigo_empleado INT NOT NULL,
   Cod_Stock INT NOT NULL,
