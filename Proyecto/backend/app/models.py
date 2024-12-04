@@ -1221,34 +1221,55 @@ def actualizar_revision_cantidad(cod_ordencompra):
 
 # Módulo 1 (Pedido de compras)
 
-def crear_pedido(search_name):
-    # Establecer la conexión a la base de datos
-    conn = get_db_connection()
-    cursor = conn.cursor(cursor_factory=RealDictCursor)
-    
-    try:
-        # Consulta SQL que selecciona los insumos, categorías, subcategorías y unidades
+from db import execute_query
+
+class Proveedor:
+    @staticmethod
+    def crear(nombre, ruc, direccion, correo):
         query = """
-        SELECT i.cod_insumo, 
-               i.Nombre_Insumo, 
-               ci.nombre_categoriainsumo,
-               s.nombre_subcategoria,
-               um.nombre_unidad
-        FROM Insumo i 
-        INNER JOIN Subcategoria s ON s.Cod_subcategoria = i.Cod_subcategoria
-        INNER JOIN Categoria_insumo ci ON ci.Cod_categoriainsumo = s.Cod_categoria
-        INNER JOIN Unidad_medidad um ON um.Cod_unidad = i.Cod_unidad
-        WHERE i.Nombre_Insumo ILIKE %s;
+        INSERT INTO proveedores (nombre, ruc, direccion, correo)
+        VALUES (%s, %s, %s, %s)
+        RETURNING id
         """
-        
-        # Ejecutar la consulta con el nombre del insumo como parámetro
-        cursor.execute(query, (f'{search_name}%',))
-        
-        # Obtener todos los resultados
-        results = cursor.fetchall()
-        
-        return results
-    finally:
-        # Cerrar el cursor y la conexión
-        cursor.close()
-        conn.close()
+        result = execute_query(query, (nombre, ruc, direccion, correo))
+        return result[0][0]
+
+    @staticmethod
+    def obtener_todos():
+        query = "SELECT * FROM proveedores"
+        return execute_query(query)
+
+class Solicitud:
+    @staticmethod
+    def crear(proveedor_id, fecha, estado):
+        query = """
+        INSERT INTO solicitudes (proveedor_id, fecha, estado)
+        VALUES (%s, %s, %s)
+        RETURNING id
+        """
+        result = execute_query(query, (proveedor_id, fecha, estado))
+        return result[0][0]
+
+    @staticmethod
+    def obtener_todas():
+        query = """
+        SELECT s.id, s.fecha, s.estado, p.nombre as proveedor_nombre
+        FROM solicitudes s
+        JOIN proveedores p ON s.proveedor_id = p.id
+        """
+        return execute_query(query)
+
+class DetalleSolicitud:
+    @staticmethod
+    def crear(solicitud_id, codigo_insumo, nombre_insumo, unidades):
+        query = """
+        INSERT INTO detalles_solicitud (solicitud_id, codigo_insumo, nombre_insumo, unidades)
+        VALUES (%s, %s, %s, %s)
+        """
+        execute_query(query, (solicitud_id, codigo_insumo, nombre_insumo, unidades))
+
+    @staticmethod
+    def obtener_por_solicitud(solicitud_id):
+        query = "SELECT * FROM detalles_solicitud WHERE solicitud_id = %s"
+        return execute_query(query, (solicitud_id,))
+

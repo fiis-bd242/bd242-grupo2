@@ -872,27 +872,48 @@ def actualizar_revision_cantidad_ruta():
 
 # Módulo 1 (Pedido de compras)
 
-@router.route("/crearpedido", methods=["POST"])
-def obtener_insumos_categoria():
-    try:
-        # Obtener los datos enviados en la solicitud como JSON
+from flask import Blueprint, request, jsonify
+from models import Proveedor, Solicitud, DetalleSolicitud
+
+solicitudes_bp = Blueprint('solicitudes', __name__)
+
+@solicitudes_bp.route('/proveedores', methods=['GET', 'POST'])
+def proveedores():
+    if request.method == 'POST':
         data = request.json
-        nombre_insumo = data.get("nombre_insumo")
+        proveedor_id = Proveedor.crear(data['nombre'], data['ruc'], data['direccion'], data['correo'])
+        return jsonify({"id": proveedor_id, "mensaje": "Proveedor creado exitosamente"}), 201
+    else:
+        proveedores = Proveedor.obtener_todos()
+        return jsonify([dict(zip(['id', 'nombre', 'ruc', 'direccion', 'correo'], p)) for p in proveedores])
 
-        # Verificamos que el nombre del insumo esté presente en los datos
-        if not nombre_insumo:
-            return jsonify({"error": "Falta el parámetro 'nombre_insumo' en la solicitud"}), 400
+@solicitudes_bp.route('/solicitudes', methods=['GET', 'POST'])
+def solicitudes():
+    if request.method == 'POST':
+        data = request.json
+        solicitud_id = Solicitud.crear(data['proveedor_id'], data['fecha'], data['estado'])
+        for detalle in data['detalles']:
+            DetalleSolicitud.crear(solicitud_id, detalle['codigo_insumo'], detalle['nombre_insumo'], detalle['unidades'])
+        return jsonify({"id": solicitud_id, "mensaje": "Solicitud creada exitosamente"}), 201
+    else:
+        solicitudes = Solicitud.obtener_todas()
+        return jsonify([dict(zip(['id', 'fecha', 'estado', 'proveedor_nombre'], s)) for s in solicitudes])
 
-        # Llamamos a la función para obtener los insumos basados en el nombre proporcionado
-        insumos = crear_pedido(nombre_insumo)
+@solicitudes_bp.route('/solicitudes/<int:solicitud_id>', methods=['GET'])
+def detalle_solicitud(solicitud_id):
+    detalles = DetalleSolicitud.obtener_por_solicitud(solicitud_id)
+    return jsonify([dict(zip(['id', 'solicitud_id', 'codigo_insumo', 'nombre_insumo', 'unidades'], d)) for d in detalles])
 
-        # Verificamos si hay resultados
-        if not insumos:
-            return jsonify({"message": "No se encontraron insumos para ese nombre"}), 404
+@solicitudes_bp.route('/solicitudes/<int:solicitud_id>', methods=['DELETE'])
+def eliminar_solicitud(solicitud_id):
+    # Implementar la lógica para eliminar la solicitud
+    query = "DELETE FROM solicitudes WHERE id = %s"
+    execute_query(query, (solicitud_id,))
+    return jsonify({"mensaje": "Solicitud eliminada exitosamente"}), 200
 
-        # Retornamos los insumos encontrados
-        return jsonify(insumos), 200
+@solicitudes_bp.route('/solicitudes/<int:solicitud_id>/enviar-correo', methods=['POST'])
+def enviar_correo_solicitud(solicitud_id):
+    # Implementar la lógica para enviar el correo
+    # Esta es una implementación simulada
+    return jsonify({"mensaje": "Correo enviado exitosamente"}), 200
 
-    except Exception as e:
-        # Manejo de excepciones
-        return jsonify({"error": "Ocurrió un error en el servidor: " + str(e)}), 500
